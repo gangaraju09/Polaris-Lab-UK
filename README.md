@@ -6,7 +6,7 @@ RCS GeoSpatial Lab
 1. RCS Sidharth
 2. Ramakrihsna Raju
 
-### Final Proposal
+### Final Proposal : Political Polarization
 1. Persona/Scenario
     1. Persona
     2. Scenario
