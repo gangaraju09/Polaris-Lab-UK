@@ -33,6 +33,7 @@
 <tr><td><b>Histogram widget*</b></td>	<td>Resymbolize + attributes-in-space. Displays attributes-in-space within the selected range.</td></tr> </table>
 
 <h3><b><ins>Lo-Fi wireframes</ins>:</b></h3>
+<br>
 SCANS ARE UPLOADED SOON !
 
 
