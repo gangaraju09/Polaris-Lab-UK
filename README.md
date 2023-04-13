@@ -1,7 +1,7 @@
 # Polaris Lab UK
 <b>Team Members :</b> <a href="ramavajjala@wisc.edu"> Chinna Subbaraya Siddharth (Sid) Ramavajjala*</a>, <a href="grk.gangaraju@wisc.edu"> Ramakrishna Raju Gangaraju*</a><br>
 <i>*Department of Geography, University of Wisconsin - Madison</i>
-<p>Course Name: <b>Interactive Cartography & Geovisualization</b>(<a href = "https://geography.wisc.edu/cartography/education/G575/G575SP2022.html">click here</a>)<br> Instructor: <b>Professor Robert E Roth</b>(<a href="https://geography.wisc.edu/gis/staff/roth-robert/">click here</a>)<br> Teaching Assistant: <b>Gareth Baldrica - Franklin</b>(<a href="https://geography.wisc.edu/staff/baldrica-franklin-gareth/">click here</a>)</p>
+<p><ul><li>Course code: <b>Geog 575</b></li> <li>Course Name: <b>Interactive Cartography & Geovisualization</b> (<a href = "https://geography.wisc.edu/cartography/education/G575/G575SP2022.html">click here</a>)</li><li>Instructor: <b>Professor Robert E Roth</b> (<a href="https://geography.wisc.edu/gis/staff/roth-robert/">click here</a>)</li> <li>Teaching Assistant: <b>Gareth Baldrica - Franklin</b> (<a href="https://geography.wisc.edu/staff/baldrica-franklin-gareth/">click here</a>)</li></ul></p>
 
 <h3><b><ins>Target User Profile</ins>:</b></h3>
 <b>Name & Position:</b> Isabel Hector Garcia, Associate Professor <br>
