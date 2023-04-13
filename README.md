@@ -1,10 +1,7 @@
-# Team Name 
-RCS GeoSpatial Lab
-
-### Team Members
-
-1. RCS Sidharth
-2. Ramakrihsna Raju
+# Polaris Lab UK
+<b>Team Members :</b> <a href="ramavajjala@wisc.edu"> Chinna Subbaraya Siddharth (Sid) Ramavajjala*</a>, <a href="grk.gangaraju@wisc.edu"> Ramakrishna Raju Gangaraju*</a><br>
+<i>*Department of Geography, University of Wisconsin - Madison</i>
+<p>Course Name: <b>Interactive Cartography & Geovisualization</b> | Instructor: <b>Prof Robert E Roth</b> | Teaching Assistant: <b>Gareth Baldrica - Franklin</b></p>
 
 ### Final Proposal
 1. Persona/Scenario
