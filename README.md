@@ -40,8 +40,8 @@ In addition, we will provide <b><ins>Enalbling</b></ins> operators such as expor
 
 <h3><b><ins>Lo-Fi wireframes</ins>:</b></h3>
 <br>
-SCANS ARE UPLOADED SOON !
-
+<img src = "https://github.com/gangaraju09/Geog_575_Final_Project/blob/main/assets/Scenario%231.jpg?raw=true">
+<img src = "https://github.com/gangaraju09/Geog_575_Final_Project/blob/main/assets/Scenario%232.jpg?raw=true">
 
 
 
