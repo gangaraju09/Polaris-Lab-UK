@@ -1,5 +1,5 @@
 # Polaris Lab UK
-<b>Team Members :</b> <a href="ramavajjala@wisc.edu"> Chinna Subbaraya Siddharth (Sid) Ramavajjala*</a>, <a href="grk.gangaraju@wisc.edu"> Ramakrishna Raju Gangaraju*</a><br>
+<b>Team Members :</b> <a href="https://sidrcs.github.io/maps/index.html"> Chinna Subbaraya Siddharth (Sid) Ramavajjala*</a>, <a href="https://gangaraju09.github.io/index.html"> Ramakrishna Raju Gangaraju*</a><br>
 <i>*Department of Geography, University of Wisconsin - Madison</i>
 <p><ul><li>Course code: <b>Geog 575</b></li> <li>Course Name: <b>Interactive Cartography & Geovisualization</b> (<a href = "https://geography.wisc.edu/cartography/education/G575/G575SP2022.html">click here</a>)</li><li>Instructor: <b>Professor Robert E Roth</b> (<a href="https://geography.wisc.edu/gis/staff/roth-robert/">click here</a>)</li> <li>Teaching Assistant: <b>Gareth Baldrica - Franklin</b> (<a href="https://geography.wisc.edu/staff/baldrica-franklin-gareth/">click here</a>)</li></ul></p>
 
@@ -19,7 +19,7 @@
 <tr><td><b>Choropleth data</b></td>	<td>British Household Panel Survey data (BHPS) (https://beta.ukdataservice.ac.uk/datacatalogue/studies/study?id=5151#!/access-data)</td></tr>
 <tr><td><b>Measurement (background)*</b></td>	<td>Political Polarization in the UK (https://link.springer.com/article/10.1007/s10602-022-09368-8)</td></tr>
 <tr><td><b>Scatter Plot</b></td>	<td>Relationship between selected variables by county (2D) </td></tr>
-<tr><td><b>Bivariate Choropleth</b></td>	<td>Represents relationships across other counties based on selected variables in the scatter plot</td></tr>
+<tr><td><b>Bivariate map</b></td>	<td>Represents relationships across other counties based on selected variables in the scatter plot</td></tr>
 <tr><td><b>Legend</b></td>	<td>Color legend for classification of data across all map types (uni and bivariate choropleths)</td></tr>
 <tr><td><b>Overview</b></td>	<td>Robust documentation on polarization measurements, "how to use," and credits</td></tr> </table>
 
