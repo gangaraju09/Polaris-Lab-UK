@@ -34,7 +34,7 @@ For requirements documentation, we have attempted to adhere to Shneiderman's man
 <tr><td><b>Slider</b></td>	<td>Sequence + space-in-time. When clicked on the forward and backward buttons, the values are changed along with the symbolization</td></tr>
 <tr><td><b>Menu</b></td>	<td>Filter + attributes-in-space. Attributes selection through nested dropdown (1D)* for variable selection</td></tr>
 <tr><td><b>Print button*</b></td>	<td>Enabling + space, attributes-in-space. When clicked, export the current map view as PDF/PNG*.</td></tr>
-<tr><td><b>Hover</b></td>	<td>Retrieve + attributes-in-space, space. Dynamic popups are enabled with a highlighting enabled to show locations. And click supports identify (details on demand)</td></tr>
+<tr><td><b>Hover</b></td>	<td>Retrieve + attributes-in-space, space. Dynamic popups are enabled with a highlighting enabled to show locations. And click supports identify (details on demand)</td></tr></table>
 
 <h3><b><ins>Lo-Fi wireframes</ins>:</b></h3>
 <br>
