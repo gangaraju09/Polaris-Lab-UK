@@ -1,8 +1,8 @@
 /* Activity 11: CSS style for D3 Map*/
 
 .map {
-    fill: #E3DA93;
-    stroke: #464545;
+    fill: #1e68d7;
+    stroke: #ffffff;
     stroke-width: 0.5px;
     stroke-linecap: round;
     /* stroke-dasharray: 2,2; */
