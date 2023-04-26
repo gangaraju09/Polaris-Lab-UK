@@ -21,7 +21,7 @@ function setMap() {
         .center([0, 55])
         .rotate([1, 0, 0])
         .parallels([50, 60])
-        .scale(4000)
+        .scale(2500)
         .translate([width / 2, height / 2]);
 
     var path = d3.geoPath().projection(projection);
@@ -29,44 +29,16 @@ function setMap() {
     //use Promise.all to parallelize asynchronous data loading
     var promises = [
         d3.csv("data/unitsData.csv"),
-        d3.json("data/EuropeCountries.topojson"),
         d3.json("data/UK_regions.topojson"),
     ];
     Promise.all(promises).then(callback);
 
     function callback(data) {
         var csvData = data[0],
-            europe = data[1],
-            france = data[2];
+            france = data[1];
 
         //translate europe TopoJSON
-        var europeCountries = topojson.feature(europe, europe.objects.EuropeCountries),
-            ukRegions = topojson.feature(france, france.objects.UK_regions).features;
-
-        var graticule = d3.geoGraticule().step([5, 5]); //place graticule lines every 5 degrees of longitude and latitude
-
-        //create graticule background
-        var gratBackground = map
-            .append("path")
-            .datum(graticule.outline()) //bind graticule background
-            .attr("class", "gratBackground") //assign class for styling
-            .attr("d", path); //project graticule
-
-        //create graticule lines
-        var gratLines = map
-            .selectAll(".gratLines") //select graticule elements that will be created
-            .data(graticule.lines()) //bind graticule lines to each element to be created
-            .enter() //create an element for each datum
-            .append("path") //append each element to the svg as a path element
-            .attr("class", "gratLines") //assign class for styling
-            .attr("d", path); //project graticule lines
-
-        //add Europe countries to map
-        var countries = map
-            .append("path")
-            .datum(europeCountries)
-            .attr("class", "countries")
-            .attr("d", path);
+        var ukRegions = topojson.feature(france, france.objects.UK_regions).features;
 
         //add France regions to map
         var regions = map
@@ -75,7 +47,7 @@ function setMap() {
             .enter()
             .append("path")
             .attr("class", function (d) {
-                return "regions " + d.properties.adm1_code;
+                return "regions " + d.properties.admin1_code;
             })
             .attr("d", path);
     }

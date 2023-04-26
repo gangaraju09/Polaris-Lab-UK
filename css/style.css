@@ -1,12 +1,12 @@
 /* Activity 11: CSS style for D3 Map*/
 
 .map {
-    fill: #1e68d7;
-    stroke: #ffffff;
+    fill: #a3a3a7;
+    stroke: #000000;
     stroke-width: 0.5px;
     stroke-linecap: round;
     /* stroke-dasharray: 2,2; */
-    border: medium solid #8e8e8e;
+    border: medium solid #000000;
     margin: 10px 0 0 20px;
 }
   
@@ -57,14 +57,14 @@ a:-webkit-any-link {
     text-align: center;
 }
 
-.gratLines {
-    fill: none;
-    stroke: #999;
+/*.gratLines {
+    fill: black;
+    stroke: #000000;
     stroke-width: 1px;
 }
 
 .gratBackground {
-    fill: #D5E3FF;
+    fill: #000000;
 }
 
 /* Chart style */
