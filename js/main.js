@@ -187,7 +187,7 @@ function joinData(ukRegions, csvData){
 //function to create color scale generator
 function makeColorScale(data){
     // sequential color schemes are adopted from ColorBrewer (Green Below)
-    var colorClasses = ['#ffffcc','#a1dab4','#41b6c4','#2c7fb8','#253494'];
+    var colorClasses = ["#ffffcc","#a1dab4",'#41b6c4','#2c7fb8','#253494'];
     //create color scale generator
     var colorScale = d3.scaleQuantile()
         .range(colorClasses);
@@ -471,7 +471,7 @@ function dehighlight(props){
 
 function setLabel(props){
     //label content
-    var labelAttribute = "<b style='font-size:25px;'>" + props[expressed].toFixed(2) + 
+    var labelAttribute = "<b style='font-size:25px;'>" + parseFloat(props[expressed]).toFixed(2) + 
     "</b> <b>" + arrayDict[expressed] + "</b>";
 
     //create info label div
@@ -483,7 +483,7 @@ function setLabel(props){
 
     var countyName = infolabel.append("div")
         .attr("class", "labelname")
-        .html(props.nutts118nm);
+        .html("UK region: " + props.nuts118nm);
 };
 
 // function to move info label with mouse
