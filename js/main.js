@@ -3,9 +3,9 @@
 //pseudo-global variable    
 var attrArray = ["admin1_code", "std_dev_age",	"native_share", "education_variability","region_name", "job_variability","frac_employed","median_income","gini_index", "Lindqvist_Ostling_S1", "Abramowitz_Saunders_S1","Duca_Saving_S1", "Lindqvist_Ostling_S2", "Abramowitz_Saunders_S2", "Duca_Saving_S2","Lindqvist_Ostling_S3","Abramowitz_Saunders_S3","Duca_Saving_S3"];
 
-var arrayDict = {"admin1_code": "admin1_code", "std_dev_age": "Standard Deviation of Age",	"native_share": "Native Share", "education_variability": "Education Variability","region_name": "Region Name", "job_variability": "Job Variability","frac_employed":"Fraction Employed","median_income": "Median Income"," gini_index": "Gini Index", "Lindqvist_Ostling_S1": "Lindqvist Ostling S1", "Abramowitz_Saunders_S1": "Abramowitz Saunders S1","Duca_Saving_S1": "Duca Saving S1", "Lindqvist_Ostling_S2": "Lindqvist Ostling S2", "Abramowitz_Saunders_S2": "Abramowitz Saunders S2", "Duca_Saving_S2": "Duca Saving S2","Lindqvist_Ostling_S3": "Lindqvist Ostling S3","Abramowitz_Saunders_S3": "Abramowitz Saunders S3","Duca_Saving_S3": "Duca Saving S3"};
+var arrayDict = {"admin1_code": "admin1_code", "std_dev_age": "Standard Deviation of Age",	"native_share": "Native Share", "education_variability": "Education Variability","region_name": "Region Name", "job_variability": "Job Variability","frac_employed":"Fraction Employed","median_income": "Median Income","gini_index": "Gini Index", "Lindqvist_Ostling_S1": "Lindqvist Östling S1", "Abramowitz_Saunders_S1": "Abramowitz Saunders S1","Duca_Saving_S1": "Duca Saving S1", "Lindqvist_Ostling_S2": "Lindqvist Östling S2", "Abramowitz_Saunders_S2": "Abramowitz Saunders S2", "Duca_Saving_S2": "Duca Saving S2","Lindqvist_Ostling_S3": "Lindqvist Östling S3","Abramowitz_Saunders_S3": "Abramowitz Saunders S3","Duca_Saving_S3": "Duca Saving S3"};
 
-var arrayObj = [{data:"std_dev_age", text:"Standard Deviation of Age "}, {data:"native_share", text:"Native Share"}, {data:"education_variability", text:"Education Variability"}, {data:"job_variability", text:"Job Variability"}, {data:"frac_employed", text:"Fraction Employed"}, {data:"median_income", text:"Medium Income"}, {data:"gini_index", text:"Gini Index"}, {data:"Lindqvist_Ostling_S1", text:"Lindqvist Ostling S1"}, {data:"Abramowitz_Saunders_S1", text:"Abramowitz Saunders S1"}, {data:"Duca_Saving_S1", text:"Duca Saving S1"}, {data:"Lindqvist_Ostling_S2", text:"Lindqvist Ostling S2"}, {data:"Abramowitz_Saunders_S2", text:"Abramowitz Saunders S2"}, {data:"Duca_Saving_S2", text:"Duca Saving S2"}, {data:"Lindqvist_Ostling_S3", text:"Lindqvist Ostling S3"}, {data:"Abramowitz_Saunders_S3", text:"Abramowitz Saunders S3"}, {data:"Duca_Saving_S3", text:"Duca Saving S3"}];
+var arrayObj = [{data:"std_dev_age", text:"Standard Deviation of Age"}, {data:"native_share", text:"Native Share Variability"}, {data:"education_variability", text:"Education Variability"}, {data:"job_variability", text:"Job Variability"}, {data:"frac_employed", text:"Fraction of Employed"}, {data:"median_income", text:"Median Income"}, {data:"gini_index", text:"Gini Index of Income Inequality"}, {data:"Lindqvist_Ostling_S1", text:"Lindqvist Östling S1"}, {data:"Abramowitz_Saunders_S1", text:"Abramowitz Saunders S1"}, {data:"Duca_Saving_S1", text:"Duca Saving S1"}, {data:"Lindqvist_Ostling_S2", text:"Lindqvist Östling S2"}, {data:"Abramowitz_Saunders_S2", text:"Abramowitz Saunders S2"}, {data:"Duca_Saving_S2", text:"Duca Saving S2"}, {data:"Lindqvist_Ostling_S3", text:"Lindqvist Östling S3"}, {data:"Abramowitz_Saunders_S3", text:"Abramowitz Saunders S3"}, {data:"Duca_Saving_S3", text:"Duca Saving S3"}];
 
 var expressed = attrArray[9]; // loaded attribute based on index
 
@@ -22,7 +22,7 @@ translate = "translate(" + leftPadding + "," + topBottomPadding + ")";
 // create a scale to size lines proportionally to frame and for axis
 var yScale = d3.scaleLinear()
 .range([463, 0])
-.domain([0, 50]);
+.domain([0, 10]);
 
 window.onload = setMap();
 
@@ -44,7 +44,7 @@ function setMap(){
         .center([0.00, 49])
         .rotate([5, -6.5, 0])
         .parallels([29.5, 46.5])
-        .scale(2000)
+        .scale(2350)
         .translate([width / 2, height / 2]);
 
     // geopath() method helps in drawing the geometries
@@ -55,7 +55,7 @@ function setMap(){
     var promises = [];
 
     // d3.csv(), d3.json() methods read csv, topojson files
-    promises.push(d3.csv("data/polarization1995_data.csv"));
+    promises.push(d3.csv("data/polarization2000_data.csv"));
     promises.push(d3.json("data/UK_regions.topojson"));
 
     // Promise helps to load the data asynchronously
@@ -66,9 +66,6 @@ function setMap(){
     // retrieves the file information
     function callback(data){
         var csvData = data[0], uk = data[1];
-
-        // place graticule on the map. But it is not used in map
-        //setGraticule(map,path);
 
         // testing whether the files are loaded correctly or not
         console.log("CSV data below",csvData);
@@ -98,16 +95,16 @@ function setMap(){
     };
 };
 
-// Drawing county data to map frame
+// Drawing UK regions to map frame
 function setEnumerationUnits(ukRegions, map, path, colorScale){
     // add uk to map
-    var Regions = map.selectAll(".Regions")
+    var regions = map.selectAll(".regions")
         .data(ukRegions)
         .enter()
         .append("path")
         .attr("class", function(d){
-            // console.log("Regions",d.properties.admin1_code)
-            return "Regions " + d.properties.admin1_code;
+            // console.log("regions",d.properties.admin1_code)
+            return "regions " + d.properties.admin1_code;
         })
         .attr("d", path)
         .style("fill", function(d){            
@@ -129,29 +126,23 @@ function setEnumerationUnits(ukRegions, map, path, colorScale){
     .on("mousemove", moveLabel);
 
     // county dehighlight solution
-    var desc = Regions.append("desc")
+    var desc = regions.append("desc")
         .text('{"stroke": "#464545", "stroke-width": "0.5px"}');
-};
 
-// setGraticule generates graticule for map
-function setGraticule(map,path){
-        // create graticule generator
-        var graticule = d3.geoGraticule()
-            .step([2, 2]); //place graticule lines every 1 degree of longitude and latitude
-        
-        // create graticule background
-        var gratBackground = map.append("path") 
-            .datum(graticule.outline()) // bind graticule background
-            .attr("class", "gratBackground") // assign class for styling
-            .attr("d", path) // project graticule
+    // add drop shadow to regions
+    var defs = map.append("defs");
+    var filter = defs.append("filter")
+        .attr("id", "drop-shadow")
+        .attr("height", "150%")
+        .attr("width", "150%");
 
-        // create graticule lines
-        var gratLines = map.selectAll(".gratLines")  // select graticule elements that will be created
-            .data(graticule.lines()) // bind graticule lines to each element to be created
-            .enter() // create an element for each datum
-            .append("path") // append each element to the svg as a path element
-            .attr("class", "gratLines") // assign class for styling
-            .attr("d", path); // project graticule lines
+    filter.append("feDropShadow")
+        .attr("dx", "1")
+        .attr("dy", "1")
+        .attr("stdDeviation", "1")
+        .attr("flood-color", "#3d3d3d")
+        .attr("flood-opacity", "0.4");
+    regions.style("filter", "url(#drop-shadow)");
 };
 
 // joinData() combines TopoJSON & CSV data based on primary key
@@ -256,24 +247,21 @@ function makeColorLegend(color) {
 //function to create coordinated bar chart
 function setChart(csvData, colorScale) {
     //create a second svg element to hold the bar chart
-    var chart = d3
-        .select("body")
+    var chart = d3.select("body")
         .append("svg")
         .attr("width", chartWidth)
         .attr("height", chartHeight)
         .attr("class", "chart");
 
     //create a rectangle for chart background fill
-    var chartBackground = chart
-        .append("rect")
+    var chartBackground = chart.append("rect")
         .attr("class", "chartBackground")
         .attr("width", chartInnerWidth)
         .attr("height", chartInnerHeight)
         .attr("transform", translate);
 
     //set bars for each province
-    var bars = chart
-        .selectAll(".bar")
+    var bars = chart.selectAll(".bar")
         .data(csvData)
         .enter()
         .append("rect")
@@ -283,7 +271,7 @@ function setChart(csvData, colorScale) {
         .attr("class", function (d) {
             return "bar " + d.admin1_code;
         })
-        .attr("width", chartInnerWidth / csvData.length - 1)
+        .attr("width", chartInnerWidth / csvData.length - 5)
         .on("mouseover", function (event, d) {
             highlight(d);
         })
@@ -320,6 +308,20 @@ function setChart(csvData, colorScale) {
     var desc = bars.append("desc").text('{"stroke": "none", "stroke-width": "0px"}');
 
     updateChart(bars, csvData.length, colorScale);
+
+    // add drop shadow to bars
+    var defs = bars.append("defs");
+    var filter = defs.append("filter")
+        .attr("id", "drop-shadow")
+        .attr("height", "150%")
+        .attr("width", "150%"); 
+    filter.append("feDropShadow")
+        .attr("dx", "1")
+        .attr("dy", "1")
+        .attr("stdDeviation", "1")
+        .attr("flood-color", "#3d3d3d")
+        .attr("flood-opacity", "0.5");
+    bars.style("filter", "url(#drop-shadow)");
 }
 
 //dropdown change listener handler
@@ -331,7 +333,7 @@ function changeAttribute(attribute, csvData) {
     var colorScale = makeColorScale(csvData);
 
     //recolor enumeration units
-    var Regions = d3.selectAll(".Regions")
+    var regions = d3.selectAll(".regions")
         .transition()
         .duration(1000)
         .style("fill", function (d) {
@@ -446,6 +448,7 @@ function highlight(props){
         
     setLabel(props);
 }; 
+
 //function to reset the element style on mouseout
 function dehighlight(props){
     var selected = d3.selectAll("." + props.admin1_code)
@@ -483,11 +486,12 @@ function setLabel(props){
 
     var countyName = infolabel.append("div")
         .attr("class", "labelname")
-        .html("UK region: " + props.nuts118nm);
+        .html("Region: " + props.nuts118nm);
 };
 
 // function to move info label with mouse
 function moveLabel(){
+    var offset = window.scrollY
     //get width of label
     var labelWidth = d3.select(".infolabel")
         .node()
@@ -496,7 +500,7 @@ function moveLabel(){
 
     // use coordinates of mousemove event to set label coordinates
     var x1 = event.clientX + 10,
-        y1 = event.clientY - 75,
+        y1 = event.clientY - 75 + offset,
         x2 = event.clientX - labelWidth - 10,
         y2 = event.clientY + 25;
 
@@ -509,6 +513,5 @@ function moveLabel(){
         .style("left", x + "px")
         .style("top", y + "px");
 };
-
 
 })();
