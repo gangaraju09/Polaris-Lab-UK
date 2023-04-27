@@ -1,10 +1,13 @@
 (function(){
+
 //pseudo-global variable    
 var attrArray = ["admin1_code", "std_dev_age",	"native_share", "education_variability","region_name", "job_variability","frac_employed","median_income","gini_index", "Lindqvist_Ostling_S1", "Abramowitz_Saunders_S1","Duca_Saving_S1", "Lindqvist_Ostling_S2", "Abramowitz_Saunders_S2", "Duca_Saving_S2","Lindqvist_Ostling_S3","Abramowitz_Saunders_S3","Duca_Saving_S3"];
 
 var arrayDict = {"admin1_code": "admin1_code", "std_dev_age": "Standard Deviation of Age",	"native_share": "Native Share", "education_variability": "Education Variability","region_name": "Region Name", "job_variability": "Job Variability","frac_employed":"Fraction Employed","median_income": "Median Income","gini_index": "Gini Index", "Lindqvist_Ostling_S1": "Lindqvist Östling S1", "Abramowitz_Saunders_S1": "Abramowitz Saunders S1","Duca_Saving_S1": "Duca Saving S1", "Lindqvist_Ostling_S2": "Lindqvist Östling S2", "Abramowitz_Saunders_S2": "Abramowitz Saunders S2", "Duca_Saving_S2": "Duca Saving S2","Lindqvist_Ostling_S3": "Lindqvist Östling S3","Abramowitz_Saunders_S3": "Abramowitz Saunders S3","Duca_Saving_S3": "Duca Saving S3"};
 
-var arrayObj = [{data:"std_dev_age", text:"Standard Deviation of Age"}, {data:"native_share", text:"Native Share Variability"}, {data:"education_variability", text:"Education Variability"}, {data:"job_variability", text:"Job Variability"}, {data:"frac_employed", text:"Fraction of Employed"}, {data:"median_income", text:"Median Income"}, {data:"gini_index", text:"Gini Index of Income Inequality"}, {data:"Lindqvist_Ostling_S1", text:"Lindqvist Östling S1"}, {data:"Abramowitz_Saunders_S1", text:"Abramowitz Saunders S1"}, {data:"Duca_Saving_S1", text:"Duca Saving S1"}, {data:"Lindqvist_Ostling_S2", text:"Lindqvist Östling S2"}, {data:"Abramowitz_Saunders_S2", text:"Abramowitz Saunders S2"}, {data:"Duca_Saving_S2", text:"Duca Saving S2"}, {data:"Lindqvist_Ostling_S3", text:"Lindqvist Östling S3"}, {data:"Abramowitz_Saunders_S3", text:"Abramowitz Saunders S3"}, {data:"Duca_Saving_S3", text:"Duca Saving S3"}];
+var arrayObj = [{data:"Lindqvist_Ostling_S1", text:"Lindqvist Östling S1"}, {data:"Abramowitz_Saunders_S1", text:"Abramowitz Saunders S1"}, {data:"Duca_Saving_S1", text:"Duca Saving S1"}, {data:"Lindqvist_Ostling_S2", text:"Lindqvist Östling S2"}, {data:"Abramowitz_Saunders_S2", text:"Abramowitz Saunders S2"}, {data:"Duca_Saving_S2", text:"Duca Saving S2"}, {data:"Lindqvist_Ostling_S3", text:"Lindqvist Östling S3"}, {data:"Abramowitz_Saunders_S3", text:"Abramowitz Saunders S3"}, {data:"Duca_Saving_S3", text:"Duca Saving S3"}];
+
+var arrayObj1 = [{data:"std_dev_age", text:"Standard Deviation of Age"}, {data:"native_share", text:"Native Share Variability"}, {data:"education_variability", text:"Education Variability"}, {data:"job_variability", text:"Job Variability"}, {data:"frac_employed", text:"Fraction of Employed"}, {data:"median_income", text:"Median Income"}, {data:"gini_index", text:"Gini Index of Income Inequality"},];
 
 var expressed = attrArray[9]; // loaded attribute based on index
 
@@ -48,8 +51,9 @@ function setMap(){
 
     // geopath() method helps in drawing the geometries
     var path = d3.geoPath()
-        .projection(projection); // path holds projection and helps in rendering the projection
-
+        // path holds projection and helps in rendering the projection
+        .projection(projection); 
+    
     // promises container is created to hold the promise
     var promises = [];
 
@@ -82,14 +86,16 @@ function setMap(){
         // add enumeration units to the map
         setEnumerationUnits(ukRegions, map, path, colorScale)
 
-        // add dropdown to the map
+        // add dropdown1 to the map
         createDropdown(csvData);
+        // add dropdown2 to the map
+        createDropdown1(csvData);
 
         // add dotplot visualization to the map
         setChart(csvData, colorScale);
 
-        // add color legend
-        makeColorLegend(colorScale);
+       // add color legend
+       makeColorLegend(colorScale);
         
     };
 };
@@ -438,6 +444,38 @@ function createDropdown(csvData){
         .text(function(d){ return d.text });
 };
 
+// creates dropdown based on arrayObj array
+function createDropdown1(csvData){
+
+    var left = document.querySelector('.map').getBoundingClientRect().left + 8,
+        top = document.querySelector('.map').getBoundingClientRect().top + 50;
+        bottom = document.querySelector('.map').getBoundingClientRect().bottom;
+
+    //add select element
+    var dropdown = d3.select("body")
+        .append("select")
+        .attr("class", "dropdown")
+        .style("left", left + "px")
+        .style("top", top + "px")
+        .on("change", function(){
+            changeAttribute(this.value, csvData)
+        });
+
+    //add initial option
+    var titleOption = dropdown.append("option")
+        .attr("class", "titleOption")
+        .attr("disabled", "true")
+        .text("Select Attribute");
+
+    //add attribute name options
+    var attrOptions = dropdown.selectAll("attrOptions")
+        .data(arrayObj1)
+        .enter()
+        .append("option")
+        .attr("value", function(d){ return d.data })
+        .text(function(d){ return d.text });
+};
+
 //function to highlight enumeration units and bars
 function highlight(props){
     //change stroke
@@ -512,5 +550,5 @@ function moveLabel(){
         .style("left", x + "px")
         .style("top", y + "px");
 };
-    
+
 })();
