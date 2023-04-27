@@ -7,9 +7,10 @@ var arrayDict = {"admin1_code": "admin1_code", "std_dev_age": "Standard Deviatio
 
 var arrayObj = [{data:"Lindqvist_Ostling_S1", text:"Lindqvist Östling S1"}, {data:"Abramowitz_Saunders_S1", text:"Abramowitz Saunders S1"}, {data:"Duca_Saving_S1", text:"Duca Saving S1"}, {data:"Lindqvist_Ostling_S2", text:"Lindqvist Östling S2"}, {data:"Abramowitz_Saunders_S2", text:"Abramowitz Saunders S2"}, {data:"Duca_Saving_S2", text:"Duca Saving S2"}, {data:"Lindqvist_Ostling_S3", text:"Lindqvist Östling S3"}, {data:"Abramowitz_Saunders_S3", text:"Abramowitz Saunders S3"}, {data:"Duca_Saving_S3", text:"Duca Saving S3"}];
 
-var arrayObj1 = [{data:"std_dev_age", text:"Standard Deviation of Age"}, {data:"native_share", text:"Native Share Variability"}, {data:"education_variability", text:"Education Variability"}, {data:"job_variability", text:"Job Variability"}, {data:"frac_employed", text:"Fraction of Employed"}, {data:"median_income", text:"Median Income"}, {data:"gini_index", text:"Gini Index of Income Inequality"},];
+var arrayObj1 = [{data:"std_dev_age", text:"Standard Deviation of Age"}, {data:"native_share", text:"Native Share Variability"}, {data:"education_variability", text:"Education Variability"}, {data:"job_variability", text:"Job Variability"}, {data:"frac_employed", text:"Fraction of Employed"}, {data:"median_income", text:"Median Income"}, {data:"gini_index", text:"Gini Index of Income Inequality"}];
 
 var expressed = attrArray[9]; // loaded attribute based on index
+var expressed1 = attrArray[1]
 
 // create chart dimensions
 var chartWidth = window.innerWidth * 0.425,
@@ -81,7 +82,7 @@ function setMap(){
         ukRegions = joinData(ukRegions,csvData);
 
         // create a colorscale
-        var colorScale = makeColorScale(csvData);
+        var colorScale = makeColorScale(csvData, expressed, expressed1);
 
         // add enumeration units to the map
         setEnumerationUnits(ukRegions, map, path, colorScale)
@@ -90,9 +91,6 @@ function setMap(){
         createDropdown(csvData);
         // add dropdown2 to the map
         createDropdown1(csvData);
-
-        // add dotplot visualization to the map
-        setChart(csvData, colorScale);
 
        // add color legend
        makeColorLegend(colorScale);
@@ -113,9 +111,10 @@ function setEnumerationUnits(ukRegions, map, path, colorScale){
         })
         .attr("d", path)
         .style("fill", function(d){            
-        var value = d.properties[expressed];            
-        if(value) {                
-            return colorScale(d.properties[expressed]);            
+        var value = d.properties[expressed]; 
+        var value1 = d.properties[expressed1]; 
+        if(value && value1) {                
+            return colorScale(d.properties[expressed], d.properties[expressed1]);            
         } else {                
             return "#ccc";            
         }    
@@ -180,23 +179,39 @@ function joinData(ukRegions, csvData){
     
 };
 
-//function to create color scale generator
-function makeColorScale(data){
-    // sequential color schemes are adopted from ColorBrewer (Green Below)
-    var colorClasses = ["#ffffcc","#a1dab4",'#41b6c4','#2c7fb8','#253494'];
-    //create color scale generator
-    var colorScale = d3.scaleQuantile()
-        .range(colorClasses);
-    //build array of all values of the expressed attribute
-    var domainArray = [];
-    for (var i=0; i<data.length; i++){
-        var val = parseFloat(data[i][expressed]);
-        domainArray.push(val);
-    };
-    //assign array of expressed values as scale domain
-    colorScale.domain(domainArray);
+// bivariate color scale generator
+function makeColorScale(data, expressed, expressed1){
+    var colorClasses = ['#e8e8e8','#ace4e4','#5ac8c8','#dfb0d6','#a5add3','#5698b9','#be64ac','#8c62aa','#3b4994'];
+
+    // Create the color scale based on the bivariate values
+    var colorScale = d3.scaleQuantile().range(colorClasses);
+
+    // Create separate arrays of values for each attribute
+    var attr1Values = [];
+    var attr2Values = [];
+    for (var i=0; i<data.length; i++) {
+        attr1Values.push(parseFloat(data[i][expressed]));
+        attr2Values.push(parseFloat(data[i][expressed1]));
+    }
+
+    // Get the max and min values for each attribute
+    var attr1Max = d3.max(attr1Values);
+    var attr1Min = d3.min(attr1Values);
+    var attr2Max = d3.max(attr2Values);
+    var attr2Min = d3.min(attr2Values);
+
+    // Create an array of bivariate values for each feature
+    var bivariateValues = [];
+    for (var i=0; i<data.length; i++) {
+        var attr1Val = parseFloat(data[i][expressed]);
+        var attr2Val = parseFloat(data[i][expressed1]);
+        var bivariateVal = (attr1Val - attr1Min)/(attr1Max - attr1Min) + (attr2Val - attr2Min)/(attr2Max - attr2Min);
+        bivariateValues.push(bivariateVal);
+    }
+
+    colorScale.domain(bivariateValues);
     return colorScale;
-};
+}
 
 // Redesigned code from Stackoverflow (via Annika Anderson)
 function makeColorLegend(color) {
@@ -213,7 +228,7 @@ function makeColorLegend(color) {
         .attr("width", width)
         .attr("height", height)
         .style("left", left - 90)
-        .style("top", bottom - 120);
+        .style("top", bottom - 200);
 
     var legend = svg.selectAll("g.legendEntry")
         .data(color.range().reverse())
@@ -237,7 +252,7 @@ function makeColorLegend(color) {
     legend.append("text")
         .attr("x", width - 170) //leave 5 pixel space after the <rect>
         .attr("y", function (d, i) {
-            return i * 22.5;
+            return i * 21.5;
         })
         .attr("dy", "0.8em") //place text one line *below* the x,y point
         .text(function (d, i) {
@@ -249,92 +264,12 @@ function makeColorLegend(color) {
         .style("color", "#464545");
 };
 
-//function to create coordinated bar chart
-function setChart(csvData, colorScale) {
-    //create a second svg element to hold the bar chart
-    var chart = d3.select("body")
-        .append("svg")
-        .attr("width", chartWidth)
-        .attr("height", chartHeight)
-        .attr("class", "chart");
-
-    //create a rectangle for chart background fill
-    var chartBackground = chart.append("rect")
-        .attr("class", "chartBackground")
-        .attr("width", chartInnerWidth)
-        .attr("height", chartInnerHeight)
-        .attr("transform", translate);
-
-    //set bars for each province
-    var bars = chart.selectAll(".bar")
-        .data(csvData)
-        .enter()
-        .append("rect")
-        .sort(function (a, b) {
-            return b[expressed] - a[expressed];
-        })
-        .attr("class", function (d) {
-            return "bar " + d.admin1_code;
-        })
-        .attr("width", chartInnerWidth / csvData.length - 5)
-        .on("mouseover", function (event, d) {
-            highlight(d);
-        })
-        .on("mouseout", function (event, d) {
-            dehighlight(d);
-        })
-        .on("mousemove", moveLabel);
-
-    //create a text element for the chart title
-    var chartTitle = chart
-        .append("text")
-        .attr("x", 40)
-        .attr("y", 40)
-        .attr("class", "chartTitle");
-
-    //create vertical axis generator
-    var yAxis = d3.axisLeft()
-        .scale(yScale);
-
-    //place axis
-    var axis = chart.append("g")
-        .attr("class", "axis")
-        .attr("transform", translate)
-        .call(yAxis);
-
-    //create frame for chart border
-    var chartFrame = chart
-        .append("rect")
-        .attr("class", "chartFrame")
-        .attr("width", chartInnerWidth)
-        .attr("height", chartInnerHeight)
-        .attr("transform", translate);
-
-    var desc = bars.append("desc").text('{"stroke": "none", "stroke-width": "0px"}');
-
-    updateChart(bars, csvData.length, colorScale);
-
-    // add drop shadow to bars
-    var defs = bars.append("defs");
-    var filter = defs.append("filter")
-        .attr("id", "drop-shadow")
-        .attr("height", "150%")
-        .attr("width", "150%"); 
-    filter.append("feDropShadow")
-        .attr("dx", "1")
-        .attr("dy", "1")
-        .attr("stdDeviation", "1")
-        .attr("flood-color", "#3d3d3d")
-        .attr("flood-opacity", "0.5");
-    bars.style("filter", "url(#drop-shadow)");
-}
-
 //dropdown change listener handler
 function changeAttribute(attribute, csvData) {
     //change the expressed attribute
     expressed = attribute;
 
-    //recreate the color scale
+    // recreate the color scale
     var colorScale = makeColorScale(csvData);
 
     //recolor enumeration units
@@ -350,66 +285,8 @@ function changeAttribute(attribute, csvData) {
             }
     });
 
-    //re-sort, resize, and recolor bars
-    var bars = d3.selectAll(".bar")
-        //re-sort bars
-        .sort(function (a, b) {
-            return b[expressed] - a[expressed];
-        })
-        .transition() //add animation
-        .delay(function (d, i) {
-            return i * 20;
-        })
-        .duration(500);
-
-    var domainArray = [];
-    for (var i=0; i<csvData.length; i++){
-        var val = parseFloat(csvData[i][expressed]);
-        domainArray.push(val);
-    };
-    var max = d3.max(domainArray);
-
-    yScale = d3.scaleLinear()
-        .range([463, 0])
-        .domain([0, max+(0.1*max)]);
-
-    var yAxis = d3.axisLeft()
-        .scale(yScale);
-
-    d3.select(".axis").call(yAxis)
-
     d3.select(".legend").remove();
     makeColorLegend(colorScale);
-
-    updateChart(bars, csvData.length, colorScale);
-}
-
-function updateChart(bars, n, colorScale) {
-    //position bars
-    bars.attr("x", function (d, i) {
-        return i * (chartInnerWidth / n) + leftPadding;
-    })
-        //size/resize bars
-        .attr("height", function (d, i) {
-            return 463 - yScale(parseFloat(d[expressed]));
-        })
-        .attr("y", function (d, i) {
-            return yScale(parseFloat(d[expressed])) + topBottomPadding;
-        })
-        //color/recolor bars
-        .style("fill", function (d) {
-            var value = d[expressed];
-            if (value) {
-                return colorScale(value);
-            } else {
-                return "#ccc";
-            }
-        });
-
-    //at the bottom of updateChart()...add text to chart title
-    var chartTitle = d3
-        .select(".chartTitle")
-        .text(arrayDict[expressed] + " in each UK region");
 }
 
 // creates dropdown based on arrayObj array
@@ -443,6 +320,31 @@ function createDropdown(csvData){
         .attr("value", function(d){ return d.data })
         .text(function(d){ return d.text });
 };
+
+//dropdown change listener handler
+function changeAttribute(attribute1, csvData) {
+    //change the expressed attribute
+    expressed1 = attribute1;
+
+    // recreate the color scale
+    var colorScale = makeColorScale(csvData);
+
+    //recolor enumeration units
+    var regions = d3.selectAll(".regions")
+        .transition()
+        .duration(1000)
+        .style("fill", function (d) {
+            var value = d.properties[expressed1];
+            if (value) {
+                return colorScale(d.properties[expressed1]);
+            } else {
+                return "#ccc";
+            }
+    });
+
+    d3.select(".legend").remove();
+    makeColorLegend(colorScale);
+}
 
 // creates dropdown based on arrayObj array
 function createDropdown1(csvData){
@@ -513,13 +415,15 @@ function setLabel(props){
     //label content
     var labelAttribute = "<b style='font-size:25px;'>" + parseFloat(props[expressed]).toFixed(2) + 
     "</b> <b>" + arrayDict[expressed] + "</b>";
+    var labelAttribute1 = "<b style='font-size:25px;'>" + parseFloat(props[expressed1]).toFixed(2) + 
+    "</b> <b>" + arrayDict[expressed1] + "</b>";
 
     //create info label div
     var infolabel = d3.select("body")
         .append("div")
         .attr("class", "infolabel")
         .attr("id", props.admin1_code + "_label")
-        .html(labelAttribute);
+        .html(labelAttribute + "<br>" + labelAttribute1);
 
     var countyName = infolabel.append("div")
         .attr("class", "labelname")
