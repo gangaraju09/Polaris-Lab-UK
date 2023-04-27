@@ -1,4 +1,4 @@
-admin1_code,std_dev_age,native_share,education_variability,region_name,job_variability,frac_employed,median_income,gini_index,Lindqvist_Ostling_S1,Abramowitz_Saunders_S1,Duca_Saving_S1,Lindqvist_Ostling_S2,Abramowitz_Saunders_S2,Duca_Saving_S2,Lindqvist_Ostling_S3,Abramowitz_Saunders_S3,Duca_Saving_S3
+admin1_code,std_dev_age,native_share,education_variability,nuts118nm,job_variability,frac_employed,median_income,gini_index,Lindqvist_Ostling_S1,Abramowitz_Saunders_S1,Duca_Saving_S1,Lindqvist_Ostling_S2,Abramowitz_Saunders_S2,Duca_Saving_S2,Lindqvist_Ostling_S3,Abramowitz_Saunders_S3,Duca_Saving_S3
 UK_3,18.2753229,0.958918919,462,East Midlands,462,0.511351351,8678.311,0.449645691,5.897372177,1.818378378,0.001149131,6.021287001,2.073513514,0.004556248,5.426528607,2.431351351,0.000332174
 UK_5,18.77360342,0.959738847,459,East of England,459,0.503808487,9591.966,0.493657648,5.31242399,1.746463547,0.001775587,5.837404966,2.103373232,0.002659769,5.491104047,2.42437432,0.000599635
 UK_6,18.37866549,0.923408846,463,London,463,0.514563107,10688.222,0.505179495,7.371925974,2.165048544,0.003746793,7.044561872,2.200647249,0.001939829,7.087800355,2.57605178,0.000523978
