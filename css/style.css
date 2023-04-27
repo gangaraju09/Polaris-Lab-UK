@@ -1,20 +1,22 @@
-/* Activity 11: CSS style for D3 Map*/
+/* CSS style for UK Polarization Map*/
 
 .map {
     fill: #a3a3a7;
-    stroke: #000000;
+    stroke: #3d3d3d;
     stroke-width: 0.5px;
     stroke-linecap: round;
-    /* stroke-dasharray: 2,2; */
-    border: medium solid #000000;
+    border: medium solid #999;
     margin: 10px 0 0 20px;
+    /* Water color background from Africa Political Map - Sid */
+    background-color: #d9e6ea;
 }
-  
+
+/* Title Ribbon */
 .mapTitle {
-    background-color: #538a64;
+    background-color: #08519c;
     width: auto;
-    height: 20px;
-   /* border: 1px solid #464545;*/
+    height: 25px;
+    border: 1px solid #3d3d3d;
     padding: 10px;
     margin-left: 20px;
     margin-right: 20px;
@@ -22,13 +24,21 @@
     font-family: 'Open Sans', sans-serif;
     font-size: 20px;
     font-weight: bold;
-    color:#e3f0de;
+    color:#e3e3e3;
     box-shadow: 2px 2px 5px 2px #8e8e8e;
+    display: flex;
+    align-items: center;
+    /* Places the icon at the center, followed by text */
+    justify-content: center;
+}
+/* Fist icon CSS */
+.mapTitle img {
+  margin-right: 10px;
 }
 
-/* hyperlinks style*/
+/* Hyperlinks style*/
 a:-webkit-any-link {
-    color: #538a64;
+    color: #08519c;
     cursor: pointer;
     text-decoration: underline;
 }
@@ -46,6 +56,7 @@ a:-webkit-any-link {
     color:#91a28a;
 }
 
+/* Yet to be added */
 .credits{
     position: absolute;
     bottom: -300px;
@@ -55,16 +66,6 @@ a:-webkit-any-link {
     font-size: 1em;
     color:#91a28aa0;
     text-align: center;
-}
-
-/*.gratLines {
-    fill: black;
-    stroke: #000000;
-    stroke-width: 1px;
-}
-
-.gratBackground {
-    fill: #000000;
 }
 
 /* Chart style */
@@ -82,13 +83,13 @@ a:-webkit-any-link {
 }
 
 .chartBackground {
-    fill: #ffffff00;
+    fill: #edf3f5;
 }
 
 .chartFrame {
     fill: none;
     stroke: #999;
-    stroke-width: 3px;
+    stroke-width: 2px;
     shape-rendering: crispEdges;
 }
 
@@ -109,9 +110,7 @@ a:-webkit-any-link {
 /* dropdown */
 .dropdown {
     position: absolute;
-    background-color: #e3f0de;
-    /* top: 30px;
-    left: 40px; */
+    background-color: #eff3ff;
     z-index: 10;
     font-family: 'Open Sans', sans-serif;
     font-size: 1em;
@@ -122,7 +121,7 @@ a:-webkit-any-link {
     color: #464545;
 }
 
-option {
+.option {
     font-weight: normal;
 }
 
@@ -134,7 +133,7 @@ option {
     height: auto;
     min-width: auto;
     color: #464545;
-    background-color: #e3f0deea;
+    background-color: #eff3ffe7;
     border: solid thin #464545;
     padding: 5px 10px;
     top: -100px;
@@ -159,5 +158,5 @@ option {
 }
 
 body {
-    background-color: #f9fdf8ea;
+    background-color: #edf3f5;
 }
