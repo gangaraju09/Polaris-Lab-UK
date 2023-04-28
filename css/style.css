@@ -8,6 +8,7 @@
     border: medium solid #999;
     margin: 10px 0 0 20px;
     background-color: #f8f8f8;
+    margin-top: 47px;
 }
 
 /* Title Ribbon */
@@ -71,7 +72,7 @@ a:-webkit-any-link {
 
 .chart {
     float: right;
-    margin: 7px 20px 0 0;
+    margin: 47px 20px 0 0;
 }
 
 .chartTitle {
@@ -118,6 +119,8 @@ a:-webkit-any-link {
     border: 1px solid #999;
     box-shadow: 2px 2px 4px #999;
     color: #464545;
+    margin-top: 55px;
+    margin-left: 250px;
 }
 
 .option {

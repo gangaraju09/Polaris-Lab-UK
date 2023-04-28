@@ -9,7 +9,15 @@ var arrayObj = [{data:"Lindqvist_Ostling_S1", text:"Lindqvist Östling S1"}, {da
 var arrayObj1 = [{data:"std_dev_age", text:"Standard Deviation of Age"}, {data:"native_share", text:"Native Share Variability"}, {data:"education_variability", text:"Education Variability"}, {data:"job_variability", text:"Job Variability"}, {data:"frac_employed", text:"Fraction of Employed"}, {data:"median_income", text:"Median Income"}, {data:"gini_index", text:"Gini Index of Income Inequality"}];
 
 var expressed = attrArray[13]; // loaded attribute based on index
-var expressed1 = attrArray[3]
+var expressed1 = attrArray[3];
+
+var dataArray = ["data/polarization1995_data.csv", "data/polarization2000_data.csv", "data/polarization2004_data.csv"];
+
+var dataDict = {"data/polarization1995_data.csv" : "1995", "data/polarization2000_data.csv": "2000", "data/polarization2004_data.csv": "2004"}
+
+var dataObj = [{data: "data/polarization1995_data.csv", text : "1995"}, {data: "data/polarization2000_data.csv", text : "2000"}, {data: "data/polarization2004_data.csv", text : "2004"}];
+
+var expressed2 = dataArray[0];
 
 // create chart dimensions
 var chartWidth = window.innerWidth * 0.425,
@@ -57,7 +65,7 @@ function setMap(){
     var promises = [];
 
     // d3.csv(), d3.json() methods read csv, topojson files
-    promises.push(d3.csv("data/polarization2000_data.csv"));
+    promises.push(d3.csv(expressed2));
     promises.push(d3.json("data/UK_regions.topojson"));
 
     // Promise helps to load the data asynchronously
@@ -68,6 +76,7 @@ function setMap(){
     // retrieves the file information
     function callback(data){
         var csvData = data[0], uk = data[1];
+        console.log(csvData)
 
         // testing whether the files are loaded correctly or not
         console.log("CSV data below",csvData);
@@ -88,10 +97,11 @@ function setMap(){
         // add scatter plot
         setScatterPlot(csvData, colorScale)
 
-        // add dropdown1 to the map
+        // add polarization values dropdown to the map
         createDropdown(csvData);
-        // add dropdown2 to the map
+        // add attribute values dropdown to the map
         createDropdown1(csvData);
+        createDropdown2(csvData);
 
         // add color legend
         makeColorLegend(colorScale);
@@ -295,7 +305,7 @@ function setScatterPlot(csvData, colorScale){
         .domain([0, 1800]);
 
     var xScale = d3.scaleLinear()
-        .range([chartInnerWidth, 0])
+        .range([0, chartInnerWidth])
         .domain([0, 8])
 
      // circles
@@ -352,9 +362,9 @@ function setScatterPlot(csvData, colorScale){
 // creates dropdown based on arrayObj array
 function createDropdown(csvData){
 
-    var left = document.querySelector('.map').getBoundingClientRect().left + 8,
-        top = document.querySelector('.map').getBoundingClientRect().top + 6;
-        bottom = document.querySelector('.map').getBoundingClientRect().bottom;
+    var left = document.querySelector('body').getBoundingClientRect().left + 8,
+        top = document.querySelector('body').getBoundingClientRect().top + 6;
+        bottom = document.querySelector('body').getBoundingClientRect().bottom;
 
     //add select element
     var dropdown = d3.select("body")
@@ -384,6 +394,7 @@ function createDropdown(csvData){
 
 //dropdown change listener handler
 function changeAttribute(csvData) {
+
     // recreate the color scale
     var colorScale = makeColorScale(csvData);
 
@@ -424,9 +435,9 @@ function changeAttribute(csvData) {
 // creates dropdown based on arrayObj array
 function createDropdown1(csvData){
 
-    var left = document.querySelector('.map').getBoundingClientRect().left + 8,
-        top = document.querySelector('.map').getBoundingClientRect().top + 50;
-        bottom = document.querySelector('.map').getBoundingClientRect().bottom;
+    var left = document.querySelector('body').getBoundingClientRect().left + 300,
+        top = document.querySelector('body').getBoundingClientRect().top + 6,
+        bottom = document.querySelector('body').getBoundingClientRect().bottom;
 
     //add select element
     var dropdown = d3.select("body")
@@ -448,6 +459,40 @@ function createDropdown1(csvData){
     //add attribute name options
     var attrOptions = dropdown.selectAll("attrOptions")
         .data(arrayObj1)
+        .enter()
+        .append("option")
+        .attr("value", function(d){ return d.data })
+        .text(function(d){ return d.text });
+};
+
+// creates dropdown based on arrayObj array
+function createDropdown2(csvData){
+
+    var left = document.querySelector('body').getBoundingClientRect().left + 600,
+        top = document.querySelector('body').getBoundingClientRect().top + 6,
+        bottom = document.querySelector('body').getBoundingClientRect().bottom;
+
+    //add select element
+    var dropdown = d3.select("body")
+        .append("select")
+        .attr("class", "dropdown")
+        .style("left", left + "px")
+        .style("top", top + "px")
+        .on("change", function(){
+            expressed2 = this.value;
+            changeAttribute(csvData)
+            console.log("loaded CSV:",expressed2)
+        });
+
+    //add initial option
+    var titleOption = dropdown.append("option")
+        .attr("class", "titleOption")
+        .attr("disabled", "true")
+        .text("Year");
+
+    //add attribute name options
+    var attrOptions = dropdown.selectAll("attrOptions")
+        .data(dataObj)
         .enter()
         .append("option")
         .attr("value", function(d){ return d.data })
@@ -503,7 +548,7 @@ function setLabel(props){
 
     var countyName = infolabel.append("div")
         .attr("class", "labelname")
-        .html("Region: " + props.nuts118nm);
+        .html(props.nuts118nm + " (" + dataDict[expressed2] +")");
 };
   
 //function to move info label with mouse
