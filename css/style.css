@@ -7,8 +7,7 @@
     stroke-linecap: round;
     border: medium solid #999;
     margin: 10px 0 0 20px;
-    /* Water color background from Africa Political Map - Sid */
-    background-color: #d9e6ea;
+    background-color: #f8f8f8;
 }
 
 /* Title Ribbon */
@@ -83,7 +82,7 @@ a:-webkit-any-link {
 }
 
 .chartBackground {
-    fill: #edf3f5;
+    fill: #f8f8f8;
 }
 
 .chartFrame {
@@ -158,5 +157,5 @@ a:-webkit-any-link {
 }
 
 body {
-    background-color: #edf3f5;
+    background-color: #f8f8f8;
 }
