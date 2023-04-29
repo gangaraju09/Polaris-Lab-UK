@@ -306,7 +306,7 @@ function setScatterPlot(csvData, colorScale){
 
     var xScale = d3.scaleLinear()
         .range([0, chartInnerWidth])
-        .domain([0, 8]);
+        .domain([0, 10]);
 
      // circles
      var circles = chart.selectAll(".circle")
@@ -316,8 +316,8 @@ function setScatterPlot(csvData, colorScale){
         .attr("class", function(d){
             return "circle " + d.nuts118nm;
         })
-        .attr("cx", function(d, i) {
-            return i * (chartInnerWidth / csvData.length) + leftPadding + ((chartInnerWidth / csvData.length) / 2);
+        .attr("cx", function(d){
+            return xScale(parseFloat(d[expressed])) + leftPadding 
             
         })
         .attr("cy", function(d){
@@ -328,6 +328,13 @@ function setScatterPlot(csvData, colorScale){
             return colorScale(d[expressed], d[expressed1])
         })
         .attr("stroke", "#636363")
+        .attr("width", chartInnerWidth / csvData.length - 5)
+        .on("mouseover", function (event, d) {
+            highlight(d)
+        })
+        .on("mouseout", function (event, d) {
+            dehighlight(d);
+        })    
         .on("mousemove", moveLabel);
 
     //create a text element for the chart title
@@ -341,11 +348,14 @@ function setScatterPlot(csvData, colorScale){
     var yAxis = d3.axisLeft()
         .scale(yScale);
 
+    var xAxis = d3.axisBottom()
+        .scale(xScale);
     //place axis
     var axis = chart.append("g")
         .attr("class", "axis")
         .attr("transform", translate)
-        .call(yAxis);
+        .call(yAxis)
+        .call(xAxis);
 
     //create frame for chart border
     var chartFrame = chart.append("rect")
@@ -428,9 +438,77 @@ function changeAttribute(csvData) {
             }
     });
 
+    var circles = d3.select(".circle")
+        .sort(function (a, b) {
+            return b[expressed] - a[expressed1];
+        })
+        .transition() //add animation
+        .delay(function (d, i) {
+            return i * 20;
+        })
+        .duration(500);
+    
+    var domainArray = [];
+    for (var i=0; i<csvData.length; i++){
+        var val = parseFloat(csvData[i][expressed]);
+        domainArray.push(val);
+    };
+    var max = d3.max(domainArray);
+
+    yScale = d3.scaleLinear()
+        .range([463, 0])
+        .domain([0, max+(0.1*max)]);
+
+    var yAxis = d3.axisLeft()
+        .scale(yScale);
+
+    xScale = d3.scaleLinear()
+        .range([0, chartInnerWidth])
+        .domain([0, max+(0.1*max)]);
+
+    var xAxis = d3.axisBottom()
+        .scale(xScale)
+
+    d3.select(".axis").call(yAxis)
+    d3.select(".axis").call(xAxis)
+
     d3.select(".legend").remove();
     makeColorLegend(colorScale);
+
+    updateChart(circles, csvData.length, colorScale);
 };
+
+function updateChart(circles, n, colorScale) {
+    //position circles
+    circles.attr("x", function (d, i) {
+        return  yScale(parseFloat(d[expressed])) + leftPadding;
+    })
+    .attr("width", function (d, i) {
+        return  chartWidth - xScale(parseFloat(d[expressed]));
+    })
+        //size/resize bars
+        .attr("height", function (d, i) {
+            return 463 - yScale(parseFloat(d[expressed1]));
+        })
+        .attr("y", function (d, i) {
+            return yScale(parseFloat(d[expressed1])) + topBottomPadding;
+        })
+        //color/recolor bars
+        .style("fill", function (d) {
+            var value = d[expressed]
+            var value1 = d[expressed1]
+            if (value && value1) {
+                return colorScale(d[expressed], d[expressed1]);
+            } else {
+                return "#ccc";
+            }
+        });
+
+    //at the bottom of updateChart()...add text to chart title
+    var chartTitle = d3
+        .select(".chartTitle")
+        .text(arrayDict[expressed] + " in each UK region");
+}
 
 // creates dropdown based on arrayObj array
 function createDropdown1(csvData){
