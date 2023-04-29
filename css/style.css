@@ -8,7 +8,34 @@
     border: medium solid #999;
     margin: 10px 0 0 20px;
     background-color: #f8f8f8;
-    margin-top: 47px;
+    margin-top: 20px;
+}
+
+.button {
+    background-color: #eff3ff;
+    border: 1px solid #999;
+    color: #464545;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1em;
+    font-weight: bold;
+    padding: 3px;
+    margin-bottom: -20px;
+    margin-top: 15px;
+    margin-left: 1000px;
+    box-shadow: 2px 2px 4px #999;
+}
+
+.button:hover{
+    background-color: white;
+    color: black;
+    border: 2px solid #e7e7e7;
+    box-shadow: 5px 5px 5px #999;
 }
 
 /* Title Ribbon */
@@ -31,6 +58,7 @@
     /* Places the icon at the center, followed by text */
     justify-content: center;
 }
+
 /* Fist icon CSS */
 .mapTitle img {
   margin-right: 10px;
@@ -69,10 +97,9 @@ a:-webkit-any-link {
 }
 
 /* Chart style */
-
 .chart {
     float: right;
-    margin: 47px 20px 0 0;
+    margin: 20px 20px 0 0;
 }
 
 .chartTitle {
@@ -126,6 +153,14 @@ a:-webkit-any-link {
 .option {
     font-weight: normal;
 }
+
+.dropdown:hover{
+    background-color: white;
+    color: black;
+    border: 2px solid #e7e7e7;
+    box-shadow: 5px 5px 5px #999;
+}
+
 
 /* Dynamic label design */
 .infolabel {    
