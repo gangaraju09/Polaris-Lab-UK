@@ -1,5 +1,5 @@
 (function(){
-// pseudo-global variable    
+//pseudo-global variable    
 var attrArray = ["std_dev_age",	"native_share", "education_variability", "job_variability","frac_employed","median_income","gini_index", "Lindqvist_Ostling_S1", "Abramowitz_Saunders_S1","Duca_Saving_S1", "Lindqvist_Ostling_S2", "Abramowitz_Saunders_S2", "Duca_Saving_S2","Lindqvist_Ostling_S3","Abramowitz_Saunders_S3","Duca_Saving_S3"];
 
 var arrayDict = {"admin1_code": "admin1_code", "std_dev_age": "Standard Deviation of Age",	"native_share": "Native Share", "education_variability": "Education Variability","region_name": "Region Name", "job_variability": "Job Variability","frac_employed":"Fraction Employed","median_income": "Median Income","gini_index": "Gini Index", "Lindqvist_Ostling_S1": "Lindqvist Östling S1", "Abramowitz_Saunders_S1": "Abramowitz Saunders S1","Duca_Saving_S1": "Duca Saving S1", "Lindqvist_Ostling_S2": "Lindqvist Östling S2", "Abramowitz_Saunders_S2": "Abramowitz Saunders S2", "Duca_Saving_S2": "Duca Saving S2","Lindqvist_Ostling_S3": "Lindqvist Östling S3","Abramowitz_Saunders_S3": "Abramowitz Saunders S3","Duca_Saving_S3": "Duca Saving S3"};
@@ -8,10 +8,9 @@ var arrayObj = [{data:"Lindqvist_Ostling_S1", text:"Lindqvist Östling S1"}, {da
 
 var arrayObj1 = [{data:"std_dev_age", text:"Standard Deviation of Age"}, {data:"native_share", text:"Native Share Variability"}, {data:"education_variability", text:"Education Variability"}, {data:"job_variability", text:"Job Variability"}, {data:"frac_employed", text:"Fraction of Employed"}, {data:"median_income", text:"Median Income"}, {data:"gini_index", text:"Gini Index of Income Inequality"}];
 
-var expressed = attrArray[12]; // load polarization attribute based on index
-var expressed1 = attrArray[0]; // load demographic attribute based on index
+var expressed = attrArray[13]; // loaded attribute based on index
+var expressed1 = attrArray[3];
 
-// 
 var dataArray = ["data/polarization1995_data.csv", "data/polarization2000_data.csv", "data/polarization2004_data.csv"];
 
 var dataDict = {"data/polarization1995_data.csv" : "1995", "data/polarization2000_data.csv": "2000", "data/polarization2004_data.csv": "2004"}
@@ -28,7 +27,8 @@ rightPadding = 2,
 topBottomPadding = 5,
 chartInnerWidth = chartWidth - leftPadding - rightPadding,
 chartInnerHeight = chartHeight - topBottomPadding * 2,
-translate = "translate(" + leftPadding + "," + topBottomPadding + ")";
+translate = "translate(" + (leftPadding+2) + "," + topBottomPadding + ")"
+translate1 = "translate("+ leftPadding + "," + (topBottomPadding+463) + ")"
 
 var yScale = d3.scaleLinear()
     .range([463, 0])
@@ -110,7 +110,7 @@ function setMap(){
     };
 };
 
-// drawing UK regions to map frame
+// Drawing UK regions to map frame
 function setEnumerationUnits(ukRegions, map, path, colorScale){
     // add uk to map
     var regions = map.selectAll(".regions")
@@ -228,7 +228,7 @@ function makeColorScale(data){
     return colorScale;
 };
 
-// redesigned code from Stackoverflow (via Annika Anderson)
+// Redesigned code from Stackoverflow (via Annika Anderson)
 function makeColorLegend(color) {
     var width = 300,
         height = 150;
@@ -274,7 +274,7 @@ function makeColorLegend(color) {
 
 };
 
-// set scatter plot based on expressed attributes
+// sets scatter plot based on expressed attributes
 function setScatterPlot(csvData, colorScale){
     // create chart dimensions
     var chartWidth = window.innerWidth * 0.425,
@@ -284,13 +284,14 @@ function setScatterPlot(csvData, colorScale){
         topBottomPadding = 5,
         chartInnerWidth = chartWidth - leftPadding - rightPadding,
         chartInnerHeight = chartHeight - topBottomPadding * 2,
-        translate = "translate(" + leftPadding + "," + topBottomPadding + ")";
+        translate = "translate(" + (leftPadding+2) + "," + topBottomPadding + ")"
+        translate1 = "translate("+ leftPadding + "," + (topBottomPadding+463) + ")"
 
     // create a second svg element to hold the bar chart
     var chart = d3.select("body")
         .append("svg")
-        .attr("width", chartWidth)
-        .attr("height", chartHeight)
+        .attr("width", chartWidth+20)
+        .attr("height", chartHeight+20)
         .attr("class", "chart");
 
      // create a rectangle for chart background fill
@@ -307,7 +308,7 @@ function setScatterPlot(csvData, colorScale){
 
     var xScale = d3.scaleLinear()
         .range([0, chartInnerWidth])
-        .domain([0, 8]);
+        .domain([0, 10]);
 
      // circles
      var circles = chart.selectAll(".circle")
@@ -317,8 +318,8 @@ function setScatterPlot(csvData, colorScale){
         .attr("class", function(d){
             return "circle " + d.nuts118nm;
         })
-        .attr("cx", function(d, i) {
-            return i * (chartInnerWidth / csvData.length) + leftPadding + ((chartInnerWidth / csvData.length) / 2);
+        .attr("cx", function(d){
+            return xScale(parseFloat(d[expressed])) + leftPadding 
             
         })
         .attr("cy", function(d){
@@ -329,6 +330,13 @@ function setScatterPlot(csvData, colorScale){
             return colorScale(d[expressed], d[expressed1])
         })
         .attr("stroke", "#636363")
+        .attr("width", chartInnerWidth / csvData.length - 5)
+        .on("mouseover", function (event, d) {
+            highlight(d)
+        })
+        .on("mouseout", function (event, d) {
+            dehighlight(d);
+        })    
         .on("mousemove", moveLabel);
 
     //create a text element for the chart title
@@ -342,11 +350,18 @@ function setScatterPlot(csvData, colorScale){
     var yAxis = d3.axisLeft()
         .scale(yScale);
 
+    var xAxis = d3.axisBottom()
+        .scale(xScale);
     //place axis
     var axis = chart.append("g")
         .attr("class", "axis")
         .attr("transform", translate)
-        .call(yAxis);
+        .call(yAxis)
+        
+        axis = chart.append("g")
+        .attr("class", "axis")
+        .attr("transform", translate1)
+        .call(xAxis);
 
     //create frame for chart border
     var chartFrame = chart.append("rect")
@@ -393,7 +408,7 @@ function createDropdown(csvData){
         .text(function(d){ return d.text });
 };
 
-// dropdown change listener handler
+//dropdown change listener handler
 function changeAttribute(csvData) {
 
     // recreate the color scale
@@ -429,9 +444,86 @@ function changeAttribute(csvData) {
             }
     });
 
+    var circles = d3.select(".circle")
+        .sort(function (a, b) {
+            return b[expressed] - a[expressed1];
+        })
+        .transition() //add animation
+        .delay(function (d, i) {
+            return i * 20;
+        })
+        .duration(500);
+    
+    var domainArray = [];
+    for (var i=0; i<csvData.length; i++){
+        var val = parseFloat(csvData[i][expressed]);
+        domainArray.push(val);
+    };
+    var domainArray1 = [];
+    for (var i=0; i<csvData.length; i++){
+        var val = parseFloat(csvData[i][expressed1]);
+        domainArray1.push(val);
+    };
+
+    var max = d3.max(domainArray1);
+    var min = d3.min(domainArray);
+
+    yScale = d3.scaleLinear()
+        .range([463, 0])
+        .domain([0, max+(0.1*max)]);
+
+    var yAxis = d3.axisLeft()
+        .scale(yScale);
+
+    xScale = d3.scaleLinear()
+        .range([0, chartInnerWidth])
+        .domain([min, max+(0.1*max)]);
+
+    var xAxis = d3.axisBottom()
+        .scale(xScale)
+
+    d3.select(".axis").call(yAxis)
+    d3.select(".axis").call(xAxis)
+
     d3.select(".legend").remove();
     makeColorLegend(colorScale);
+
+    updateChart(circles, csvData.length, colorScale);
 };
+
+function updateChart(circles, n, colorScale) {
+    //position circles
+    circles.attr("x", function (d, i) {
+        return  xScale(parseFloat(d[expressed])) + leftPadding;
+    })
+    .attr("width", function (d, i) {
+        return  chartWidth - xScale(parseFloat(d[expressed]));
+    })
+        //size/resize circles
+        .attr("height", function (d, i) {
+            return 463 - yScale(parseFloat(d[expressed1]));
+        })
+        .attr("y", function (d, i) {
+            return yScale(parseFloat(d[expressed1])) + topBottomPadding;
+        })
+        //color/recolor circles
+        .style("fill", function (d) {
+            var attr1Val = parseFloat(d.properties[expressed]);
+            var attr2Val = parseFloat(d.properties[expressed1]);
+           
+            var bivariateVal = (attr1Val - attr1Min)/(attr1Max - attr1Min) + (attr2Val - attr2Min)/(attr2Max - attr2Min);
+            if (attr1Val && attr2Val ) {
+                return colorScale(bivariateVal);
+            } else {
+                return "#ccc";
+            }
+        });
+
+    //at the bottom of updateChart()...add text to chart title
+    var chartTitle = d3
+        .select(".chartTitle")
+        .text(arrayDict[expressed] + " " + "and" + " " + arrayDict[expressed1] + " in each UK region");
+}
 
 // creates dropdown based on arrayObj array
 function createDropdown1(csvData){
@@ -500,7 +592,7 @@ function createDropdown2(csvData){
         .text(function(d){ return d.text });
 };
 
-// function to highlight enumeration units and bars
+//function to highlight enumeration units and bars
 function highlight(props){
     //change stroke
     var selected = d3.selectAll("." + props.admin1_code)
@@ -510,7 +602,7 @@ function highlight(props){
     setLabel(props);
 }; 
 
-// function to reset the element style on mouseout
+//function to reset the element style on mouseout
 function dehighlight(props){
     var selected = d3.selectAll("." + props.admin1_code)
         .style("stroke", function(){
@@ -533,7 +625,6 @@ function dehighlight(props){
     d3.select(".infolabel").remove();
 };
 
-// 
 function setLabel(props){
     //label content
     var labelAttribute = "<b style='font-size:25px;'>" + parseFloat(props[expressed]).toFixed(2) + 
@@ -553,7 +644,7 @@ function setLabel(props){
         .html(props.nuts118nm + " (" + dataDict[expressed2] +")");
 };
   
-// function to move info label with mouse
+//function to move info label with mouse
 function moveLabel(){
     var offset = window.scrollY
     //get width of label
