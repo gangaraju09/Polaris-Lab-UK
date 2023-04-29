@@ -27,7 +27,8 @@ rightPadding = 2,
 topBottomPadding = 5,
 chartInnerWidth = chartWidth - leftPadding - rightPadding,
 chartInnerHeight = chartHeight - topBottomPadding * 2,
-translate = "translate(" + leftPadding + "," + topBottomPadding + ")";
+translate = "translate(" + (leftPadding+2) + "," + topBottomPadding + ")"
+translate1 = "translate("+ leftPadding + "," + (topBottomPadding+463) + ")"
 
 var yScale = d3.scaleLinear()
     .range([463, 0])
@@ -283,13 +284,14 @@ function setScatterPlot(csvData, colorScale){
         topBottomPadding = 5,
         chartInnerWidth = chartWidth - leftPadding - rightPadding,
         chartInnerHeight = chartHeight - topBottomPadding * 2,
-        translate = "translate(" + leftPadding + "," + topBottomPadding + ")";
+        translate = "translate(" + (leftPadding+2) + "," + topBottomPadding + ")"
+        translate1 = "translate("+ leftPadding + "," + (topBottomPadding+463) + ")"
 
     // create a second svg element to hold the bar chart
     var chart = d3.select("body")
         .append("svg")
-        .attr("width", chartWidth)
-        .attr("height", chartHeight)
+        .attr("width", chartWidth+20)
+        .attr("height", chartHeight+20)
         .attr("class", "chart");
 
      // create a rectangle for chart background fill
@@ -355,6 +357,10 @@ function setScatterPlot(csvData, colorScale){
         .attr("class", "axis")
         .attr("transform", translate)
         .call(yAxis)
+        
+        axis = chart.append("g")
+        .attr("class", "axis")
+        .attr("transform", translate1)
         .call(xAxis);
 
     //create frame for chart border
@@ -453,7 +459,14 @@ function changeAttribute(csvData) {
         var val = parseFloat(csvData[i][expressed]);
         domainArray.push(val);
     };
-    var max = d3.max(domainArray);
+    var domainArray1 = [];
+    for (var i=0; i<csvData.length; i++){
+        var val = parseFloat(csvData[i][expressed1]);
+        domainArray1.push(val);
+    };
+
+    var max = d3.max(domainArray1);
+    var min = d3.min(domainArray);
 
     yScale = d3.scaleLinear()
         .range([463, 0])
@@ -464,7 +477,7 @@ function changeAttribute(csvData) {
 
     xScale = d3.scaleLinear()
         .range([0, chartInnerWidth])
-        .domain([0, max+(0.1*max)]);
+        .domain([min, max+(0.1*max)]);
 
     var xAxis = d3.axisBottom()
         .scale(xScale)
@@ -481,24 +494,26 @@ function changeAttribute(csvData) {
 function updateChart(circles, n, colorScale) {
     //position circles
     circles.attr("x", function (d, i) {
-        return  yScale(parseFloat(d[expressed])) + leftPadding;
+        return  xScale(parseFloat(d[expressed])) + leftPadding;
     })
     .attr("width", function (d, i) {
         return  chartWidth - xScale(parseFloat(d[expressed]));
     })
-        //size/resize bars
+        //size/resize circles
         .attr("height", function (d, i) {
             return 463 - yScale(parseFloat(d[expressed1]));
         })
         .attr("y", function (d, i) {
             return yScale(parseFloat(d[expressed1])) + topBottomPadding;
         })
-        //color/recolor bars
+        //color/recolor circles
         .style("fill", function (d) {
-            var value = d[expressed]
-            var value1 = d[expressed1]
-            if (value && value1) {
-                return colorScale(d[expressed], d[expressed1]);
+            var attr1Val = parseFloat(d.properties[expressed]);
+            var attr2Val = parseFloat(d.properties[expressed1]);
+           
+            var bivariateVal = (attr1Val - attr1Min)/(attr1Max - attr1Min) + (attr2Val - attr2Min)/(attr2Max - attr2Min);
+            if (attr1Val && attr2Val ) {
+                return colorScale(bivariateVal);
             } else {
                 return "#ccc";
             }
@@ -507,7 +522,7 @@ function updateChart(circles, n, colorScale) {
     //at the bottom of updateChart()...add text to chart title
     var chartTitle = d3
         .select(".chartTitle")
-        .text(arrayDict[expressed] + " in each UK region");
+        .text(arrayDict[expressed] + " " + "and" + " " + arrayDict[expressed1] + " in each UK region");
 }
 
 // creates dropdown based on arrayObj array
