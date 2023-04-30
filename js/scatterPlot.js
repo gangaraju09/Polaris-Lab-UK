@@ -299,7 +299,7 @@ function setScatterPlot(csvData, colorScale){
      .attr("class", "chartBackground")
      .attr("width", chartInnerWidth)
      .attr("height", chartInnerHeight)
-     .attr("transform", translate);
+     .attr("transform", translate + ")");
 
     // create a scale to size lines proportionally to frame and for axis
     var yScale = d3.scaleLinear()
@@ -312,7 +312,7 @@ function setScatterPlot(csvData, colorScale){
 
      // circles
      var circles = chart.selectAll(".circle")
-        .append("rect")
+        .append("circle")
         .data(csvData)
         .join("circle")
         .attr("class", function(d){
@@ -353,15 +353,15 @@ function setScatterPlot(csvData, colorScale){
     var xAxis = d3.axisBottom()
         .scale(xScale);
     //place axis
-    var axis = chart.append("g")
-        .attr("class", "axis")
-        .attr("transform", translate)
-        .call(yAxis)
-        
-        axis = chart.append("g")
-        .attr("class", "axis")
-        .attr("transform", translate1)
-        .call(xAxis);
+    var yAxisGroup = chart.append("g")
+    .attr("class", "axis")
+    .attr("transform", translate)
+    .call(yAxis)
+    
+    var xAxisGroup = chart.append("g")
+    .attr("class", "axis")
+    .attr("transform", translate1)
+    .call(xAxis);
 
     //create frame for chart border
     var chartFrame = chart.append("rect")
@@ -444,7 +444,7 @@ function changeAttribute(csvData) {
             }
     });
 
-    var circles = d3.select(".circle")
+    var circles = d3.selectAll(".circle")
         .sort(function (a, b) {
             return b[expressed] - a[expressed1];
         })
@@ -452,7 +452,10 @@ function changeAttribute(csvData) {
         .delay(function (d, i) {
             return i * 20;
         })
-        .duration(500);
+        .duration(500)
+        .attr("x", function(d) { return xScale(parseFloat(d[expressed])); }) // update x position based on new attribute value
+        .attr("y", function(d) { return yScale(parseFloat(d[expressed1])); }) // update y position based on new attribute value
+        .style("fill", function(d) { return colorScale(parseFloat(d[expressed]) - parseFloat(d[expressed1])); }); // update fill color based on new bivariate value
     
     var domainArray = [];
     for (var i=0; i<csvData.length; i++){
@@ -483,7 +486,7 @@ function changeAttribute(csvData) {
         .scale(xScale)
 
     d3.select(".axis").call(yAxis)
-    d3.select(".axis").call(xAxis)
+    d3.select(".x-axis").call(xAxis)
 
     d3.select(".legend").remove();
     makeColorLegend(colorScale);
@@ -491,7 +494,7 @@ function changeAttribute(csvData) {
     updateChart(circles, csvData.length, colorScale);
 };
 
-function updateChart(circles, n, colorScale) {
+function updateChart(circles, colorScale) {
     //position circles
     circles.attr("x", function (d, i) {
         return  xScale(parseFloat(d[expressed])) + leftPadding;
