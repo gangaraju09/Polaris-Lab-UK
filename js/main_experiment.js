@@ -1,5 +1,5 @@
 (function(){
-//pseudo-global variable    
+// pseudo-global variable    
 var attrArray = ["std_dev_age",	"native_share", "education_variability", "job_variability","frac_employed","median_income","gini_index", "Lindqvist_Ostling_S1", "Abramowitz_Saunders_S1","Duca_Saving_S1", "Lindqvist_Ostling_S2", "Abramowitz_Saunders_S2", "Duca_Saving_S2","Lindqvist_Ostling_S3","Abramowitz_Saunders_S3","Duca_Saving_S3"];
 
 var arrayDict = {"admin1_code": "admin1_code", "std_dev_age": "Standard Deviation of Age",	"native_share": "Native Share", "education_variability": "Education Variability","region_name": "Region Name", "job_variability": "Job Variability","frac_employed":"Fraction Employed","median_income": "Median Income","gini_index": "Gini Index", "Lindqvist_Ostling_S1": "Lindqvist Östling S1", "Abramowitz_Saunders_S1": "Abramowitz Saunders S1","Duca_Saving_S1": "Duca Saving S1", "Lindqvist_Ostling_S2": "Lindqvist Östling S2", "Abramowitz_Saunders_S2": "Abramowitz Saunders S2", "Duca_Saving_S2": "Duca Saving S2","Lindqvist_Ostling_S3": "Lindqvist Östling S3","Abramowitz_Saunders_S3": "Abramowitz Saunders S3","Duca_Saving_S3": "Duca Saving S3"};
@@ -8,9 +8,10 @@ var arrayObj = [{data:"Lindqvist_Ostling_S1", text:"Lindqvist Östling S1"}, {da
 
 var arrayObj1 = [{data:"std_dev_age", text:"Standard Deviation of Age"}, {data:"native_share", text:"Native Share Variability"}, {data:"education_variability", text:"Education Variability"}, {data:"job_variability", text:"Job Variability"}, {data:"frac_employed", text:"Fraction of Employed"}, {data:"median_income", text:"Median Income"}, {data:"gini_index", text:"Gini Index of Income Inequality"}];
 
-var expressed = attrArray[13]; // loaded attribute based on index
-var expressed1 = attrArray[3];
+var expressed = attrArray[12]; // load polarization attribute based on index
+var expressed1 = attrArray[0]; // load demographic attribute based on index
 
+// 
 var dataArray = ["data/polarization1995_data.csv", "data/polarization2000_data.csv", "data/polarization2004_data.csv"];
 
 var dataDict = {"data/polarization1995_data.csv" : "1995", "data/polarization2000_data.csv": "2000", "data/polarization2004_data.csv": "2004"}
@@ -109,7 +110,7 @@ function setMap(){
     };
 };
 
-// Drawing UK regions to map frame
+// drawing UK regions to map frame
 function setEnumerationUnits(ukRegions, map, path, colorScale){
     // add uk to map
     var regions = map.selectAll(".regions")
@@ -227,7 +228,7 @@ function makeColorScale(data){
     return colorScale;
 };
 
-// Redesigned code from Stackoverflow (via Annika Anderson)
+// redesigned code from Stackoverflow (via Annika Anderson)
 function makeColorLegend(color) {
     var width = 300,
         height = 150;
@@ -273,7 +274,7 @@ function makeColorLegend(color) {
 
 };
 
-// sets scatter plot based on expressed attributes
+// set scatter plot based on expressed attributes
 function setScatterPlot(csvData, colorScale){
     // create chart dimensions
     var chartWidth = window.innerWidth * 0.425,
@@ -392,7 +393,7 @@ function createDropdown(csvData){
         .text(function(d){ return d.text });
 };
 
-//dropdown change listener handler
+// dropdown change listener handler
 function changeAttribute(csvData) {
 
     // recreate the color scale
@@ -499,7 +500,7 @@ function createDropdown2(csvData){
         .text(function(d){ return d.text });
 };
 
-//function to highlight enumeration units and bars
+// function to highlight enumeration units and bars
 function highlight(props){
     //change stroke
     var selected = d3.selectAll("." + props.admin1_code)
@@ -509,7 +510,7 @@ function highlight(props){
     setLabel(props);
 }; 
 
-//function to reset the element style on mouseout
+// function to reset the element style on mouseout
 function dehighlight(props){
     var selected = d3.selectAll("." + props.admin1_code)
         .style("stroke", function(){
@@ -532,6 +533,7 @@ function dehighlight(props){
     d3.select(".infolabel").remove();
 };
 
+// 
 function setLabel(props){
     //label content
     var labelAttribute = "<b style='font-size:25px;'>" + parseFloat(props[expressed]).toFixed(2) + 
@@ -551,7 +553,7 @@ function setLabel(props){
         .html(props.nuts118nm + " (" + dataDict[expressed2] +")");
 };
   
-//function to move info label with mouse
+// function to move info label with mouse
 function moveLabel(){
     var offset = window.scrollY
     //get width of label
