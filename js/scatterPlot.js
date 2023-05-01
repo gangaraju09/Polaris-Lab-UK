@@ -353,7 +353,7 @@ function setScatterPlot(csvData, colorScale){
      .attr("class", "chartBackground")
      .attr("width", chartInnerWidth)
      .attr("height", chartInnerHeight)
-     .attr("transform", translate);
+     .attr("transform", translate + ")");
 
     // create a scale to size lines proportionally to frame and for axis
     var yScale = d3.scaleLinear()
@@ -366,7 +366,7 @@ function setScatterPlot(csvData, colorScale){
 
      // circles
      var circles = chart.selectAll(".circle")
-        .append("circle")
+        .append("rect")
         .data(csvData)
         .join("circle")
         .attr("class", function(d){
@@ -544,6 +544,7 @@ function changeAttribute(csvData) {
         .scale(xScale)
 
     d3.select(".axis").call(yAxis)
+    d3.select(".x-axis").call(xAxis)
     d3.select(".x-axis").call(xAxis)
 
     d3.select(".legend").remove();
