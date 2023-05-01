@@ -2,7 +2,7 @@
 //pseudo-global variable    
 var attrArray = ["std_dev_age",	"native_share", "education_variability", "job_variability","frac_employed","median_income","gini_index", "Lindqvist_Ostling_S1", "Abramowitz_Saunders_S1","Duca_Saving_S1", "Lindqvist_Ostling_S2", "Abramowitz_Saunders_S2", "Duca_Saving_S2","Lindqvist_Ostling_S3","Abramowitz_Saunders_S3","Duca_Saving_S3"];
 
-var arrayDict = {"admin1_code": "admin1_code", "std_dev_age": "Standard Deviation of Age",	"native_share": "Native Share", "education_variability": "Education Variability","region_name": "Region Name", "job_variability": "Job Variability","frac_employed":"Fraction Employed","median_income": "Median Income","gini_index": "Gini Index", "Lindqvist_Ostling_S1": "Lindqvist Östling S1", "Abramowitz_Saunders_S1": "Abramowitz Saunders S1","Duca_Saving_S1": "Duca Saving S1", "Lindqvist_Ostling_S2": "Lindqvist Östling S2", "Abramowitz_Saunders_S2": "Abramowitz Saunders S2", "Duca_Saving_S2": "Duca Saving S2","Lindqvist_Ostling_S3": "Lindqvist Östling S3","Abramowitz_Saunders_S3": "Abramowitz Saunders S3","Duca_Saving_S3": "Duca Saving S3"};
+var arrayDict = {"admin1_code": "admin1_code", "std_dev_age": "Standard Deviation of Age",	"native_share": "Native Share Variability", "education_variability": "Education Variability","region_name": "Region Name", "job_variability": "Job Variability","frac_employed":"Fraction Employed","median_income": "Median Income","gini_index": "Gini Index", "Lindqvist_Ostling_S1": "Lindqvist Östling S1", "Abramowitz_Saunders_S1": "Abramowitz Saunders S1","Duca_Saving_S1": "Duca Saving S1", "Lindqvist_Ostling_S2": "Lindqvist Östling S2", "Abramowitz_Saunders_S2": "Abramowitz Saunders S2", "Duca_Saving_S2": "Duca Saving S2","Lindqvist_Ostling_S3": "Lindqvist Östling S3","Abramowitz_Saunders_S3": "Abramowitz Saunders S3","Duca_Saving_S3": "Duca Saving S3"};
 
 var arrayObj = [{data:"Lindqvist_Ostling_S1", text:"Lindqvist Östling S1"}, {data:"Abramowitz_Saunders_S1", text:"Abramowitz Saunders S1"}, {data:"Duca_Saving_S1", text:"Duca Saving S1"}, {data:"Lindqvist_Ostling_S2", text:"Lindqvist Östling S2"}, {data:"Abramowitz_Saunders_S2", text:"Abramowitz Saunders S2"}, {data:"Duca_Saving_S2", text:"Duca Saving S2"}, {data:"Lindqvist_Ostling_S3", text:"Lindqvist Östling S3"}, {data:"Abramowitz_Saunders_S3", text:"Abramowitz Saunders S3"}, {data:"Duca_Saving_S3", text:"Duca Saving S3"}];
 
@@ -33,6 +33,10 @@ translate1 = "translate("+ leftPadding + "," + (topBottomPadding+463) + ")"
 var yScale = d3.scaleLinear()
     .range([463, 0])
     .domain([0, 0.6]);
+
+var xScale = d3.scaleLinear()
+    .range([0, chartInnerWidth])
+    .domain([0, 10]);
 
 window.onload = setMap();
 
@@ -142,8 +146,7 @@ function setEnumerationUnits(ukRegions, map, path, colorScale){
     .on("mousemove", moveLabel);
 
     // county dehighlight solution
-    var desc = regions.append("desc")
-        .text('{"stroke": "#464545", "stroke-width": "0.5px"}');
+    var desc = regions.append("desc").text('{"stroke": "#464545", "stroke-width": "0.5px"}');
 
     // add drop shadow to regions
     var defs = map.append("defs");
@@ -197,10 +200,10 @@ function makeColorScale(data){
     "#b0d5df", "#ad9ea5", "#985356",
     "#64acbe", "#627f8c", "#574249"];
 
-    // Create the color scale based on the bivariate values
+    // create the color scale based on the bivariate values
     var colorScale = d3.scaleQuantile().range(colorClasses);
 
-    // Create separate arrays of values for each attribute
+    // vcreate separate arrays of values for each attribute
     var attr1Values = [];
     var attr2Values = [];
     for (var i=0; i<data.length; i++) {
@@ -208,7 +211,7 @@ function makeColorScale(data){
         attr2Values.push(parseFloat(data[i][expressed1]));
     }
 
-    // Get the max and min values for each attribute
+    // get the max and min values for each attribute
     var attr1Max = d3.max(attr1Values);
     var attr1Min = d3.min(attr1Values);
     var attr2Max = d3.max(attr2Values);
@@ -228,7 +231,7 @@ function makeColorScale(data){
     return colorScale;
 };
 
-// Redesigned code from Stackoverflow (via Annika Anderson)
+// code to insert diamond legend 
 function makeColorLegend(color) {
     var width = 300,
         height = 150;
@@ -255,6 +258,12 @@ function makeColorLegend(color) {
         rectHeight = 23,
         rectSpacing = 0,
         numPerRow = 3;
+
+     // Create the tooltip div
+    var tooltip = d3.select("body")
+        .append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
   
     legend.append("rect")
     .attr("x", function(d, i) {
@@ -270,7 +279,52 @@ function makeColorLegend(color) {
     .attr("height", rectHeight)
     .style("stroke", "#bdbdbd")
     .style("stroke-width", 0.5)
-    .style("fill", function (d) { return d; });
+    .style("fill", function (d) { return d; })
+    .on("mouseover", function (event, d) {
+        // Show the tooltip and set its content
+        tooltip.transition()
+          .duration(200)
+          .style("opacity", 0.9);
+        tooltip.html("<span>" + d3.select(this).attr("data-legend-label") + "</span>")
+          .style("left", (event.pageX + 10) + "px")
+          .style("top", (event.pageY - 28) + "px");
+    })
+    .on("mouseout", function (event, d) {
+        // Hide the tooltip
+        tooltip.transition()
+          .duration(500)
+          .style("opacity", 0);
+    })
+    .attr("data-legend-label", function(d) {
+        // Add a data attribute with the legend label
+        if (d == "#e8e8e8"){
+            return arrayDict[expressed1] + " (low) " + arrayDict[expressed] + " (low)";
+        }
+        else if (d == "#b0d5df") {
+            return arrayDict[expressed1] + " (low) " + arrayDict[expressed] + " (med)";
+        }
+        else if (d == "#64acbe") {
+            return arrayDict[expressed1] + " (low) " + arrayDict[expressed] + " (high)";
+        } 
+        else if (d == "#e4acac") {
+            return arrayDict[expressed1] + " (med) " + arrayDict[expressed] +  " (low)";
+        } 
+        else if (d == "#c85a5a") {
+            return arrayDict[expressed1] + " (high) " + arrayDict[expressed] + " (low)";
+        }
+        else if (d == "#ad9ea5") {
+            return arrayDict[expressed1] + " (med) " + arrayDict[expressed] + " (med)";
+        }
+        else if (d == "#574249") {
+            return arrayDict[expressed1] + " (high) " + arrayDict[expressed] + " (high)";
+        }
+        else if (d == "#627f8c") {
+            return arrayDict[expressed1] + " (med) " + arrayDict[expressed] + " (high)";
+        } 
+        else {
+            return arrayDict[expressed1] + " (high)" + arrayDict[expressed] + " (med)";
+        }
+    });
 
 };
 
@@ -279,7 +333,7 @@ function setScatterPlot(csvData, colorScale){
     // create chart dimensions
     var chartWidth = window.innerWidth * 0.425,
         chartHeight = 473,
-        leftPadding = 20,
+        leftPadding = 27,
         rightPadding = 0.5,
         topBottomPadding = 5,
         chartInnerWidth = chartWidth - leftPadding - rightPadding,
@@ -312,11 +366,11 @@ function setScatterPlot(csvData, colorScale){
 
      // circles
      var circles = chart.selectAll(".circle")
-        .append("rect")
+        .append("circle")
         .data(csvData)
         .join("circle")
         .attr("class", function(d){
-            return "circle " + d.nuts118nm;
+            return "circle " + d.admin1_code;
         })
         .attr("cx", function(d){
             return xScale(parseFloat(d[expressed])) + leftPadding 
@@ -339,40 +393,41 @@ function setScatterPlot(csvData, colorScale){
         })    
         .on("mousemove", moveLabel);
 
-    //create a text element for the chart title
+    // create a text element for the chart title
     var chartTitle = chart.append("text")
         .attr("x", 40)
         .attr("y", 30)
         .attr("class", "chartTitle")
-        .text(arrayDict[expressed]);
-
-    //create vertical axis generator
+        .text(arrayDict[expressed] + " Vs " + arrayDict[expressed1]+ " (" + dataDict[expressed2] + ")");
+        
+    // create vertical axis generator
     var yAxis = d3.axisLeft()
         .scale(yScale);
 
     var xAxis = d3.axisBottom()
         .scale(xScale);
-    //place axis
-    var axis = chart.append("g")
-        .attr("class", "axis")
-        .attr("transform", translate)
-        .call(yAxis)
-        
-        axis = chart.append("g")
-        .attr("class", "axis")
-        .attr("transform", translate1)
-        .call(xAxis);
 
-    //create frame for chart border
+    // place x-axis, y-axis
+    var yAxisGroup = chart.append("g")
+    .attr("class", "axis")
+    .attr("transform", translate)
+    .call(yAxis)
+    
+    var xAxisGroup = chart.append("g")
+    .attr("class", "x-axis")
+    .attr("transform", translate1)
+    .call(xAxis);
+
+    // create frame for chart border
     var chartFrame = chart.append("rect")
         .attr("class", "chartFrame")
         .attr("width", chartInnerWidth)
         .attr("height", chartInnerHeight)
         .attr("transform", translate);
+    
+    var desc = circles.append("desc").text('{"stroke": "#636363", "stroke-width": "1px"}');
 
-    var desc = circles.append("desc")
-     .text('{"stroke": "#636363", "stroke-width": "1px"}');
-
+    updateChart(circles, csvData, colorScale);
 };
 
 // creates dropdown based on arrayObj array
@@ -408,13 +463,13 @@ function createDropdown(csvData){
         .text(function(d){ return d.text });
 };
 
-//dropdown change listener handler
+// dropdown change listener handler
 function changeAttribute(csvData) {
 
     // recreate the color scale
     var colorScale = makeColorScale(csvData);
 
-    // Create separate arrays of values for each attribute
+    // create separate arrays of values for each attribute
     var attr1Values = [];
     var attr2Values = [];
     for (var i=0; i<csvData.length; i++) {
@@ -422,13 +477,13 @@ function changeAttribute(csvData) {
         attr2Values.push(parseFloat(csvData[i][expressed1]));
     }
    
-    // Get the max and min values for each attribute
+    // get the max and min values for each attribute
     var attr1Max = d3.max(attr1Values);
     var attr1Min = d3.min(attr1Values);
     var attr2Max = d3.max(attr2Values);
     var attr2Min = d3.min(attr2Values);
    
-    //recolor enumeration units
+    // recolor enumeration units
     var regions = d3.selectAll(".regions")
         .transition()
         .duration(1000)
@@ -444,85 +499,107 @@ function changeAttribute(csvData) {
             }
     });
 
-    var circles = d3.select(".circle")
-        .sort(function (a, b) {
-            return b[expressed] - a[expressed1];
-        })
+    var circles = d3.selectAll(".circle")
         .transition() //add animation
         .delay(function (d, i) {
             return i * 20;
         })
-        .duration(500);
+        .duration(700)
+        // update cx position based on new attribute value
+        .attr("cx", function(d) { 
+            return xScale(parseFloat(d[expressed])); 
+        }) 
+        // update cy position based on new attribute value
+        .attr("cy", function(d) {
+             return yScale(parseFloat(d[expressed1])); 
+        }) 
+        .style("fill", function(d) { 
+            return colorScale(parseFloat(d[expressed]) - parseFloat(d[expressed1]));
+         });
     
     var domainArray = [];
+    var domainArray1 = [];
     for (var i=0; i<csvData.length; i++){
         var val = parseFloat(csvData[i][expressed]);
         domainArray.push(val);
-    };
-    var domainArray1 = [];
-    for (var i=0; i<csvData.length; i++){
-        var val = parseFloat(csvData[i][expressed1]);
-        domainArray1.push(val);
+        var val1 = parseFloat(csvData[i][expressed1]);
+        domainArray1.push(val1);
     };
 
-    var max = d3.max(domainArray1);
-    var min = d3.min(domainArray);
+    var xMax = d3.max(domainArray);
+    var yMax = d3.max(domainArray1);
 
     yScale = d3.scaleLinear()
         .range([463, 0])
-        .domain([0, max+(0.1*max)]);
+        .domain([0, yMax+(0.1*yMax)]);
 
     var yAxis = d3.axisLeft()
         .scale(yScale);
 
     xScale = d3.scaleLinear()
         .range([0, chartInnerWidth])
-        .domain([min, max+(0.1*max)]);
+        .domain([0, xMax+(0.1*xMax)]);
 
     var xAxis = d3.axisBottom()
         .scale(xScale)
 
     d3.select(".axis").call(yAxis)
-    d3.select(".axis").call(xAxis)
+    d3.select(".x-axis").call(xAxis)
 
     d3.select(".legend").remove();
     makeColorLegend(colorScale);
 
-    updateChart(circles, csvData.length, colorScale);
+    updateChart(circles, csvData, colorScale);
 };
 
-function updateChart(circles, n, colorScale) {
-    //position circles
-    circles.attr("x", function (d, i) {
+function updateChart(circles, csvData, colorScale) {
+    // create separate arrays of values for each attribute
+    var attr1Values = [];
+    var attr2Values = [];
+    for (var i=0; i<csvData.length; i++) {
+        attr1Values.push(parseFloat(csvData[i][expressed]));
+        attr2Values.push(parseFloat(csvData[i][expressed1]));
+    }
+   
+    // get the max and min values for each attribute
+    var attr1Max = d3.max(attr1Values);
+    var attr1Min = d3.min(attr1Values);
+    var attr2Max = d3.max(attr2Values);
+    var attr2Min = d3.min(attr2Values);
+
+    // position circles
+    circles.attr("cx", function (d, i) {
         return  xScale(parseFloat(d[expressed])) + leftPadding;
     })
     .attr("width", function (d, i) {
         return  chartWidth - xScale(parseFloat(d[expressed]));
     })
-        //size/resize circles
+        // resize circles
         .attr("height", function (d, i) {
             return 463 - yScale(parseFloat(d[expressed1]));
         })
-        .attr("y", function (d, i) {
+        .attr("cy", function (d, i) {
             return yScale(parseFloat(d[expressed1])) + topBottomPadding;
         })
-        //color/recolor circles
-        .style("fill", function (d) {
-            var attr1Val = parseFloat(d.properties[expressed]);
-            var attr2Val = parseFloat(d.properties[expressed1]);
+        // recolor circles
+        // create separate arrays of values for each attribute
+
+        .style("fill", function (d, i) {
+            var attr1Val = parseFloat(d[expressed]);
+            var attr2Val = parseFloat(d[expressed1]);
            
             var bivariateVal = (attr1Val - attr1Min)/(attr1Max - attr1Min) + (attr2Val - attr2Min)/(attr2Max - attr2Min);
-            if (attr1Val && attr2Val ) {
+            if (bivariateVal) {
                 return colorScale(bivariateVal);
             } else {
                 return "#ccc";
-            }
+            };
         });
 
-    //at the bottom of updateChart()...add text to chart title
+    // add text to chart title
     var chartTitle = d3
         .select(".chartTitle")
-        .text(arrayDict[expressed] + " " + "and" + " " + arrayDict[expressed1] + " in each UK region");
+        .text(arrayDict[expressed] + " Vs " + arrayDict[expressed1]+ " (" + dataDict[expressed2] + ")");
 }
 
 // creates dropdown based on arrayObj array
@@ -592,7 +669,7 @@ function createDropdown2(csvData){
         .text(function(d){ return d.text });
 };
 
-//function to highlight enumeration units and bars
+// function to highlight enumeration units and bars
 function highlight(props){
     //change stroke
     var selected = d3.selectAll("." + props.admin1_code)
@@ -602,7 +679,7 @@ function highlight(props){
     setLabel(props);
 }; 
 
-//function to reset the element style on mouseout
+// function to reset the element style on mouseout
 function dehighlight(props){
     var selected = d3.selectAll("." + props.admin1_code)
         .style("stroke", function(){
@@ -621,12 +698,12 @@ function dehighlight(props){
         return styleObject[styleName];
     };
 
-    //remove info label
+    // remove info label
     d3.select(".infolabel").remove();
 };
 
 function setLabel(props){
-    //label content
+    // label content
     var labelAttribute = "<b style='font-size:25px;'>" + parseFloat(props[expressed]).toFixed(2) + 
     "</b> <b>" + arrayDict[expressed] + "</b>";
     var labelAttribute1 = "<b style='font-size:25px;'>" + parseFloat(props[expressed1]).toFixed(2) + 
@@ -644,7 +721,7 @@ function setLabel(props){
         .html(props.nuts118nm + " (" + dataDict[expressed2] +")");
 };
   
-//function to move info label with mouse
+// function to move info label with mouse
 function moveLabel(){
     var offset = window.scrollY
     //get width of label
