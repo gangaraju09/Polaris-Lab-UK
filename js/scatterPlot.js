@@ -196,9 +196,26 @@ function joinData(ukRegions, csvData){
 
 // bivariate color scale generator
 function makeColorScale(data){
-    var colorClasses = ["#e8e8e8", "#e4acac", "#c85a5a",
+   /* var colorClasses = ["#e8e8e8", "#e4acac", "#c85a5a",
     "#b0d5df", "#ad9ea5", "#985356",
-    "#64acbe", "#627f8c", "#574249"];
+    "#64acbe", "#627f8c", "#574249"];*/
+
+    /*var colorClasses = ["#C4B3D8", "#7C67AB", "#240D5E",
+                        "#E6E6E6", "#BFBFBF", "#7F7F7F",
+                        "#FFCC80", "#F35926", "#B30000"];*/
+    
+    /*var colorClasses = ["#E9E6F2", "#E39BCC", "#DE4FA6",
+                        "#9CCAE1", "#9080BD", "#843598",
+                        "#4FADD0", "#3D64AD", "#2A1A8A"]; */
+    
+    /*var colorClasses = ["#E8E8E8", "#B8D6BE", "#73AE80",
+                        "#B5C0DA", "#90B2B3", "#5A9178",
+                        "#6C83B5", "#567994", "#2A5A5B"];   */
+
+    var colorClasses = ["#ECE6F2", "#A5C6E5", "#5EA5D8",
+                        "#DAA5AC", "#9E799B", "#624D8A",
+                        "#C9585C", "#963567", "#621371"];           
+
 
     // create the color scale based on the bivariate values
     var colorScale = d3.scaleQuantile().range(colorClasses);
