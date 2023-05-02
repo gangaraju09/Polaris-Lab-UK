@@ -212,9 +212,13 @@ function makeColorScale(data){
                         "#B5C0DA", "#90B2B3", "#5A9178",
                         "#6C83B5", "#567994", "#2A5A5B"];   */
 
-    var colorClasses = ["#ECE6F2", "#A5C6E5", "#5EA5D8",
+    /*var colorClasses = ["#ECE6F2", "#A5C6E5", "#5EA5D8",
                         "#DAA5AC", "#9E799B", "#624D8A",
-                        "#C9585C", "#963567", "#621371"];           
+                        "#C9585C", "#963567", "#621371"]; */   
+    
+    var colorClasses = ["#FFEFE2", "#98CFE5", "#00AFE7",
+                        "#FFB286", "#AF978B", "#427A8E",
+                        "#F97529", "#AA5F37", "#5C473D"];  
 
 
     // create the color scale based on the bivariate values
@@ -343,6 +347,22 @@ function makeColorLegend(color) {
         }
     });
 
+    // add drop shadow to chart
+    var defs = svg.append("defs");
+    var filter = defs.append("filter")
+        .attr("id", "drop-shadow")
+        .attr("height", "150%")
+        .attr("width", "150%");
+
+    filter.append("feDropShadow")
+        .attr("dx", "1")
+        .attr("dy", "1")
+        .attr("stdDeviation", "1")
+        .attr("flood-color", "#3d3d3d")
+        .attr("flood-opacity", "0.1");
+    legend.style("filter", "url(#drop-shadow)");
+
+
 };
 
 // sets scatter plot based on expressed attributes
@@ -368,8 +388,8 @@ function setScatterPlot(csvData, colorScale){
      // create a rectangle for chart background fill
      var chartBackground = chart.append("rect")
      .attr("class", "chartBackground")
-     .attr("width", chartInnerWidth)
-     .attr("height", chartInnerHeight)
+     .attr("width", chartInnerWidth + 50)
+     .attr("height", chartInnerHeight + 50)
      .attr("transform", translate + ")");
 
     // create a scale to size lines proportionally to frame and for axis
@@ -443,6 +463,21 @@ function setScatterPlot(csvData, colorScale){
         .attr("transform", translate);
     
     var desc = circles.append("desc").text('{"stroke": "#636363", "stroke-width": "1px"}');
+
+    // add drop shadow to chart
+    var defs = chart.append("defs");
+    var filter = defs.append("filter")
+        .attr("id", "drop-shadow")
+        .attr("height", "150%")
+        .attr("width", "150%");
+
+    filter.append("feDropShadow")
+        .attr("dx", "1")
+        .attr("dy", "1")
+        .attr("stdDeviation", "1")
+        .attr("flood-color", "#3d3d3d")
+        .attr("flood-opacity", "0.4");
+    circles.style("filter", "url(#drop-shadow)");
 
     updateChart(circles, csvData, colorScale);
 };
