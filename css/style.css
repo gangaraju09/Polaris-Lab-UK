@@ -177,6 +177,7 @@ a:-webkit-any-link {
     padding: 4px;
     border: 1px solid #999;
     box-shadow: 2px 2px 4px #999;
+    border-radius: 5px;
     color: #464545;
     margin-top: 55px;
     margin-left: 250px;
