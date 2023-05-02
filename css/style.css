@@ -1,18 +1,42 @@
 /* CSS style for UK Polarization Map*/
 
+@font-face{
+    font-family: grestal;
+    src: url(GrestalScriptDemoRegular-dBYX.ttf);
+}
+
+@font-face{
+    font-family: helmet;
+    src: url(Helmet-lWZV.otf);
+}
+@font-face{
+    font-family: mainlux;
+    src: url(MainluxLight-DOAJx.otf);
+}
+@font-face{
+    font-family: salmapro;
+    src: url(SalmaproMedium-0Wooo.otf);
+}
+
+@font-face{
+    font-family: mont;
+    src: url(Montserrat\MontserratBlack-3zOvZ.ttf);
+}
+
 .map {
     fill: #a3a3a7;
     stroke: #3d3d3d;
     stroke-width: 0.5px;
     stroke-linecap: round;
-    border: medium solid #999;
+    border: thin solid #999;
+    border-radius: 5px;
     margin: 10px 0 0 20px;
-    background-color: #f8f8f8;
+    background-color: #f5ddc9;
     margin-top: 20px;
 }
 
 .button {
-    background-color: #eff3ff;
+    background-color: #f5ddc9;
     border: 1px solid #999;
     color: #464545;
     text-align: center;
@@ -21,7 +45,7 @@
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
-    font-family: 'Open Sans', sans-serif;
+    font-family: helmet;
     font-size: 1em;
     font-weight: bold;
     padding: 3px;
@@ -40,18 +64,20 @@
 
 /* Title Ribbon */
 .mapTitle {
-    background-color: #08519c;
+    background-color: #f5ddc9;
     width: auto;
     height: 25px;
     border: 1px solid #3d3d3d;
+    border-radius: 5px;
     padding: 10px;
     margin-left: 20px;
     margin-right: 20px;
     text-align: center;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 20px;
+    font-family: helmet;
+    font-size: 30px;
     font-weight: bold;
-    color:#e3e3e3;
+    letter-spacing: 2px;
+    color:#5C473D;
     box-shadow: 2px 2px 5px 2px #8e8e8e;
     display: flex;
     align-items: center;
@@ -79,7 +105,7 @@ a:-webkit-any-link {
     position: absolute;
     bottom: -250px;
     width: auto;
-    font-family: 'Open Sans', sans-serif;
+    font-family: helmet;
     font-size: 1em;
     color:#91a28a;
 }
@@ -90,7 +116,7 @@ a:-webkit-any-link {
     bottom: -300px;
     left: 0;
     width: 100%;
-    font-family: 'Open Sans', sans-serif;
+    font-family: helmet;
     font-size: 1em;
     color:#91a28aa0;
     text-align: center;
@@ -100,17 +126,22 @@ a:-webkit-any-link {
 .chart {
     float: right;
     margin: 20px 20px 0 0;
+    border: thin solid #999;
+    border-radius: 5px;
+    stroke-width: 0.5px;
+    stroke-linecap: round;
 }
 
 .chartTitle {
-    font-family: 'Open Sans', sans-serif;
+    font-family: helmet ;
     font-size: 16px;
     font-weight: normal;
-    color: #464545;
+    color: #5C473D;
 }
 
 .chartBackground {
-    fill: #f8f8f8;
+    fill: #f5ddc9;
+    
 }
 
 .chartFrame {
@@ -118,6 +149,7 @@ a:-webkit-any-link {
     stroke: #999;
     stroke-width: 2px;
     shape-rendering: crispEdges;
+    border-radius: 5px;
 }
 
 .axis path,
@@ -129,7 +161,7 @@ a:-webkit-any-link {
 }
 
 .axis text {
-    font-family: 'Open Sans', sans-serif;
+    font-family: helmet;
     font-size: 0.8em;
     fill: #999;
 }
@@ -137,17 +169,19 @@ a:-webkit-any-link {
 /* dropdown */
 .dropdown {
     position: absolute;
-    background-color: #eff3ff;
+    background-color: #f5ddc9;
     z-index: 10;
-    font-family: 'Open Sans', sans-serif;
+    font-family: helmet;
     font-size: 1em;
-    font-weight: bold;
-    padding: 2px;
+    font-weight:550;
+    padding: 4px;
     border: 1px solid #999;
     box-shadow: 2px 2px 4px #999;
+    border-radius: 5px;
     color: #464545;
     margin-top: 55px;
     margin-left: 250px;
+
 }
 
 .option {
@@ -170,11 +204,11 @@ a:-webkit-any-link {
     height: auto;
     min-width: auto;
     color: #464545;
-    background-color: #eff3ffe7;
+    background-color: #f5ddc9d8;
     border: solid thin #464545;
     padding: 5px 10px;
     top: -100px;
-    font-family: 'Open Sans', sans-serif;
+    font-family: helmet;
 }
 
 .infolabel h1 {
@@ -182,7 +216,7 @@ a:-webkit-any-link {
     padding: 0;
     display: inline-block;
     line-height: 1em;
-    font-family: 'Open Sans', sans-serif;
+    font-family: helmet;
 }
 
 .tooltip {    
@@ -202,12 +236,13 @@ a:-webkit-any-link {
 /* color legend */
 .legend{
     position: absolute;
-    font-family: 'Open Sans', sans-serif;
+    font-family: helmet;
     font-size: 0.9em;
     font-weight: normal;
     color:#8e8e8e;
 }
 
 body {
-    background-color: #f8f8f8;
+    background-color: #FFEFE2;
 }
+

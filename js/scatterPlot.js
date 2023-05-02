@@ -51,7 +51,7 @@ function setMap(){
         .append("svg")
         .attr("class", "map")
         .attr("width", width)
-        .attr("height", height);
+        .attr("height", height + 20);
 
     // create Albers equal area conic projection centered on UK
     var projection = d3.geoAlbers()
@@ -196,9 +196,30 @@ function joinData(ukRegions, csvData){
 
 // bivariate color scale generator
 function makeColorScale(data){
-    var colorClasses = ["#e8e8e8", "#e4acac", "#c85a5a",
+   /* var colorClasses = ["#e8e8e8", "#e4acac", "#c85a5a",
     "#b0d5df", "#ad9ea5", "#985356",
-    "#64acbe", "#627f8c", "#574249"];
+    "#64acbe", "#627f8c", "#574249"];*/
+
+    /*var colorClasses = ["#C4B3D8", "#7C67AB", "#240D5E",
+                        "#E6E6E6", "#BFBFBF", "#7F7F7F",
+                        "#FFCC80", "#F35926", "#B30000"];*/
+    
+    /*var colorClasses = ["#E9E6F2", "#E39BCC", "#DE4FA6",
+                        "#9CCAE1", "#9080BD", "#843598",
+                        "#4FADD0", "#3D64AD", "#2A1A8A"]; */
+    
+    /*var colorClasses = ["#E8E8E8", "#B8D6BE", "#73AE80",
+                        "#B5C0DA", "#90B2B3", "#5A9178",
+                        "#6C83B5", "#567994", "#2A5A5B"];   */
+
+    /*var colorClasses = ["#ECE6F2", "#A5C6E5", "#5EA5D8",
+                        "#DAA5AC", "#9E799B", "#624D8A",
+                        "#C9585C", "#963567", "#621371"]; */   
+    
+    var colorClasses = ["#FFEFE2", "#98CFE5", "#00AFE7",
+                        "#FFB286", "#AF978B", "#427A8E",
+                        "#F97529", "#AA5F37", "#5C473D"];  
+
 
     // create the color scale based on the bivariate values
     var colorScale = d3.scaleQuantile().range(colorClasses);
@@ -315,6 +336,7 @@ function makeColorLegend(color) {
           .duration(500)
           .style("opacity", 0);
     })
+    
     .attr("data-legend-label", function(d) {
         // Add a data attribute with the legend label
         if (d == "#e8e8e8"){
@@ -345,6 +367,23 @@ function makeColorLegend(color) {
             return arrayDict[expressed1] + " (high)" + "<br>" + arrayDict[expressed] + " (med)";
         }
     });
+
+    // add drop shadow to chart
+    var defs = svg.append("defs");
+    var filter = defs.append("filter")
+        .attr("id", "drop-shadow")
+        .attr("height", "150%")
+        .attr("width", "150%");
+
+    filter.append("feDropShadow")
+        .attr("dx", "1")
+        .attr("dy", "1")
+        .attr("stdDeviation", "1")
+        .attr("flood-color", "#3d3d3d")
+        .attr("flood-opacity", "0.1");
+    legend.style("filter", "url(#drop-shadow)");
+
+
 };
 
 // sets scatter plot based on expressed attributes
@@ -370,8 +409,8 @@ function setScatterPlot(csvData, colorScale){
      // create a rectangle for chart background fill
      var chartBackground = chart.append("rect")
      .attr("class", "chartBackground")
-     .attr("width", chartInnerWidth)
-     .attr("height", chartInnerHeight)
+     .attr("width", chartInnerWidth + 50)
+     .attr("height", chartInnerHeight + 30)
      .attr("transform", translate + ")");
 
     // create a scale to size lines proportionally to frame and for axis
@@ -398,7 +437,7 @@ function setScatterPlot(csvData, colorScale){
         .attr("cy", function(d){
             return yScale(parseFloat(d[expressed1])) + topBottomPadding;
         })
-        .attr("r", "4")
+        .attr("r", "5")
         .style("fill", function(d){
             return colorScale(d[expressed], d[expressed1])
         })
@@ -445,6 +484,21 @@ function setScatterPlot(csvData, colorScale){
         .attr("transform", translate);
     
     var desc = circles.append("desc").text('{"stroke": "#636363", "stroke-width": "1px"}');
+
+    // add drop shadow to chart
+    var defs = chart.append("defs");
+    var filter = defs.append("filter")
+        .attr("id", "drop-shadow")
+        .attr("height", "150%")
+        .attr("width", "150%");
+
+    filter.append("feDropShadow")
+        .attr("dx", "1")
+        .attr("dy", "1")
+        .attr("stdDeviation", "1")
+        .attr("flood-color", "#3d3d3d")
+        .attr("flood-opacity", "0.4");
+    circles.style("filter", "url(#drop-shadow)");
 
     updateChart(circles, csvData, colorScale);
 };
@@ -694,7 +748,7 @@ function highlight(props){
     //change stroke
     var selected = d3.selectAll("." + props.admin1_code)
         .style("stroke", "#252525")
-        .style("stroke-width", "3");
+        .style("stroke-width", "2");
         
     setLabel(props);
 }; 
