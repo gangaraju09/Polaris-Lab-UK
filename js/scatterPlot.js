@@ -51,7 +51,7 @@ function setMap(){
         .append("svg")
         .attr("class", "map")
         .attr("width", width)
-        .attr("height", height);
+        .attr("height", height + 20);
 
     // create Albers equal area conic projection centered on UK
     var projection = d3.geoAlbers()
@@ -390,7 +390,7 @@ function setScatterPlot(csvData, colorScale){
      var chartBackground = chart.append("rect")
      .attr("class", "chartBackground")
      .attr("width", chartInnerWidth + 50)
-     .attr("height", chartInnerHeight + 25)
+     .attr("height", chartInnerHeight + 30)
      .attr("transform", translate + ")");
 
     // create a scale to size lines proportionally to frame and for axis
@@ -417,7 +417,7 @@ function setScatterPlot(csvData, colorScale){
         .attr("cy", function(d){
             return yScale(parseFloat(d[expressed1])) + topBottomPadding;
         })
-        .attr("r", "4")
+        .attr("r", "5")
         .style("fill", function(d){
             return colorScale(d[expressed], d[expressed1])
         })
