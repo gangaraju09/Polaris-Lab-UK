@@ -185,6 +185,20 @@ a:-webkit-any-link {
     font-family: 'Open Sans', sans-serif;
 }
 
+.tooltip {    
+    margin: 0 20px 0 0; 
+    z-index: 11;   
+    position: absolute;
+    height: auto;
+    min-width: auto;
+    color: #464545;
+    background-color: #eff3ffe7;
+    border: solid thin #464545;
+    padding: 5px 10px;
+    top: -100px;
+    font-family: 'Open Sans', sans-serif;
+}
+
 /* color legend */
 .legend{
     position: absolute;

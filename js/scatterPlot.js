@@ -281,13 +281,33 @@ function makeColorLegend(color) {
     .style("stroke-width", 0.5)
     .style("fill", function (d) { return d; })
     .on("mouseover", function (event, d) {
+        var offset = window.scrollY
+    //get width of label
+    var labelWidth = d3.select(".tooltip")
+        .node()
+        .getBoundingClientRect()
+        .width;
+
+    // use coordinates of mousemove event to set label coordinates
+    var x1 = event.clientX + 2,
+        y1 = event.clientY - 65 + offset,
+        x2 = event.clientX - labelWidth - 10,
+        y2 = event.clientY + 25;
+
+    // horizontal label coordinate, testing for overflow
+    var x = event.clientX > window.innerWidth - labelWidth - 20 ? x2 : x1; 
+    // vertical label coordinate, testing for overflow
+    var y = event.clientY < 75 ? y2 : y1; 
+
+    d3.select(".tooltip")
+        .style("left", x + "px")
+        .style("top", y + "px");
+
         // Show the tooltip and set its content
         tooltip.transition()
           .duration(200)
           .style("opacity", 0.9);
-        tooltip.html("<span>" + d3.select(this).attr("data-legend-label") + "</span>")
-          .style("left", (event.pageX + 10) + "px")
-          .style("top", (event.pageY - 28) + "px");
+        tooltip.html("<b>" + d3.select(this).attr("data-legend-label") + "</b>")
     })
     .on("mouseout", function (event, d) {
         // Hide the tooltip
@@ -298,34 +318,33 @@ function makeColorLegend(color) {
     .attr("data-legend-label", function(d) {
         // Add a data attribute with the legend label
         if (d == "#e8e8e8"){
-            return arrayDict[expressed1] + " (low) " + arrayDict[expressed] + " (low)";
+            return arrayDict[expressed1] + " (low) " + "<br>" + arrayDict[expressed] + " (low)";
         }
         else if (d == "#b0d5df") {
-            return arrayDict[expressed1] + " (low) " + arrayDict[expressed] + " (med)";
+            return arrayDict[expressed1] + " (low) " + "<br>" + arrayDict[expressed] + " (med)";
         }
         else if (d == "#64acbe") {
-            return arrayDict[expressed1] + " (low) " + arrayDict[expressed] + " (high)";
+            return arrayDict[expressed1] + " (low) " + "<br>" + arrayDict[expressed] + " (high)";
         } 
         else if (d == "#e4acac") {
-            return arrayDict[expressed1] + " (med) " + arrayDict[expressed] +  " (low)";
+            return arrayDict[expressed1] + " (med) " + "<br>" + arrayDict[expressed] +  " (low)";
         } 
         else if (d == "#c85a5a") {
-            return arrayDict[expressed1] + " (high) " + arrayDict[expressed] + " (low)";
+            return arrayDict[expressed1] + " (high) " + "<br>" + arrayDict[expressed] + " (low)";
         }
         else if (d == "#ad9ea5") {
-            return arrayDict[expressed1] + " (med) " + arrayDict[expressed] + " (med)";
+            return arrayDict[expressed1] + " (med) " + "<br>" + arrayDict[expressed] + " (med)";
         }
         else if (d == "#574249") {
-            return arrayDict[expressed1] + " (high) " + arrayDict[expressed] + " (high)";
+            return arrayDict[expressed1] + " (high) " + "<br>" + arrayDict[expressed] + " (high)";
         }
         else if (d == "#627f8c") {
-            return arrayDict[expressed1] + " (med) " + arrayDict[expressed] + " (high)";
+            return arrayDict[expressed1] + " (med) " + "<br>" + arrayDict[expressed] + " (high)";
         } 
         else {
-            return arrayDict[expressed1] + " (high)" + arrayDict[expressed] + " (med)";
+            return arrayDict[expressed1] + " (high)" + "<br>" + arrayDict[expressed] + " (med)";
         }
     });
-
 };
 
 // sets scatter plot based on expressed attributes
@@ -601,7 +620,7 @@ function updateChart(circles, csvData, colorScale) {
     var chartTitle = d3
         .select(".chartTitle")
         .text(arrayDict[expressed] + " Vs " + arrayDict[expressed1]+ " (" + dataDict[expressed2] + ")");
-}
+};
 
 // creates dropdown based on arrayObj array
 function createDropdown1(csvData){
