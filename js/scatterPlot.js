@@ -316,6 +316,7 @@ function makeColorLegend(color) {
           .duration(500)
           .style("opacity", 0);
     })
+    
     .attr("data-legend-label", function(d) {
         // Add a data attribute with the legend label
         if (d == "#e8e8e8"){
@@ -389,7 +390,7 @@ function setScatterPlot(csvData, colorScale){
      var chartBackground = chart.append("rect")
      .attr("class", "chartBackground")
      .attr("width", chartInnerWidth + 50)
-     .attr("height", chartInnerHeight + 50)
+     .attr("height", chartInnerHeight + 25)
      .attr("transform", translate + ")");
 
     // create a scale to size lines proportionally to frame and for axis
@@ -727,7 +728,7 @@ function highlight(props){
     //change stroke
     var selected = d3.selectAll("." + props.admin1_code)
         .style("stroke", "#252525")
-        .style("stroke-width", "3");
+        .style("stroke-width", "2");
         
     setLabel(props);
 }; 
