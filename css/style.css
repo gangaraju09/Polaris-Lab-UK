@@ -45,7 +45,7 @@
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
-    font-family: 'Open Sans', sans-serif;
+    font-family: helmet;
     font-size: 1em;
     font-weight: bold;
     padding: 3px;
@@ -105,7 +105,7 @@ a:-webkit-any-link {
     position: absolute;
     bottom: -250px;
     width: auto;
-    font-family: 'Open Sans', sans-serif;
+    font-family: helmet;
     font-size: 1em;
     color:#91a28a;
 }
@@ -116,7 +116,7 @@ a:-webkit-any-link {
     bottom: -300px;
     left: 0;
     width: 100%;
-    font-family: 'Open Sans', sans-serif;
+    font-family: helmet;
     font-size: 1em;
     color:#91a28aa0;
     text-align: center;
@@ -129,7 +129,7 @@ a:-webkit-any-link {
 }
 
 .chartTitle {
-    font-family: 'Open Sans', sans-serif;
+    font-family: helmet ;
     font-size: 16px;
     font-weight: normal;
     color: #464545;
@@ -157,7 +157,7 @@ a:-webkit-any-link {
 }
 
 .axis text {
-    font-family: 'Open Sans', sans-serif;
+    font-family: helmet;
     font-size: 0.8em;
     fill: #999;
 }
@@ -203,7 +203,7 @@ a:-webkit-any-link {
     border: solid thin #464545;
     padding: 5px 10px;
     top: -100px;
-    font-family: 'Open Sans', sans-serif;
+    font-family: helmet;
 }
 
 .infolabel h1 {
@@ -211,13 +211,13 @@ a:-webkit-any-link {
     padding: 0;
     display: inline-block;
     line-height: 1em;
-    font-family: 'Open Sans', sans-serif;
+    font-family: helmet;
 }
 
 /* color legend */
 .legend{
     position: absolute;
-    font-family: 'Open Sans', sans-serif;
+    font-family: helmet;
     font-size: 0.9em;
     font-weight: normal;
     color:#8e8e8e;
