@@ -204,9 +204,10 @@ function joinData(ukRegions, csvData){
 
 // bivariate color scale generator
 function makeColorScale(data){
+    // various bivaraite color codes are kept for future changes
    /* var colorClasses = ["#e8e8e8", "#e4acac", "#c85a5a",
-    "#b0d5df", "#ad9ea5", "#985356",
-    "#64acbe", "#627f8c", "#574249"];*/
+                        "#b0d5df", "#ad9ea5", "#985356",
+                        "#64acbe", "#627f8c", "#574249"];*/
 
     /*var colorClasses = ["#C4B3D8", "#7C67AB", "#240D5E",
                         "#E6E6E6", "#BFBFBF", "#7F7F7F",
@@ -277,7 +278,7 @@ function makeColorLegend(color) {
         .style("left", left - 190)
         .style("top", bottom - 210)
         .attr("transform", "rotate(45)");
-  
+        
     var legend = svg.selectAll("g.legendEntry")
         .data(color.range().reverse())
         .enter()
@@ -318,7 +319,7 @@ function makeColorLegend(color) {
         .width;
 
     // use coordinates of mousemove event to set label coordinates
-    var x1 = event.clientX + 2,
+    var x1 = event.clientX + 5,
         y1 = event.clientY - 65 + offset,
         x2 = event.clientX - labelWidth - 10,
         y2 = event.clientY + 25;
@@ -347,7 +348,11 @@ function makeColorLegend(color) {
     
     .attr("data-legend-label", function(d) {
         // Add a data attribute with the legend label
-        if (d == "#e8e8e8"){
+        return d
+
+       /* UPDATE THE COLOR CODES BELOW 
+
+       if (d == "#e8e8e8"){
             return arrayDict[expressed1] + " (low) " + "<br>" + arrayDict[expressed] + " (low)";
         }
         else if (d == "#b0d5df") {
@@ -373,7 +378,7 @@ function makeColorLegend(color) {
         } 
         else {
             return arrayDict[expressed1] + " (high)" + "<br>" + arrayDict[expressed] + " (med)";
-        }
+        } */
     });
 
     // add drop shadow to chart

@@ -24,15 +24,16 @@
 }
 
 .map {
-    fill: #a3a3a7;
+    fill:#a3a3a7 ; 
     stroke: #3d3d3d;
     stroke-width: 0.5px;
     stroke-linecap: round;
     border: thin solid #999;
     border-radius: 5px;
     margin: 10px 0 0 20px;
-    background-color: #f5ddc9;
+    background-color: none; /* Existing backgroundp-color: #f5ddc9 */
     margin-top: 20px;
+    box-shadow: 2px 2px 4px #999;
 }
 
 .button {
@@ -53,13 +54,13 @@
     margin-top: 15px;
     margin-left: 1000px;
     box-shadow: 2px 2px 4px #999;
+    border-radius: 5px;
 }
 
 .button:hover{
     background-color: white;
     color: black;
     border: 2px solid #e7e7e7;
-    box-shadow: 5px 5px 5px #999;
 }
 
 /* Title Ribbon */
@@ -136,7 +137,7 @@ a:-webkit-any-link {
     font-family: helmet ;
     font-size: 16px;
     font-weight: normal;
-    color: #5C473D;
+    color: #9999991c;
 }
 
 .chartBackground {
@@ -150,6 +151,19 @@ a:-webkit-any-link {
     stroke-width: 2px;
     shape-rendering: crispEdges;
     border-radius: 5px;
+}
+
+.x-axis text{
+    font-family: helmet;
+    font-size: 0.8em;
+    fill: #999;
+}
+
+.x-axis line {
+    fill: none;
+    stroke: #999;
+    stroke-width: 1px;
+    shape-rendering: crispEdges;
 }
 
 .axis path,
@@ -226,11 +240,11 @@ a:-webkit-any-link {
     height: auto;
     min-width: auto;
     color: #464545;
-    background-color: #eff3ffe7;
+    background-color: #f5ddc9d8;
     border: solid thin #464545;
     padding: 5px 10px;
     top: -100px;
-    font-family: 'Open Sans', sans-serif;
+    font-family: helmet;
 }
 
 /* color legend */
