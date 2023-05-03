@@ -206,8 +206,8 @@ function joinData(ukRegions, csvData){
 function makeColorScale(data){
     // various bivaraite color codes are kept for future changes
    /* var colorClasses = ["#e8e8e8", "#e4acac", "#c85a5a",
-                        "#b0d5df", "#ad9ea5", "#985356",
-                        "#64acbe", "#627f8c", "#574249"];*/
+    "#b0d5df", "#ad9ea5", "#985356",
+    "#64acbe", "#627f8c", "#574249"];*/
 
     /*var colorClasses = ["#C4B3D8", "#7C67AB", "#240D5E",
                         "#E6E6E6", "#BFBFBF", "#7F7F7F",
@@ -278,7 +278,7 @@ function makeColorLegend(color) {
         .style("left", left - 190)
         .style("top", bottom - 210)
         .attr("transform", "rotate(45)");
-        
+  
     var legend = svg.selectAll("g.legendEntry")
         .data(color.range().reverse())
         .enter()
@@ -319,7 +319,7 @@ function makeColorLegend(color) {
         .width;
 
     // use coordinates of mousemove event to set label coordinates
-    var x1 = event.clientX + 5,
+    var x1 = event.clientX + 2,
         y1 = event.clientY - 65 + offset,
         x2 = event.clientX - labelWidth - 10,
         y2 = event.clientY + 25;
@@ -348,37 +348,37 @@ function makeColorLegend(color) {
     
     .attr("data-legend-label", function(d) {
         // Add a data attribute with the legend label
-        return d
+        
 
-       /* UPDATE THE COLOR CODES BELOW 
+       // UPDATE THE COLOR CODES BELOW 
 
-       if (d == "#e8e8e8"){
+        if (d == "#FFEFE2"){
             return arrayDict[expressed1] + " (low) " + "<br>" + arrayDict[expressed] + " (low)";
         }
-        else if (d == "#b0d5df") {
+        else if (d == "#FFB286") {
             return arrayDict[expressed1] + " (low) " + "<br>" + arrayDict[expressed] + " (med)";
         }
-        else if (d == "#64acbe") {
+        else if (d == "#F97529") {
             return arrayDict[expressed1] + " (low) " + "<br>" + arrayDict[expressed] + " (high)";
         } 
-        else if (d == "#e4acac") {
+        else if (d == "#98CFE5") {
             return arrayDict[expressed1] + " (med) " + "<br>" + arrayDict[expressed] +  " (low)";
         } 
-        else if (d == "#c85a5a") {
+        else if (d == "#00AFE7") {
             return arrayDict[expressed1] + " (high) " + "<br>" + arrayDict[expressed] + " (low)";
         }
-        else if (d == "#ad9ea5") {
+        else if (d == "#AF978B") {
             return arrayDict[expressed1] + " (med) " + "<br>" + arrayDict[expressed] + " (med)";
         }
-        else if (d == "#574249") {
+        else if (d == "#5C473D") {
             return arrayDict[expressed1] + " (high) " + "<br>" + arrayDict[expressed] + " (high)";
         }
-        else if (d == "#627f8c") {
+        else if (d == "#AA5F37") {
             return arrayDict[expressed1] + " (med) " + "<br>" + arrayDict[expressed] + " (high)";
         } 
         else {
             return arrayDict[expressed1] + " (high)" + "<br>" + arrayDict[expressed] + " (med)";
-        } */
+        }
     });
 
     // add drop shadow to chart
@@ -519,16 +519,16 @@ function setScatterPlot(csvData, colorScale){
 // creates dropdown based on arrayObj array
 function createDropdown(csvData){
 
-    var left = document.querySelector('body').getBoundingClientRect().left + 8,
-        top = document.querySelector('body').getBoundingClientRect().top + 6;
-        bottom = document.querySelector('body').getBoundingClientRect().bottom;
+    //var left = document.querySelector('body').getBoundingClientRect().left + 8,
+      //  top = document.querySelector('body').getBoundingClientRect().top + 6;
+        // bottom = document.querySelector('body').getBoundingClientRect().bottom;
 
     //add select element
-    var dropdown = d3.select("body")
+    var dropdown = d3.select(".dropdown-container")
         .append("select")
         .attr("class", "dropdown")
-        .style("left", left + "px")
-        .style("top", top + "px")
+        //.style("left", left + "px")
+        //.style("top", top + "px")
         .on("change", function(){
             expressed = this.value;
             changeAttribute(csvData)
@@ -692,16 +692,16 @@ function updateChart(circles, csvData, colorScale) {
 // creates dropdown based on arrayObj array
 function createDropdown1(csvData){
 
-    var left = document.querySelector('body').getBoundingClientRect().left + 300,
-        top = document.querySelector('body').getBoundingClientRect().top + 6,
-        bottom = document.querySelector('body').getBoundingClientRect().bottom;
+   // var left = document.querySelector('body').getBoundingClientRect().left + 300,
+     //   top = document.querySelector('body').getBoundingClientRect().top + 6,
+       //  bottom = document.querySelector('body').getBoundingClientRect().bottom;
 
     //add select element
-    var dropdown = d3.select("body")
+    var dropdown = d3.select(".dropdown-container")
         .append("select")
         .attr("class", "dropdown")
-        .style("left", left + "px")
-        .style("top", top + "px")
+        //.style("left", left + "px")
+        //.style("top", top + "px")
         .on("change", function(){
             expressed1 = this.value;
             changeAttribute(csvData)
@@ -725,16 +725,16 @@ function createDropdown1(csvData){
 // creates dropdown based on arrayObj array
 function createDropdown2(csvData){
 
-    var left = document.querySelector('body').getBoundingClientRect().left + 600,
-        top = document.querySelector('body').getBoundingClientRect().top + 6,
-        bottom = document.querySelector('body').getBoundingClientRect().bottom;
+   // var left = document.querySelector('body').getBoundingClientRect().left + 600,
+     //   top = document.querySelector('body').getBoundingClientRect().top + 6,
+       // bottom = document.querySelector('body').getBoundingClientRect().bottom;
 
     //add select element
-    var dropdown = d3.select("body")
+    var dropdown = d3.select(".dropdown-container")
         .append("select")
         .attr("class", "dropdown")
-        .style("left", left + "px")
-        .style("top", top + "px")
+        //.style("left", left + "px")
+       // .style("top", top + "px")
         .on("change", function(){
             expressed2 = this.value;
             changeAttribute(csvData)

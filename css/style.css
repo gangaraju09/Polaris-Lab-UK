@@ -44,15 +44,12 @@
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
+    padding: 3px;
+    margin-left: 280px;
     cursor: pointer;
     font-family: helmet;
     font-size: 1em;
     font-weight: bold;
-    padding: 3px;
-    margin-bottom: -20px;
-    margin-top: 15px;
-    margin-left: 1000px;
     box-shadow: 2px 2px 4px #999;
     border-radius: 5px;
 }
@@ -60,7 +57,8 @@
 .button:hover{
     background-color: white;
     color: black;
-    border: 2px solid #e7e7e7;
+    border: 1px solid #e7e7e7;
+    box-shadow: 2px 2px 4px #999;
 }
 
 /* Title Ribbon */
@@ -71,9 +69,9 @@
     border: 1px solid #3d3d3d;
     border-radius: 5px;
     padding: 10px;
-    margin-left: 20px;
+    padding-left: 25px;
     margin-right: 20px;
-    text-align: center;
+    text-align:left;
     font-family: helmet;
     font-size: 30px;
     font-weight: bold;
@@ -82,13 +80,6 @@
     box-shadow: 2px 2px 5px 2px #8e8e8e;
     display: flex;
     align-items: center;
-    /* Places the icon at the center, followed by text */
-    justify-content: center;
-}
-
-/* Fist icon CSS */
-.mapTitle img {
-  margin-right: 10px;
 }
 
 /* Hyperlinks style*/
@@ -182,20 +173,22 @@ a:-webkit-any-link {
 
 /* dropdown */
 .dropdown {
-    position: absolute;
+    
     background-color: #f5ddc9;
-    z-index: 10;
     font-family: helmet;
     font-size: 1em;
     font-weight:550;
-    padding: 4px;
-    border: 1px solid #999;
-    box-shadow: 2px 2px 4px #999;
-    border-radius: 5px;
     color: #464545;
-    margin-top: 55px;
-    margin-left: 250px;
+    border: 0;
+    height: 30px;
+    padding-right: 20px;
 
+}
+.dropdown-container{
+    
+    padding-top: 20px;
+    margin-left: 350px;
+    display: inline-block;
 }
 
 .option {
@@ -203,9 +196,9 @@ a:-webkit-any-link {
 }
 
 .dropdown:hover{
-    background-color: white;
+    background-color: #f5ddc9;
     color: black;
-    border: 2px solid #e7e7e7;
+    border: 2px solid #5C473D;
     box-shadow: 5px 5px 5px #999;
 }
 
