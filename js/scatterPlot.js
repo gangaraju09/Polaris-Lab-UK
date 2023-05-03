@@ -77,6 +77,14 @@ function setMap(){
     // bind the output into callback function
     Promise.all(promises).then(callback);
 
+    var insetMap = map.append("image")
+        .attr("class", "insetMap")
+        .attr("xlink:href", "assets/UK_IM.svg")
+        .attr("width", 250)
+        .attr("height", 250)
+        .attr("x", 5)
+        .attr("y", 5);
+
     // callback reads the output response of promises (read files - csv, topojson)
     // retrieves the file information
     function callback(data){
