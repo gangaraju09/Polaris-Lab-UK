@@ -45,7 +45,7 @@
     display: inline-block;
     font-size: 16px;
     padding: 3px;
-    margin-left: 200px;
+    margin-left: 100px;
     cursor: pointer;
     font-family: helmet;
     font-size: 1em;
@@ -56,7 +56,7 @@
 
 .button:hover{
     background-color: white;
-    color: black;
+    color: #a55f26;
     border: 1px solid #e7e7e7;
     box-shadow: 2px 2px 4px #999;
 }
@@ -133,7 +133,7 @@ a:-webkit-any-link {
 }
 
 .chartBackground {
-    fill: #FFEFE2;
+    fill: none;
     border: 0;
     
 }
@@ -152,7 +152,8 @@ a:-webkit-any-link {
     fill: #999;
 }
 
-.x-axis line {
+.x-axis line 
+.x-axis path{
     fill: none;
     stroke: #999;
     stroke-width: 1px;
@@ -175,7 +176,6 @@ a:-webkit-any-link {
 
 /* dropdown */
 .dropdown {
-    
     background-color: #f5ddc9;
     font-family: helmet;
     font-size: 1em;
@@ -184,10 +184,11 @@ a:-webkit-any-link {
     border: 0;
     height: 30px;
     padding-right: 20px;
-
+    box-shadow: 2px 2px 4px #999;
+    border: 1px solid #999;
 }
-.dropdown-container{
-    
+
+.dropdown-container {
     padding-top: 20px;
     margin-left: 350px;
     display: inline-block;
@@ -199,9 +200,7 @@ a:-webkit-any-link {
 
 .dropdown:hover{
     background-color: #f5ddc9;
-    color: black;
-    border: 2px solid #5C473D;
-    box-shadow: 5px 5px 5px #999;
+    color: #a55f26;
 }
 
 
@@ -252,7 +251,7 @@ a:-webkit-any-link {
 }
 
 body {
-    background-color: #FFEFE2;
+    background-color: #fff2e7;
 }
 
 .popup {
@@ -260,13 +259,15 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(255, 255, 255, 0.365);
-    border: 1px solid #ccc;
+    background-color: #f5ddc9;
+    color: #464545;
+    border: 1px solid #999;
     padding: 20px;
     max-width: 500px;
     width: 80%;
     text-align: center;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 10px rgba(97, 97, 97, 0.3);
+    font-family: helmet;
   }
   
   .popup p {
@@ -275,7 +276,8 @@ body {
   
   .popup button {
     padding: 10px 20px;
-    background-color: #0077cc;
+    background-color: #a55f26;
+    border: 1px solid #999;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -283,7 +285,8 @@ body {
   }
   
   .popup button:hover {
-    background-color: #005fa3;
+    background-color: #fff;
+    color: #a55f26;
   }
   
   

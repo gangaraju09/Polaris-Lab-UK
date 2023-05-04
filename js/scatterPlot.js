@@ -89,10 +89,7 @@ function setMap(){
     var popup = d3.select("body")
         .append("div")
         .attr("class", "popup")
-        .html("<p>Welcome to our website! This site is dedicated to exploring UK regions and their polarization values. Click 'OK' to continue.</p><button class='okBtn'>OK</button>");
-
-        // hide popup by default
-       // popup.style("display", "none");
+        .html("<h3> Welcome to Polaris Lab UK !</h3> <ul align = 'left'> <li> <b> Attention user :</b> The site only designed to work on desktop and would not work on mobile phones</li> <li>The UK interactive map displayed here does <b>not</b> contain information related to <b> Northern Ireland </b> and <b> Isle of Man </b>. Therefore, these areas are removed </li> <li> Information is displayed is calculated and derived from British Household Panel Survey (BHPS) via UK data service portal. Therefore prone to <b>errors</b>.</li></ul> <p>By clicking 'OK' to continue. Therefore, you accept that there errors in the map calculations and they are acceptable</p> </li> <button class='okBtn'><b>OK</b></button>");
 
         // show popup when page loads
         window.onload = function() {
@@ -330,10 +327,8 @@ function makeColorLegend(color) {
     })
     .attr("width", rectWidth)
     .attr("height", rectHeight)
-
     .attr("data-legend-label", function(d) {
         // Add a data attribute with the legend label
-
         if (d == "#FFFFFF"){
             return arrayDict[expressed1] + " (low) " + "<br>" + arrayDict[expressed] + " (low)";
         }
@@ -362,7 +357,6 @@ function makeColorLegend(color) {
             return arrayDict[expressed1] + " (high)" + "<br>" + arrayDict[expressed] + " (med)";
         }
     })
-
     .style("stroke", "#bdbdbd")
     .style("stroke-width", 0.5)
     .style("fill", function (d) { return d; })
@@ -393,6 +387,7 @@ function makeColorLegend(color) {
         tooltip.transition()
           .duration(200)
           .style("opacity", 0.9);
+
         tooltip.html("<b>" + d3.select(this).attr("data-legend-label") + "</b>")
     })
     .on("mouseout", function (event, d) {
@@ -544,8 +539,6 @@ function createDropdown(csvData){
     var dropdown = d3.select(".dropdown-container")
         .append("select")
         .attr("class", "dropdown")
-        //.style("left", left + "px")
-        //.style("top", top + "px")
         .on("change", function(){
             expressed = this.value;
             changeAttribute(csvData)
@@ -651,7 +644,10 @@ function changeAttribute(csvData) {
     d3.select(".x-axis").call(xAxis)
     d3.select(".x-axis").call(xAxis)
 
+
+    // remove color legend and tooltip. Reinitialize with updated values from dropdown
     d3.select(".legend").remove();
+    d3.select(".tooltip").remove();
     makeColorLegend(colorScale);
 
     updateChart(circles, csvData, colorScale);
@@ -714,8 +710,6 @@ function createDropdown1(csvData){
     var dropdown = d3.select(".dropdown-container")
         .append("select")
         .attr("class", "dropdown")
-        //.style("left", left + "px")
-        //.style("top", top + "px")
         .on("change", function(){
             expressed1 = this.value;
             changeAttribute(csvData)
@@ -743,8 +737,6 @@ function createDropdown2(csvData){
     var dropdown = d3.select(".dropdown-container")
         .append("select")
         .attr("class", "dropdown")
-        //.style("left", left + "px")
-       // .style("top", top + "px")
         .on("change", function(){
             expressed2 = this.value;
             changeAttribute(csvData)
