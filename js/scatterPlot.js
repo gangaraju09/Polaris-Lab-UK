@@ -85,6 +85,28 @@ function setMap(){
         .attr("x", 5)
         .attr("y", 5);
 
+    // add popup page that displays website information
+    var popup = d3.select("body")
+        .append("div")
+        .attr("class", "popup")
+        .html("<p>Welcome to our website! This site is dedicated to exploring UK regions and their polarization values. Click 'OK' to continue.</p><button class='okBtn'>OK</button>");
+
+        // hide popup by default
+       // popup.style("display", "none");
+
+        // show popup when page loads
+        window.onload = function() {
+            popup.style("display", "block");
+        }
+
+        // hide popup when user clicks "OK"
+        d3.select(".okBtn").on("click", closePopup);
+
+        // close popup function
+        function closePopup() {
+        popup.style("display", "none");
+        
+    }
     // callback reads the output response of promises (read files - csv, topojson)
     // retrieves the file information
     function callback(data){
@@ -121,6 +143,7 @@ function setMap(){
         
     };
 };
+
 
 // Drawing UK regions to map frame
 function setEnumerationUnits(ukRegions, map, path, colorScale){
@@ -225,7 +248,7 @@ function makeColorScale(data){
                         "#DAA5AC", "#9E799B", "#624D8A",
                         "#C9585C", "#963567", "#621371"]; */   
     
-    var colorClasses = ["#FFEFE2", "#98CFE5", "#00AFE7",
+    var colorClasses = ["#FFFFFF", "#98CFE5", "#00AFE7",
                         "#FFB286", "#AF978B", "#427A8E",
                         "#F97529", "#AA5F37", "#5C473D"];  
 
@@ -352,7 +375,7 @@ function makeColorLegend(color) {
 
        // UPDATE THE COLOR CODES BELOW 
 
-        if (d == "#FFEFE2"){
+        if (d == "#FFFFFF"){
             return arrayDict[expressed1] + " (low) " + "<br>" + arrayDict[expressed] + " (low)";
         }
         else if (d == "#FFB286") {
@@ -614,6 +637,7 @@ function changeAttribute(csvData) {
 
     var xMax = d3.max(domainArray);
     var yMax = d3.max(domainArray1);
+    var xMin = d3.min(domainArray);
 
     yScale = d3.scaleLinear()
         .range([463, 0])
@@ -624,7 +648,7 @@ function changeAttribute(csvData) {
 
     xScale = d3.scaleLinear()
         .range([0, chartInnerWidth])
-        .domain([0, xMax+(0.1*xMax)]);
+        .domain([xMin-0.1, xMax+(0.1*xMax)]);
 
     var xAxis = d3.axisBottom()
         .scale(xScale)

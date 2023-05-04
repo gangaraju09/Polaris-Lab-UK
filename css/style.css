@@ -28,12 +28,12 @@
     stroke: #3d3d3d;
     stroke-width: 0.5px;
     stroke-linecap: round;
-    border: thin solid #999;
+    /*border: thin solid #999;*/
     border-radius: 5px;
     margin: 10px 0 0 20px;
     background-color: none; /* Existing backgroundp-color: #f5ddc9 */
     margin-top: 20px;
-    box-shadow: 2px 2px 4px #999;
+    /*box-shadow: 2px 2px 4px #999;*/
 }
 
 .button {
@@ -118,7 +118,7 @@ a:-webkit-any-link {
 .chart {
     float: right;
     margin: 20px 20px 0 0;
-    border: thin solid #999;
+    /*border: thin solid #999;*/
     border-radius: 5px;
     stroke-width: 0.5px;
     stroke-linecap: round;
@@ -132,14 +132,15 @@ a:-webkit-any-link {
 }
 
 .chartBackground {
-    fill: #f5ddc9;
+    fill: #FFEFE2;
+    border: 0;
     
 }
 
 .chartFrame {
     fill: none;
     stroke: #999;
-    stroke-width: 2px;
+    stroke-width: 0px;
     shape-rendering: crispEdges;
     border-radius: 5px;
 }
@@ -252,4 +253,37 @@ a:-webkit-any-link {
 body {
     background-color: #FFEFE2;
 }
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.365);
+    border: 1px solid #ccc;
+    padding: 20px;
+    max-width: 500px;
+    width: 80%;
+    text-align: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .popup p {
+    margin: 0 0 20px;
+  }
+  
+  .popup button {
+    padding: 10px 20px;
+    background-color: #0077cc;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .popup button:hover {
+    background-color: #005fa3;
+  }
+  
+  
 
