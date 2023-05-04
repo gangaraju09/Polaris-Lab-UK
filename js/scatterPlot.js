@@ -19,6 +19,7 @@ var dataObj = [{data: "data/polarization1995_data.csv", text : "1995"}, {data: "
 
 var expressed2 = dataArray[0];
 
+
 // create chart dimensions
 var chartWidth = window.innerWidth * 0.425,
 chartHeight = 473,
