@@ -45,7 +45,7 @@
     display: inline-block;
     font-size: 16px;
     padding: 3px;
-    margin-left: 280px;
+    margin-left: 200px;
     cursor: pointer;
     font-family: helmet;
     font-size: 1em;
@@ -200,7 +200,7 @@ a:-webkit-any-link {
 .dropdown:hover{
     background-color: #f5ddc9;
     color: black;
-    border: 0px solid #5C473D;
+    border: 2px solid #5C473D;
     box-shadow: 5px 5px 5px #999;
 }
 
