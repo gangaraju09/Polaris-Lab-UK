@@ -79,7 +79,7 @@ function setMap(){
 
     var insetMap = map.append("image")
         .attr("class", "insetMap")
-        .attr("xlink:href", "assets/UK_IM.svg")
+        .attr("xlink:href", "assets/UK_IM_1.svg")
         .attr("width", 250)
         .attr("height", 250)
         .attr("x", 5)
@@ -330,6 +330,39 @@ function makeColorLegend(color) {
     })
     .attr("width", rectWidth)
     .attr("height", rectHeight)
+
+    .attr("data-legend-label", function(d) {
+        // Add a data attribute with the legend label
+
+        if (d == "#FFFFFF"){
+            return arrayDict[expressed1] + " (low) " + "<br>" + arrayDict[expressed] + " (low)";
+        }
+        else if (d == "#FFB286") {
+            return arrayDict[expressed1] + " (low) " + "<br>" + arrayDict[expressed] + " (med)";
+        }
+        else if (d == "#F97529") {
+            return arrayDict[expressed1] + " (low) " + "<br>" + arrayDict[expressed] + " (high)";
+        } 
+        else if (d == "#98CFE5") {
+            return arrayDict[expressed1] + " (med) " + "<br>" + arrayDict[expressed] +  " (low)";
+        } 
+        else if (d == "#00AFE7") {
+            return arrayDict[expressed1] + " (high) " + "<br>" + arrayDict[expressed] + " (low)";
+        }
+        else if (d == "#AF978B") {
+            return arrayDict[expressed1] + " (med) " + "<br>" + arrayDict[expressed] + " (med)";
+        }
+        else if (d == "#5C473D") {
+            return arrayDict[expressed1] + " (high) " + "<br>" + arrayDict[expressed] + " (high)";
+        }
+        else if (d == "#AA5F37") {
+            return arrayDict[expressed1] + " (med) " + "<br>" + arrayDict[expressed] + " (high)";
+        } 
+        else {
+            return arrayDict[expressed1] + " (high)" + "<br>" + arrayDict[expressed] + " (med)";
+        }
+    })
+
     .style("stroke", "#bdbdbd")
     .style("stroke-width", 0.5)
     .style("fill", function (d) { return d; })
@@ -367,41 +400,6 @@ function makeColorLegend(color) {
         tooltip.transition()
           .duration(500)
           .style("opacity", 0);
-    })
-    
-    .attr("data-legend-label", function(d) {
-        // Add a data attribute with the legend label
-        
-
-       // UPDATE THE COLOR CODES BELOW 
-
-        if (d == "#FFFFFF"){
-            return arrayDict[expressed1] + " (low) " + "<br>" + arrayDict[expressed] + " (low)";
-        }
-        else if (d == "#FFB286") {
-            return arrayDict[expressed1] + " (low) " + "<br>" + arrayDict[expressed] + " (med)";
-        }
-        else if (d == "#F97529") {
-            return arrayDict[expressed1] + " (low) " + "<br>" + arrayDict[expressed] + " (high)";
-        } 
-        else if (d == "#98CFE5") {
-            return arrayDict[expressed1] + " (med) " + "<br>" + arrayDict[expressed] +  " (low)";
-        } 
-        else if (d == "#00AFE7") {
-            return arrayDict[expressed1] + " (high) " + "<br>" + arrayDict[expressed] + " (low)";
-        }
-        else if (d == "#AF978B") {
-            return arrayDict[expressed1] + " (med) " + "<br>" + arrayDict[expressed] + " (med)";
-        }
-        else if (d == "#5C473D") {
-            return arrayDict[expressed1] + " (high) " + "<br>" + arrayDict[expressed] + " (high)";
-        }
-        else if (d == "#AA5F37") {
-            return arrayDict[expressed1] + " (med) " + "<br>" + arrayDict[expressed] + " (high)";
-        } 
-        else {
-            return arrayDict[expressed1] + " (high)" + "<br>" + arrayDict[expressed] + " (med)";
-        }
     });
 
     // add drop shadow to chart
@@ -541,10 +539,6 @@ function setScatterPlot(csvData, colorScale){
 
 // creates dropdown based on arrayObj array
 function createDropdown(csvData){
-
-    //var left = document.querySelector('body').getBoundingClientRect().left + 8,
-      //  top = document.querySelector('body').getBoundingClientRect().top + 6;
-        // bottom = document.querySelector('body').getBoundingClientRect().bottom;
 
     //add select element
     var dropdown = d3.select(".dropdown-container")
@@ -716,10 +710,6 @@ function updateChart(circles, csvData, colorScale) {
 // creates dropdown based on arrayObj array
 function createDropdown1(csvData){
 
-   // var left = document.querySelector('body').getBoundingClientRect().left + 300,
-     //   top = document.querySelector('body').getBoundingClientRect().top + 6,
-       //  bottom = document.querySelector('body').getBoundingClientRect().bottom;
-
     //add select element
     var dropdown = d3.select(".dropdown-container")
         .append("select")
@@ -748,10 +738,6 @@ function createDropdown1(csvData){
 
 // creates dropdown based on arrayObj array
 function createDropdown2(csvData){
-
-   // var left = document.querySelector('body').getBoundingClientRect().left + 600,
-     //   top = document.querySelector('body').getBoundingClientRect().top + 6,
-       // bottom = document.querySelector('body').getBoundingClientRect().bottom;
 
     //add select element
     var dropdown = d3.select(".dropdown-container")
