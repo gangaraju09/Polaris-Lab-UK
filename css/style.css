@@ -200,7 +200,7 @@ a:-webkit-any-link {
 .dropdown:hover{
     background-color: #f5ddc9;
     color: black;
-    border: 2px solid #5C473D;
+    border: 0px solid #5C473D;
     box-shadow: 5px 5px 5px #999;
 }
 
