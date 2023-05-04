@@ -61,6 +61,31 @@
     box-shadow: 2px 2px 4px #999;
 }
 
+.print {
+    background-color: #f5ddc9;
+    border: 1px solid #999;
+    color: #464545;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    padding: 3px;
+    margin-left: auto;
+    cursor: pointer;
+    font-family: helmet;
+    font-size: 1em;
+    font-weight: bold;
+    box-shadow: 2px 2px 4px #999;
+    border-radius: 5px;
+}
+
+.print:hover{
+    background-color: white;
+    color: #a55f26;
+    border: 1px solid #e7e7e7;
+    box-shadow: 2px 2px 4px #999;
+}
+
 /* Title Ribbon */
 .mapTitle {
     background-color: #f5ddc9;
