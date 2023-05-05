@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+            <title></title>
+
+        <!--put your external stylesheet links here-->
+        <link rel="stylesheet" href="../css/style.css">
+        <!--[if IE<9]>
+            <link rel="stylesheet" href="css/style.ie.css">
+        <![endif]-->
+
+         <!--you can also place internal styles here;
+             place these within <style> tags-->
+        
+    </head>
+
+    <body>
+        <!--put your initial page content here-->
+        <div class="mapTitle" id="uk_icon">
+            Polaris Lab UK
+            <button class="option-button" onclick="window.location.href='index.html'">Map</button>
+        </div>
+        <button class = "print" onClick = "window.print()">Print</button>
+        <div class = "document">
+            <h2> Introduction:</h2>
+            
+            <p> <ul>Political polarization is the divergence of individual attitudes from a central point towards extreme edges (far right or far left). The idea of polarization keeps changing based on context and country. For instance, In the United States (US), polarization is used for assessing the ideologies of candidates and the amount of influence they wield on the voters. In the United Kingdom (UK), polarization is used to assess policy acceptance rate and predict trends when a referendum is passed.</p></ul>
+
+            <p><ul> However, political polarization is measured on qualitative information either collected from survey data or a questionnaire. The questionnaire consists of questions for the participants to either strongly agree, agree, neither agree nor disagree, disagree, or strongly agree. Therefore, each opinion is encoded with values in the form of a diverging scale. Following encoding, the sentiments are investigated using statistical models. Due to two-party system (Democrat Vs. Republican - bipartisan nature) in the US, political polarization is widely studied. As a result, the bulk of literature quantifying the qualitative information of opinions is produced in the US. </p></ul>
+
+            <p><ul> Therefore, we have tried to implement a similar conceptualization from the paper titled "Political Polarization in the UK: Measures and socio-economic correlates" by Daryna Grechyna. Prof Grechyna is faculty in the University of Grenada, Spain, and teaches topics related to dynamic macroeconomics, political economy, and economic growth. Furthermore, she used IBM SPSS software to analyze and produce the results of her research. Our key idea is to take the concepts of Prof Grechyna and Pythonize (convert into Python) them with geospatial analysis.</ul></p>
+
+            <h2>Data:</h2>
+
+            <p><ul>Data is downloaded from the <a href="https://beta.ukdataservice.ac.uk/datacatalogue/studies/study?id=5151#!/access-data"> UK data service portal</a>, which is access-based. British Household Panel Survey (BHPS) data collected from 1991 – 2009. Each year is referred to as a "wave." And data starts from Wave 1 (1991) and ends with Wave 18 (2009). The information could be downloaded in SPSS format as zip file, with each folder (bhps_w1) containing several files with different names. However, our interest data should be found with the name - [string for a particular wave]indresp. Data conversion is required from SPSS to CSV. For instance, bhps_w1 would be aindresp.csv (after conversion). Each file contains about 700 – 900 columns. However, one critical change after wave 1 is that all information would be regional instead of county level. Therefore, we have capitalized our analysis based on that one column which has spatial information.</ul></p>
+
+            <h2>Methods and Analysis: </h2>
+
+            <p><ul> Grechyna (2022) used calculations to derive normalized values for potential determinants of political polarization. Therefore, this enables us to evaluate trends and correlates on a regional basis (a group by "region" is applied) - Dissimilarity Index and Gini Index of income inequality to distribute weights of each group type.</ul></p>
+
+            <p><ul>The political polarization measured based in our study is based on three statements (S1, S2, S3) spread across years (1995, 2000, 2004).</ul></p>
+
+            <p><ul><ul>
+                <li> <b>Statement 1:</b> “Private enterprise is the best way to solve Britain’s economic problems.”</li>
+                <li><b>Statement 2:</b> “Major public services and industries ought to be in state ownership.”</li>
+                <li><b>Statement 3:</b> “It is the government’s responsibility to provide a job for everyone who wants one.”</li>
+            </ul></ul></p>
+
+            <p><ul>Furthermore, the political climate is analyzed by adopting three calculations:        </ul></p> 
+            
+            <ul><p><ul>
+                <li> <b>Lindqvist and Ostling (2010):</b> The variance of encoded opinions is calculated for each region to understand the deviation and distribution of opinions for each statement.</li>
+                <img src = "">
+                <p align = "center"><b>Opinion distribution change for all Statements</b> in the years 1995, 2000 and 2004</p>
+            </ul></p></ul>
+
+        </div>
+        
+
+        
+    </body>
+</html>
