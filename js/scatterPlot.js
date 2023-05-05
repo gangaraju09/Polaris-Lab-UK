@@ -19,7 +19,6 @@ var dataObj = [{data: "data/polarization1995_data.csv", text : "1995"}, {data: "
 
 var expressed2 = dataArray[0];
 
-
 // create chart dimensions
 var chartWidth = window.innerWidth * 0.425,
 chartHeight = 473,
@@ -72,6 +71,7 @@ function setMap(){
 
     // d3.csv(), d3.json() methods read csv, topojson files
     promises.push(d3.csv(expressed2));
+    console.log("CSV loaded at Promise >", expressed2)
     promises.push(d3.json("data/UK_regions.topojson"));
 
     // Promise helps to load the data asynchronously
@@ -90,7 +90,7 @@ function setMap(){
     var popup = d3.select("body")
         .append("div")
         .attr("class", "popup")
-        .html("<h3> Welcome to Polaris Lab UK !</h3> <ul align = 'left'> <li> <b> Attention user :</b> The site only designed to work on desktop and would not work on mobile phones</li> <li>The UK interactive map displayed here does <b>not</b> contain information related to <b> Northern Ireland </b> and <b> Isle of Man </b>. Therefore, these areas are removed </li> <li> Information is displayed is calculated and derived from British Household Panel Survey (BHPS) via UK data service portal. Therefore prone to <b>errors</b>.</li></ul> <p>By clicking 'OK' to continue. Therefore, you accept that there errors in the map calculations and they are acceptable</p> </li> <button class='okBtn'><b>OK</b></button>");
+        .html("<h3> Welcome to Polaris Lab UK !</h3> <ul align = 'left'> <li> <b> Attention user :</b> The site only designed to work on desktop and would not work on mobile phones</li> <li>The UK interactive map displayed here does <b>not</b> contain information related to <b> Northern Ireland </b> and <b> Isle of Man </b>. Therefore, these areas are removed </li> <li> Information displayed is calculated data and derived from British Household Panel Survey (<b>BHPS</b>) via UK data service portal. Therefore prone to <b>errors</b>.</li> <li>Proceed with <b>selection</b> of <b>polarization method</b> and an attribute. It has <b>three</b> methods - <b> Lindqvist Östling </b>, <b> Abramowitz Saunders </b>, <b> Duca Saving </b>. <li> Where each polarization method is calculated using three statements (encoding each opinion into value. Strongly agree: 2, Agree: 1, Neither agree nor disagree: 0, Disagree: -1, Strongly disagree: -2) as follows: <ul> <li> Statement 1 (<b>S1</b>): 'Private enterprise is the best way to solve Britain economic problems'</li> <li> Statement 2 (<b>S2</b>): 'Major public services and industries ought to be in state ownership.'</li> <li> Statement 3 (<b>S3</b>): 'It is the government responsibility to provide a job for everyone who wants one'</li></li></ul> </li> <li><b>Select</b> a <b>year</b> from dropdown of available years: <b> 1995, 2000, 2004. </b> </li></ul> <p>By clicking 'OK' to continue, you accept that there errors in the calculations and map display, and they are acceptable.</p> </li> <button class='okBtn'><b>OK</b></button>");
 
         // show popup when page loads
         window.onload = function() {
@@ -134,6 +134,7 @@ function setMap(){
         createDropdown(csvData);
         // add attribute values dropdown to the map
         createDropdown1(csvData);
+
         createDropdown2(csvData);
 
         // add color legend
@@ -141,7 +142,6 @@ function setMap(){
         
     };
 };
-
 
 // Drawing UK regions to map frame
 function setEnumerationUnits(ukRegions, map, path, colorScale){
@@ -421,7 +421,7 @@ function setScatterPlot(csvData, colorScale){
     // create chart dimensions
     var chartWidth = window.innerWidth * 0.425,
         chartHeight = 473,
-        leftPadding = 27,
+        leftPadding = 29,
         rightPadding = 0.5,
         topBottomPadding = 5,
         chartInnerWidth = chartWidth - leftPadding - rightPadding,
@@ -562,7 +562,6 @@ function createDropdown(csvData){
 
 // dropdown change listener handler
 function changeAttribute(csvData) {
-
     // recreate the color scale
     var colorScale = makeColorScale(csvData);
 
@@ -741,7 +740,7 @@ function createDropdown2(csvData){
         .on("change", function(){
             expressed2 = this.value;
             changeAttribute(csvData)
-            console.log("loaded CSV:",expressed2)
+            console.log("loaded CSV in createDropdown2:",expressed2)
         });
 
     //add initial option
