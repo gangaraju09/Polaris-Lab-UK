@@ -109,10 +109,19 @@
     align-items: center;
 }
 
+.mapTitleLink:-webkit-any-link {
+    font-family: helmet;
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color:#5C473D;
+    cursor: pointer;
+    text-decoration: none;
+}
+
 .option-button {
     background-color: #f5ddc9;
     color: #5C473D;
-    
     stroke: #999;
     stroke-width: 1px;
     padding: 5px 10px;
@@ -340,6 +349,7 @@ body {
   }
   
   .document{
+    font-family: helmet;
     margin: 30px;
   }
   
