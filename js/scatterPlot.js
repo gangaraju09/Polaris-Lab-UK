@@ -11,13 +11,22 @@ var arrayObj1 = [{data:"std_dev_age", text:"Standard Deviation of Age"}, {data:"
 var expressed = attrArray[13]; // loaded attribute based on index
 var expressed1 = attrArray[3];
 
-var dataArray = ["data/polarization1995_data.csv", "data/polarization2000_data.csv", "data/polarization2004_data.csv"];
+var dataArray = [ "data/polarization_data.csv"];
+    
+var dataDict = {"data/polarization_data.csv" : "1995", "data/polarization_data.csv": "2000", "data/polarization_data.csv": "2004"}
 
-var dataDict = {"data/polarization1995_data.csv" : "1995", "data/polarization2000_data.csv": "2000", "data/polarization2004_data.csv": "2004"}
-
-var dataObj = [{data: "data/polarization1995_data.csv", text : "1995"}, {data: "data/polarization2000_data.csv", text : "2000"}, {data: "data/polarization2004_data.csv", text : "2004"}];
+var dataObj = [{data: "data/polarization_data.csv", text : "1995"}, {data: "data/polarization_data.csv", text : "2000"}, {data: "data/polarization_data.csv", text : "2004"}];
 
 var expressed2 = dataArray[0];
+
+// create a temperory year variable
+var currYear = 1995;
+
+var currentSelection = expressed+"_"+currYear
+console.log("currentSelection Global value :",currentSelection)
+
+var currentSelection1 = expressed1+"_"+currYear
+console.log("currentSelection1 Global value :",currentSelection1)
 
 // create chart dimensions
 var chartWidth = window.innerWidth * 0.425,
@@ -70,8 +79,8 @@ function setMap(){
     var promises = [];
 
     // d3.csv(), d3.json() methods read csv, topojson files
-    promises.push(d3.csv(expressed2));
-    console.log("CSV loaded at Promise >", expressed2)
+
+    promises.push(d3.csv("data/polarization_data.csv"));
     promises.push(d3.json("data/UK_regions.topojson"));
 
     // Promise helps to load the data asynchronously
@@ -109,7 +118,7 @@ function setMap(){
     // retrieves the file information
     function callback(data){
         var csvData = data[0], uk = data[1];
-        console.log(csvData)
+            console.log(csvData)
 
         // testing whether the files are loaded correctly or not
         console.log("CSV data below",csvData);
@@ -156,13 +165,14 @@ function setEnumerationUnits(ukRegions, map, path, colorScale){
         })
         .attr("d", path)
         .style("fill", function(d){            
-        var value = d.properties[expressed]; 
-        var value1 = d.properties[expressed1]; 
+        var value = d.properties[currentSelection]; 
+        var value1 = d.properties[currentSelection1]; 
+        console.log(d.properties)
         if(value && value1) {                
-            return colorScale(d.properties[expressed], d.properties[expressed1]);            
+            return colorScale(d.properties[currentSelection], d.properties[currentSelection1]);            
         } else {                
             return "#ccc";            
-        }    
+        }     
     })
     // mouseover, mouseout events for highlighting or dehighlighting
     .on("mouseover", function(event, d){
@@ -208,11 +218,14 @@ function joinData(ukRegions, csvData){
 
         //where primary keys match, transfer csv data to geojson properties object
         if (geojsonKey === csvKey){
-
+            var years = ["1995","2000","2004"];
             //assign all attributes and values
             attrArray.forEach(function(attr){
-                var val = parseFloat(csvRegion[attr]); //get csv attribute value
-                geojsonProps[attr] = val; //assign attribute and value to geojson properties
+                years.forEach(function(year){
+                    var tempAttr = attr + "_" + year;
+                    var val = parseFloat(csvRegion[tempAttr]); //get csv attribute value
+                    geojsonProps[tempAttr] = val; //assign attribute and value to geojson properties
+                })
             });
             geojsonProps.admin1_code = csvRegion.admin1_code;
         };
@@ -258,8 +271,8 @@ function makeColorScale(data){
     var attr1Values = [];
     var attr2Values = [];
     for (var i=0; i<data.length; i++) {
-        attr1Values.push(parseFloat(data[i][expressed]));
-        attr2Values.push(parseFloat(data[i][expressed1]));
+        attr1Values.push(parseFloat(data[i][currentSelection]));
+        attr2Values.push(parseFloat(data[i][currentSelection1]));
     }
 
     // get the max and min values for each attribute
@@ -271,8 +284,8 @@ function makeColorScale(data){
     // Create an array of bivariate values for each feature
     var bivariateValues = [];
     for (var i=0; i<data.length; i++) {
-        var attr1Val = parseFloat(data[i][expressed]);
-        var attr2Val = parseFloat(data[i][expressed1]);
+        var attr1Val = parseFloat(data[i][currentSelection]);
+        var attr2Val = parseFloat(data[i][currentSelection1]);
         
         var bivariateVal = (attr1Val - attr1Min)/(attr1Max - attr1Min) + (attr2Val - attr2Min)/(attr2Max - attr2Min);
         bivariateValues.push(bivariateVal);
@@ -461,15 +474,15 @@ function setScatterPlot(csvData, colorScale){
             return "circle " + d.admin1_code;
         })
         .attr("cx", function(d){
-            return xScale(parseFloat(d[expressed])) + leftPadding 
+            return xScale(parseFloat(d[currentSelection])) + leftPadding 
             
         })
         .attr("cy", function(d){
-            return yScale(parseFloat(d[expressed1])) + topBottomPadding;
+            return yScale(parseFloat(d[currentSelection1])) + topBottomPadding;
         })
         .attr("r", "5")
         .style("fill", function(d){
-            return colorScale(d[expressed], d[expressed1])
+            return colorScale(d[currentSelection], d[currentSelection1])
         })
         .attr("stroke", "#636363")
         .attr("width", chartInnerWidth / csvData.length - 5)
@@ -486,7 +499,7 @@ function setScatterPlot(csvData, colorScale){
         .attr("x", 40)
         .attr("y", 30)
         .attr("class", "chartTitle")
-        .text(arrayDict[expressed] + " Vs " + arrayDict[expressed1]+ " (" + dataDict[expressed2] + ")");
+        .text(arrayDict[expressed] + " Vs " + arrayDict[expressed1]+ " (" + currYear + ")");
         
     // create vertical axis generator
     var yAxis = d3.axisLeft()
@@ -565,12 +578,15 @@ function changeAttribute(csvData) {
     // recreate the color scale
     var colorScale = makeColorScale(csvData);
 
+    var currentSelection = expressed+"_"+currYear
+    var currentSelection1 = expressed1+"_"+currYear
+
     // create separate arrays of values for each attribute
     var attr1Values = [];
     var attr2Values = [];
     for (var i=0; i<csvData.length; i++) {
-        attr1Values.push(parseFloat(csvData[i][expressed]));
-        attr2Values.push(parseFloat(csvData[i][expressed1]));
+        attr1Values.push(parseFloat(csvData[i][currentSelection]));
+        attr2Values.push(parseFloat(csvData[i][currentSelection1]));
     }
    
     // get the max and min values for each attribute
@@ -584,8 +600,8 @@ function changeAttribute(csvData) {
         .transition()
         .duration(1000)
         .style("fill", function (d) {
-            var attr1Val = parseFloat(d.properties[expressed]);
-            var attr2Val = parseFloat(d.properties[expressed1]);
+            var attr1Val = parseFloat(d.properties[currentSelection]);
+            var attr2Val = parseFloat(d.properties[currentSelection1]);
            
             var bivariateVal = (attr1Val - attr1Min)/(attr1Max - attr1Min) + (attr2Val - attr2Min)/(attr2Max - attr2Min);
             if (bivariateVal) {
@@ -603,22 +619,22 @@ function changeAttribute(csvData) {
         .duration(700)
         // update cx position based on new attribute value
         .attr("cx", function(d) { 
-            return xScale(parseFloat(d[expressed])); 
+            return xScale(parseFloat(d[currentSelection])); 
         }) 
         // update cy position based on new attribute value
         .attr("cy", function(d) {
-             return yScale(parseFloat(d[expressed1])); 
+             return yScale(parseFloat(d[currentSelection1])); 
         }) 
         .style("fill", function(d) { 
-            return colorScale(parseFloat(d[expressed]) - parseFloat(d[expressed1]));
+            return colorScale(parseFloat(d[currentSelection]) - parseFloat(d[currentSelection1]));
          });
     
     var domainArray = [];
     var domainArray1 = [];
     for (var i=0; i<csvData.length; i++){
-        var val = parseFloat(csvData[i][expressed]);
+        var val = parseFloat(csvData[i][currentSelection]);
         domainArray.push(val);
-        var val1 = parseFloat(csvData[i][expressed1]);
+        var val1 = parseFloat(csvData[i][currentSelection1]);
         domainArray1.push(val1);
     };
 
@@ -655,11 +671,15 @@ function changeAttribute(csvData) {
 
 function updateChart(circles, csvData, colorScale) {
     // create separate arrays of values for each attribute
+
+    var currentSelection = expressed+"_"+currYear
+    var currentSelection1 = expressed1+"_"+currYear
+
     var attr1Values = [];
     var attr2Values = [];
     for (var i=0; i<csvData.length; i++) {
-        attr1Values.push(parseFloat(csvData[i][expressed]));
-        attr2Values.push(parseFloat(csvData[i][expressed1]));
+        attr1Values.push(parseFloat(csvData[i][currentSelection]));
+        attr2Values.push(parseFloat(csvData[i][currentSelection1]));
     }
    
     // get the max and min values for each attribute
@@ -670,24 +690,24 @@ function updateChart(circles, csvData, colorScale) {
 
     // position circles
     circles.attr("cx", function (d, i) {
-        return  xScale(parseFloat(d[expressed])) + leftPadding;
+        return  xScale(parseFloat(d[currentSelection])) + leftPadding;
     })
     .attr("width", function (d, i) {
-        return  chartWidth - xScale(parseFloat(d[expressed]));
+        return  chartWidth - xScale(parseFloat(d[currentSelection]));
     })
         // resize circles
         .attr("height", function (d, i) {
-            return 463 - yScale(parseFloat(d[expressed1]));
+            return 463 - yScale(parseFloat(d[currentSelection1]));
         })
         .attr("cy", function (d, i) {
-            return yScale(parseFloat(d[expressed1])) + topBottomPadding;
+            return yScale(parseFloat(d[currentSelection1])) + topBottomPadding;
         })
         // recolor circles
         // create separate arrays of values for each attribute
 
         .style("fill", function (d, i) {
-            var attr1Val = parseFloat(d[expressed]);
-            var attr2Val = parseFloat(d[expressed1]);
+            var attr1Val = parseFloat(d[currentSelection]);
+            var attr2Val = parseFloat(d[currentSelection1]);
            
             var bivariateVal = (attr1Val - attr1Min)/(attr1Max - attr1Min) + (attr2Val - attr2Min)/(attr2Max - attr2Min);
             if (bivariateVal) {
@@ -700,7 +720,7 @@ function updateChart(circles, csvData, colorScale) {
     // add text to chart title
     var chartTitle = d3
         .select(".chartTitle")
-        .text(arrayDict[expressed] + " Vs " + arrayDict[expressed1]+ " (" + dataDict[expressed2] + ")");
+        .text(arrayDict[expressed] + " Vs " + arrayDict[expressed1]+ " (" + currYear +  ")");
 };
 
 // creates dropdown based on arrayObj array
@@ -738,9 +758,9 @@ function createDropdown2(csvData){
         .append("select")
         .attr("class", "dropdown")
         .on("change", function(){
-            expressed2 = this.value;
+            currYear = this.value
             changeAttribute(csvData)
-            console.log("loaded CSV in createDropdown2:",expressed2)
+            console.log("currYear:", currYear)
         });
 
     //add initial option
@@ -754,7 +774,7 @@ function createDropdown2(csvData){
         .data(dataObj)
         .enter()
         .append("option")
-        .attr("value", function(d){ return d.data })
+        .attr("value", function(d){ return d.text })
         .text(function(d){ return d.text });
 };
 
@@ -793,9 +813,12 @@ function dehighlight(props){
 
 function setLabel(props){
     // label content
-    var labelAttribute = "<b style='font-size:25px;'>" + parseFloat(props[expressed]).toFixed(2) + 
+    var currentSelection = expressed+"_"+currYear
+    var currentSelection1 = expressed1+"_"+currYear
+
+    var labelAttribute = "<b style='font-size:25px;'>" + parseFloat(props[currentSelection]).toFixed(2) + 
     "</b> <b>" + arrayDict[expressed] + "</b>";
-    var labelAttribute1 = "<b style='font-size:25px;'>" + parseFloat(props[expressed1]).toFixed(2) + 
+    var labelAttribute1 = "<b style='font-size:25px;'>" + parseFloat(props[currentSelection1]).toFixed(2) + 
     "</b> <b>" + arrayDict[expressed1] + "</b>";
 
     //create info label div
@@ -807,7 +830,7 @@ function setLabel(props){
 
     var countyName = infolabel.append("div")
         .attr("class", "labelname")
-        .html(props.nuts118nm + " (" + dataDict[expressed2] +")");
+        .html(props.nuts118nm + " (" + currYear +")");
 };
   
 // function to move info label with mouse

@@ -18,47 +18,15 @@
     var dataObj = [{data: "data/polarization_data.csv", text : "1995"}, {data: "data/polarization_data.csv", text : "2000"}, {data: "data/polarization_data.csv", text : "2004"}];
     
     var expressed2 = dataArray[0];
-
-    // Get the column names from the CSV file
-    d3.csv(expressed2).then(function(data) {
-    var columnNames = Object.keys(data[0]); // assuming the first row contains the column names
   
-    // Split the column names into two parts based on different years
-    for (var i = 0; i < columnNames.length; i++) {
-      var name = columnNames[i];
-      var year = "";
-  
-      if (name.indexOf("_1995") > -1) {
-        year = "_1995";
-      } else if (name.indexOf("_2000") > -1) {
-        year = "_2000";
-      } else if (name.indexOf("_2004") > -1) {
-        year = "_2004";
-      }
-  
-      var prefix = name.substring(0, name.indexOf(year));
-      var suffix = year;
-  
-      // Do something with the prefix and suffix
-      console.log("Prefix: " + prefix);
-      console.log("Suffix: " + suffix);
-    }
-  });
-  
-
-    
     // create a temperory year variable
-    var currentYear = 1995;
-    
-    var defaultSelection = expressed+"_"+currentYear;
-    console.log("defaultSelection value :",defaultSelection)
+    var currYear = 1995;
 
-    var defaultSelection1 = expressed1+"_"+currentYear;
-    console.log("defaultSelection1 value :",defaultSelection1)
+    var currentSelection = expressed+"_"+currYear
+    console.log("currentSelection Global value :",currentSelection)
 
-    var defaultSelection2 = expressed2;
-    console.log("defaultSelection 2value :",defaultSelection2)
-
+    var currentSelection1 = expressed1+"_"+currYear
+    console.log("currentSelection1 Global value :",currentSelection1)
 
     
     // create chart dimensions
@@ -112,7 +80,7 @@
         var promises = [];
     
         // d3.csv(), d3.json() methods read csv, topojson files
-        promises.push(d3.csv(defaultSelection2));
+        promises.push(d3.csv("data/polarization_data.csv"));
         promises.push(d3.json("data/UK_regions.topojson"));
     
         // Promise helps to load the data asynchronously
@@ -197,10 +165,11 @@
             })
             .attr("d", path)
             .style("fill", function(d){            
-            var value = d.properties[defaultSelection]; 
-            var value1 = d.properties[defaultSelection1]; 
+            var value = d.properties[currentSelection]; 
+            var value1 = d.properties[currentSelection1]; 
+            console.log(d.properties)
             if(value && value1) {                
-                return colorScale(d.properties[defaultSelection], d.properties[defaultSelection1]);            
+                return colorScale(d.properties[currentSelection], d.properties[currentSelection1]);            
             } else {                
                 return "#ccc";            
             }    
@@ -249,11 +218,14 @@
     
             //where primary keys match, transfer csv data to geojson properties object
             if (geojsonKey === csvKey){
-    
+                var years = ["1995","2000","2004"];
                 //assign all attributes and values
                 attrArray.forEach(function(attr){
-                    var val = parseFloat(csvRegion[attr]); //get csv attribute value
-                    geojsonProps[attr] = val; //assign attribute and value to geojson properties
+                    years.forEach(function(year){
+                        var tempAttr = attr + "_" + year;
+                        var val = parseFloat(csvRegion[tempAttr]); //get csv attribute value
+                        geojsonProps[tempAttr] = val; //assign attribute and value to geojson properties
+                    })
                 });
                 geojsonProps.admin1_code = csvRegion.admin1_code;
             };
@@ -299,8 +271,8 @@
         var attr1Values = [];
         var attr2Values = [];
         for (var i=0; i<data.length; i++) {
-            attr1Values.push(parseFloat(data[i][expressed]));
-            attr2Values.push(parseFloat(data[i][expressed1]));
+            attr1Values.push(parseFloat(data[i][currentSelection]));
+            attr2Values.push(parseFloat(data[i][currentSelection1]));
         }
     
         // get the max and min values for each attribute
@@ -312,8 +284,8 @@
         // Create an array of bivariate values for each feature
         var bivariateValues = [];
         for (var i=0; i<data.length; i++) {
-            var attr1Val = parseFloat(data[i][expressed]);
-            var attr2Val = parseFloat(data[i][expressed1]);
+            var attr1Val = parseFloat(data[i][currentSelection]);
+            var attr2Val = parseFloat(data[i][currentSelection1]);
             
             var bivariateVal = (attr1Val - attr1Min)/(attr1Max - attr1Min) + (attr2Val - attr2Min)/(attr2Max - attr2Min);
             bivariateValues.push(bivariateVal);
@@ -372,31 +344,31 @@
         .attr("data-legend-label", function(d) {
             // Add a data attribute with the legend label
             if (d == "#FFFFFF"){
-                return arrayDict[expressed1] + " (low) " + "<br>" + arrayDict[expressed] + " (low)";
+                return arrayDict[currentSelection1] + " (low) " + "<br>" + arrayDict[currentSelection] + " (low)";
             }
             else if (d == "#FFB286") {
-                return arrayDict[expressed1] + " (low) " + "<br>" + arrayDict[expressed] + " (med)";
+                return arrayDict[currentSelection1] + " (low) " + "<br>" + arrayDict[currentSelection] + " (med)";
             }
             else if (d == "#F97529") {
-                return arrayDict[expressed1] + " (low) " + "<br>" + arrayDict[expressed] + " (high)";
+                return arrayDict[currentSelection1] + " (low) " + "<br>" + arrayDict[currentSelection] + " (high)";
             } 
             else if (d == "#98CFE5") {
-                return arrayDict[expressed1] + " (med) " + "<br>" + arrayDict[expressed] +  " (low)";
+                return arrayDict[currentSelection1] + " (med) " + "<br>" + arrayDict[currentSelection] +  " (low)";
             } 
             else if (d == "#00AFE7") {
-                return arrayDict[expressed1] + " (high) " + "<br>" + arrayDict[expressed] + " (low)";
+                return arrayDict[currentSelection1] + " (high) " + "<br>" + arrayDict[currentSelection] + " (low)";
             }
             else if (d == "#AF978B") {
-                return arrayDict[expressed1] + " (med) " + "<br>" + arrayDict[expressed] + " (med)";
+                return arrayDict[currentSelection1] + " (med) " + "<br>" + arrayDict[currentSelection] + " (med)";
             }
             else if (d == "#5C473D") {
-                return arrayDict[expressed1] + " (high) " + "<br>" + arrayDict[expressed] + " (high)";
+                return arrayDict[currentSelection1] + " (high) " + "<br>" + arrayDict[currentSelection] + " (high)";
             }
             else if (d == "#AA5F37") {
-                return arrayDict[expressed1] + " (med) " + "<br>" + arrayDict[expressed] + " (high)";
+                return arrayDict[currentSelection1] + " (med) " + "<br>" + arrayDict[currentSelection] + " (high)";
             } 
             else {
-                return arrayDict[expressed1] + " (high)" + "<br>" + arrayDict[expressed] + " (med)";
+                return arrayDict[currentSelection1] + " (high)" + "<br>" + arrayDict[currentSelection] + " (med)";
             }
         })
         .style("stroke", "#bdbdbd")
@@ -502,15 +474,15 @@
                 return "circle " + d.admin1_code;
             })
             .attr("cx", function(d,){
-                return xScale(parseFloat(d[defaultSelection])) + leftPadding 
+                return xScale(parseFloat(d[currentSelection])) + leftPadding 
                 
             })
             .attr("cy", function(d,){
-                return yScale(parseFloat(d[defaultSelection1])) + topBottomPadding;
+                return yScale(parseFloat(d[currentSelection1])) + topBottomPadding;
             })
             .attr("r", "5")
             .style("fill", function(d){
-                return colorScale(d[defaultSelection], d[defaultSelection1])
+                return colorScale(d[currentSelection], d[currentSelection1])
             })
             .attr("stroke", "#636363")
             .attr("width", chartInnerWidth / csvData.length - 5)
@@ -527,7 +499,7 @@
             .attr("x", 40)
             .attr("y", 30)
             .attr("class", "chartTitle")
-            .text(arrayDict[expressed] + " Vs " + arrayDict[expressed1]+ " (" + dataDict[expressed2] + ")");
+            .text(arrayDict[currentSelection] + " Vs " + arrayDict[currentSelection1]+ " (" + dataDict[expressed2] + ")");
             
         // create vertical axis generator
         var yAxis = d3.axisLeft()
@@ -582,7 +554,7 @@
             .append("select")
             .attr("class", "dropdown")
             .on("change", function(){
-                defaultSelection = this.value;
+                expressed = this.value;
                 changeAttribute(csvData)
             });
     
@@ -602,15 +574,13 @@
     };
     
     // dropdown change listener handler
-    function changeAttribute(attribute, csvData) {
-        attribute = expressed2;
-        console.log("Expressed 2 is here >", attribute)
+    function changeAttribute(csvData) {
     
         // recreate the color scale
         var colorScale = makeColorScale(csvData);
-    
-        var currentSelection = expressed+"_"+expressed2
-        var currentSelection1 = expressed1+"_"+expressed2
+        
+        var currentSelection = expressed+"_"+currYear
+        var currentSelection1 = expressed1+"_"+currYear
     
         // create separate arrays of values for each attribute
         var attr1Values = [];
@@ -702,8 +672,8 @@
     
     function updateChart(circles, csvData, colorScale) {
         // create separate arrays of values for each attribute
-        var currentSelection = expressed+"_"+expressed2
-        var currentSelection1 = expressed1+"_"+expressed2
+        var currentSelection = expressed+"_"+currYear
+        var currentSelection1 = expressed1+"_"+currYear
     
         var attr1Values = [];
         var attr2Values = [];
@@ -756,15 +726,12 @@
     // creates dropdown based on arrayObj array
     function createDropdown1(csvData){
     
-        var currentSelection = expressed+"_"+expressed2
-        var currentSelection1 = expressed1+"_"+expressed2
-    
         //add select element
         var dropdown = d3.select(".dropdown-container")
             .append("select")
             .attr("class", "dropdown")
             .on("change", function(){
-                currentSelection1 = this.value;
+                expressed1 = this.value;
                 changeAttribute(csvData)
             });
     
@@ -791,7 +758,9 @@
             .append("select")
             .attr("class", "dropdown")
             .on("change", function(){
-                changeAttribute(this.value, csvData)
+                currYear = this.value
+                changeAttribute(csvData)
+                console.log("currYear:", currYear)
             });
     
         //add initial option
@@ -805,7 +774,7 @@
             .data(dataObj)
             .enter()
             .append("option")
-            .attr("value", function(d){ return d.data })
+            .attr("value", function(d){ return d.text })
             .text(function(d){ return d.text });
     };
     
@@ -845,13 +814,13 @@
     function setLabel(props){
         // label content
     
-        var currentSelection = expressed+"_"+expressed2
-        var currentSelection1 = expressed1+"_"+expressed2
+        var currentSelection = expressed+"_"+currYear
+        var currentSelection1 = expressed1+"_"+currYear
     
         var labelAttribute = "<b style='font-size:25px;'>" + parseFloat(props[currentSelection]).toFixed(2) + 
-        "</b> <b>" + arrayDict[currentSelection] + "</b>";
+        "</b> <b>" + arrayDict[expressed] + "</b>";
         var labelAttribute1 = "<b style='font-size:25px;'>" + parseFloat(props[currentSelection1]).toFixed(2) + 
-        "</b> <b>" + arrayDict[currentSelection1] + "</b>";
+        "</b> <b>" + arrayDict[expressed1] + "</b>";
     
         //create info label div
         var infolabel = d3.select("body")
@@ -862,7 +831,7 @@
     
         var countyName = infolabel.append("div")
             .attr("class", "labelname")
-            .html(props.nuts118nm + " (" + dataDict[expressed2] +")");
+            .html(props.nuts118nm + " (" + currYear +")");
     };
       
     // function to move info label with mouse
