@@ -6,8 +6,8 @@
 }
 
 @font-face{
-    font-family: helmet;
-    src: url(Helmet-lWZV.otf);
+    font-family: salmapro;
+    src: url(salmapro-lWZV.otf);
 }
 @font-face{
     font-family: mainlux;
@@ -47,7 +47,7 @@
     padding: 3px;
     margin-left: 100px;
     cursor: pointer;
-    font-family: helmet;
+    font-family: salmapro;
     font-size: 1em;
     font-weight: bold;
     box-shadow: 2px 2px 4px #999;
@@ -72,7 +72,7 @@
     padding: 3px;
     margin-left: auto;
     cursor: pointer;
-    font-family: helmet;
+    font-family: salmapro;
     font-size: 1em;
     font-weight: bold;
     box-shadow: 2px 2px 4px #999;
@@ -100,7 +100,7 @@
     margin-bottom: 10px;
     text-align:left;
     font-family: helmet;
-    font-size: 30px;
+    font-size: 25px;
     font-weight: bold;
     letter-spacing: 2px;
     color:#5C473D;
@@ -110,13 +110,14 @@
 }
 
 .mapTitleLink:-webkit-any-link {
-    font-family: helmet;
-    font-size: 30px;
+    font-family: salmapro;
+    font-size: 25px;
     font-weight: bold;
     letter-spacing: 2px;
     color:#5C473D;
     cursor: pointer;
     text-decoration: none;
+    width: auto;
 }
 
 .mapTitle:hover{
@@ -134,10 +135,10 @@
     padding: 5px 10px;
     font-size: 14px;
     cursor: pointer;
-    margin-left: 870px;
+    margin-left: 850px;
     border-radius: 3px;
     font-weight: bold;
-    font-family: helmet;
+    font-family: salmapro;
   }
   
   .option-button:hover {
@@ -163,7 +164,7 @@ a:-webkit-any-link {
     position: absolute;
     bottom: -250px;
     width: auto;
-    font-family: helmet;
+    font-family: salmapro;
     font-size: 1em;
     color:#91a28a;
 }
@@ -174,7 +175,7 @@ a:-webkit-any-link {
     bottom: -300px;
     left: 0;
     width: 100%;
-    font-family: helmet;
+    font-family: salmapro;
     font-size: 1em;
     color:#91a28aa0;
     text-align: center;
@@ -191,7 +192,7 @@ a:-webkit-any-link {
 }
 
 .chartTitle {
-    font-family: helmet ;
+    font-family: salmapro ;
     font-size: 16px;
     font-weight: normal;
     color: #9999991c;
@@ -212,7 +213,7 @@ a:-webkit-any-link {
 }
 
 .x-axis text{
-    font-family: helmet;
+    font-family: salmapro;
     font-size: 0.8em;
     fill: #999;
 }
@@ -234,13 +235,13 @@ a:-webkit-any-link {
 }
 
 .axis text {
-    font-family: helmet;
+    font-family: salmapro;
     font-size: 0.9em;
     fill: #999;
 }
 
 .x-axis text {
-    font-family: helmet;
+    font-family: salmapro;
     font-size: 0.9em;
     fill: #999;
 }
@@ -249,7 +250,7 @@ a:-webkit-any-link {
 /* dropdown */
 .dropdown {
     background-color: #f5ddc9;
-    font-family: helmet;
+    font-family: salmapro;
     font-size: 1em;
     font-weight:550;
     color: #464545;
@@ -273,7 +274,7 @@ a:-webkit-any-link {
     left: 35%;
     background-color: #ffffffa5;
     color: #5C473D;
-    font-family: helmet;
+    font-family: salmapro;
     font-size: 1em;
     padding: .5em;
     min-width: 10rem;
@@ -307,7 +308,7 @@ a:-webkit-any-link {
     border: solid thin #464545;
     padding: 5px 10px;
     top: -100px;
-    font-family: helmet;
+    font-family: salmapro;
 }
 
 .infolabel h1 {
@@ -315,7 +316,7 @@ a:-webkit-any-link {
     padding: 0;
     display: inline-block;
     line-height: 1em;
-    font-family: helmet;
+    font-family: salmapro;
 }
 
 .tooltip {    
@@ -329,13 +330,13 @@ a:-webkit-any-link {
     border: solid thin #464545;
     padding: 5px 10px;
     top: -100px;
-    font-family: helmet;
+    font-family: salmapro;
 }
 
 /* color legend */
 .legend{
     position: absolute;
-    font-family: helmet;
+    font-family: salmapro;
     font-size: 0.9em;
     font-weight: normal;
     color:#8e8e8e;
@@ -358,7 +359,7 @@ body {
     width: 80%;
     text-align: center;
     box-shadow: 0px 0px 10px rgba(97, 97, 97, 0.3);
-    font-family: helmet;
+    font-family: salmapro;
   }
   
   .popup p {
