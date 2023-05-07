@@ -119,25 +119,38 @@
     text-decoration: none;
 }
 
+.mapTitle:hover{
+    color: #a55f26;
+    border: 1px solid #e7e7e7;
+    box-shadow: 2px 2px 4px #999;
+    font-weight: bold;
+}
+
 .option-button {
     background-color: #f5ddc9;
-    color: #5C473D;
-    stroke: #999;
+    color: #a55f26;;
+    stroke: #a55f26;
     stroke-width: 1px;
     padding: 5px 10px;
     font-size: 14px;
     cursor: pointer;
     margin-left: 870px;
     border-radius: 3px;
+    font-weight: bold;
+    font-family: helmet;
   }
   
   .option-button:hover {
-    background-color: #f5ddc9;
+    background-color: white;
+    color: #a55f26;
+    border: 1px solid #e7e7e7;
+    box-shadow: 2px 2px 4px #999;
+    font-weight: bold;
   }
 
 /* Hyperlinks style*/
 a:-webkit-any-link {
-    color: #08519c;
+    color: #a55f26;
     cursor: pointer;
     text-decoration: underline;
 }
@@ -253,6 +266,25 @@ a:-webkit-any-link {
     display: inline-block;
 }
 
+.dropdown-container .tooltip-content {
+    display: none;
+    position: absolute;
+    top: 3%;
+    left: 35%;
+    background-color: #ffffffa5;
+    color: #5C473D;
+    font-family: helmet;
+    font-size: 1em;
+    padding: .5em;
+    min-width: 10rem;
+    width: 25px;
+    box-shadow: 2px 2px 4px #999;
+}
+
+.dropdown-container:hover .tooltip-content {
+    display: block;
+}
+
 .option {
     font-weight: normal;
 }
@@ -346,11 +378,13 @@ body {
   .popup button:hover {
     background-color: #fff;
     color: #a55f26;
+    box-shadow: 2px 2px 4px #999;
   }
   
   .document{
-    font-family: helmet;
+    font-family: salmapro;
     margin: 30px;
+    color: #3e3e3e;
   }
   
 
