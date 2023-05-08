@@ -87,13 +87,26 @@ function setMap(){
     // bind the output into callback function
     Promise.all(promises).then(callback);
 
+
     var insetMap = map.append("image")
         .attr("class", "insetMap")
         .attr("xlink:href", "assets/UK_IM_1.svg")
         .attr("width", 250)
         .attr("height", 250)
         .attr("x", 5)
-        .attr("y", 5);
+        .attr("y", 5)
+        .on("mouseover", function (event, d) {
+            highlight(d)
+            d3.select(this).attr("xlink:href",  "assets/UK_IM_Zoom.svg");
+        })
+        .on("mouseout", function (event, d) {
+            dehighlight(d);
+            d3.select(this).attr("xlink:href", "assets/UK_IM_1.svg");
+        })      
+        .on("mousemove", function (event, d) {
+            d3.select(this).attr("xlink:href", "assets/UK_IM_Zoom.svg");
+        })
+        .style("border-radius", "50%");
 
     // add popup page that displays website information
     var popup = d3.select("body")
@@ -857,5 +870,31 @@ function moveLabel(){
         .style("left", x + "px")
         .style("top", y + "px");
 };
-  
+
+/*/function to move image on inset map
+function moveInset(){
+    var offset = window.scrollY
+    //get width of label
+    var labelWidth = d3.select(".insetMove")
+        .node()
+        .getBoundingClientRect()
+        .width;
+
+    // use coordinates of mousemove event to set label coordinates
+    var x1 = event.clientX + 10,
+        y1 = event.clientY - 75 + offset,
+        x2 = event.clientX - labelWidth - 10,
+        y2 = event.clientY + 25;
+
+    // horizontal label coordinate, testing for overflow
+    var x = event.clientX > window.innerWidth - labelWidth - 20 ? x2 : x1; 
+    // vertical label coordinate, testing for overflow
+    var y = event.clientY < 75 ? y2 : y1; 
+
+    d3.select(".infolabel")
+        .style("left", x + "px")
+        .style("top", y + "px");
+};*/
+
+
 })();
