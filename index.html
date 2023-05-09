@@ -1,39 +1,43 @@
 <!DOCTYPE html>
+<!--Webpage language-->
 <html lang="en">
     <head>
+        <!--Webpage metdata-->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
-            <title></title>
+        <meta name="keywords" content="polarization maps, polarization map, political polarization UK, University of Wisconsin-Madison, Robert Roth, Chinna Subbaraya Siddharth Ramavajjala, Siddharth RCS, Ramakrishna Raju Gangaraju, political polarization interactive map, Daryna Grechyna, Gareth Baldrica-Franklin, interactive cartography, UW-Madison GIS, Final project 2023, Geog575 polarization map"/>
 
-        <!--put your external stylesheet links here-->
+        <!--Webpage title-->
+        <title>Polaris Lab UK</title>
+
+        <!--Flat icon-->
+        <link rel="icon" type="image/x-icon" href="assets/UK_FIC.ico"> 
+
+        <!--CSS Stylesheet-->
         <link rel="stylesheet" href="css/style.css">
-        <!--[if IE<9]>
-            <link rel="stylesheet" href="css/style.ie.css">
-        <![endif]-->
-
-         <!--you can also place internal styles here;
-             place these within <style> tags-->
-        
     </head>
 
     <body>
-        <!--put your initial page content here-->
+        <!--Map title -->
         <div class="mapTitle" id="uk_icon">
             <a class = "mapTitleLink" href="index.html"> Polaris Lab UK</a>
-            <button class="option-button" onclick="window.location.href='methods.html'">Methods</button>
+            <button class="option-button" style="border:none;" onclick="window.location.href='methods.html'">Methods</button>
         </div>
+
+        <!--For dropdown horizontal alignment -->
         <div class = "dropdown-container"> 
-            <div class="tooltip-content">
-                click and select from dropdown
-              </div> 
+            <div class="tooltip-content"> select from dropdown </div> 
         </div>
 
-        <button class = "button" onClick = "window.location.reload(true)">Reset</button>
-        <button class = "print" onClick = "window.print()">Print</button>
+        <!-- To allow user to recover or reset the task -->
+        <button class = "reset" onClick = "window.location.reload(true)">Reset</button>
 
+        <!-- Loading JS libraries -->
         <script type="text/javascript" src="lib/topojson/topojson.min.js"></script>
         <script type="text/javascript" src="lib/d3/d3.min.js"></script>
-        <script type="text/javascript" src="js/scatterPlot.js"></script>
 
+        <!-- Internal script for Map -->
+        <script type="text/javascript" src="js/main.js"></script>
     </body>
+
 </html>

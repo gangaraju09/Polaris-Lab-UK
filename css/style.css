@@ -1,5 +1,6 @@
 /* CSS style for UK Polarization Map*/
 
+/* Loading font faces from ttf (font) files */
 @font-face{
     font-family: grestal;
     src: url(GrestalScriptDemoRegular-dBYX.ttf);
@@ -23,6 +24,7 @@
     src: url(Montserrat\MontserratBlack-3zOvZ.ttf);
 }
 
+/* Map CSS */
 .map {
     fill:#a3a3a7 ; 
     stroke: #3d3d3d;
@@ -31,12 +33,14 @@
     /*border: thin solid #999;*/
     border-radius: 5px;
     margin: 10px 0 0 20px;
-    background-color: none; /* Existing backgroundp-color: #f5ddc9 */
+    /* Existing background-color: #f5ddc9 */
+    background-color: none; 
     margin-top: 10px;
     /*box-shadow: 2px 2px 4px #999;*/
 }
 
-.button {
+/* CSS for Buttons - Reset, Methods and Map */
+.reset {
     background-color: #f5ddc9;
     border: 1px solid #999;
     color: #464545;
@@ -54,36 +58,33 @@
     border-radius: 5px;
 }
 
-.button:hover{
+.reset:hover{
     background-color: white;
     color: #a55f26;
     border: 1px solid #e7e7e7;
     box-shadow: 2px 2px 4px #999;
 }
 
-.print {
-    background-color: #f5ddc9;
-    border: 1px solid #999;
-    color: #464545;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    padding: 3px;
-    margin-left: auto;
+.option-button {
+    background-color: #a55f26;
+    color: #fff;
+    stroke: #a55f26;
+    stroke-width: 1px;
+    padding: 5px 10px;
+    font-size: 14px;
     cursor: pointer;
-    font-family: salmapro;
-    font-size: 1em;
+    margin-left: 850px;
+    border-radius: 3px;
     font-weight: bold;
-    box-shadow: 2px 2px 4px #999;
-    border-radius: 5px;
+    font-family: salmapro;
 }
-
-.print:hover{
-    background-color: white;
+  
+.option-button:hover {
+    background-color: #fff;
     color: #a55f26;
     border: 1px solid #e7e7e7;
     box-shadow: 2px 2px 4px #999;
+    font-weight: bold;
 }
 
 /* Title Ribbon */
@@ -127,58 +128,12 @@
     font-weight: bold;
 }
 
-.option-button {
-    background-color: #f5ddc9;
-    color: #a55f26;;
-    stroke: #a55f26;
-    stroke-width: 1px;
-    padding: 5px 10px;
-    font-size: 14px;
-    cursor: pointer;
-    margin-left: 850px;
-    border-radius: 3px;
-    font-weight: bold;
-    font-family: salmapro;
-  }
-  
-  .option-button:hover {
-    background-color: white;
-    color: #a55f26;
-    border: 1px solid #e7e7e7;
-    box-shadow: 2px 2px 4px #999;
-    font-weight: bold;
-  }
 
 /* Hyperlinks style*/
 a:-webkit-any-link {
     color: #a55f26;
     cursor: pointer;
     text-decoration: underline;
-}
-
-.mapDesc{
-    margin-left: 20px;
-    margin-right: 20px;
-    max-width: auto;
-    text-align: auto;
-    position: absolute;
-    bottom: -250px;
-    width: auto;
-    font-family: salmapro;
-    font-size: 1em;
-    color:#91a28a;
-}
-
-/* Yet to be added */
-.credits{
-    position: absolute;
-    bottom: -300px;
-    left: 0;
-    width: 100%;
-    font-family: salmapro;
-    font-size: 1em;
-    color:#91a28aa0;
-    text-align: center;
 }
 
 /* Chart style */
@@ -212,18 +167,23 @@ a:-webkit-any-link {
     border-radius: 5px;
 }
 
-.x-axis text{
-    font-family: salmapro;
-    font-size: 0.8em;
-    fill: #999;
-}
-
-.x-axis line 
-.x-axis path{
+.x-axis line {
     fill: none;
     stroke: #999;
     stroke-width: 1px;
     shape-rendering: crispEdges;
+}
+
+.x-axis path {
+    stroke: #999;
+    stroke-width: 1px;
+    shape-rendering: crispEdges;
+}
+
+.x-axis text{
+    font-family: salmapro;
+    font-size: 0.9em;
+    fill: #999;
 }
 
 .axis path,
@@ -270,16 +230,17 @@ a:-webkit-any-link {
 .dropdown-container .tooltip-content {
     display: none;
     position: absolute;
-    top: 3%;
-    left: 35%;
+    top: 45px;
+    left: 600px;
     background-color: #ffffffa5;
     color: #5C473D;
     font-family: salmapro;
-    font-size: 1em;
+    font-size: 0.9em;
     padding: .5em;
     min-width: 10rem;
     width: 25px;
     box-shadow: 2px 2px 4px #999;
+    border: solid thin #464545;
 }
 
 .dropdown-container:hover .tooltip-content {
@@ -318,7 +279,7 @@ a:-webkit-any-link {
     line-height: 1em;
     font-family: salmapro;
 }
-
+/*Tooltip for dropdown*/
 .tooltip {    
     margin: 0 20px 0 0; 
     z-index: 11;   
@@ -331,6 +292,23 @@ a:-webkit-any-link {
     padding: 5px 10px;
     top: -100px;
     font-family: salmapro;
+}
+
+.tooltip-insetMap {    
+    margin: 0 20px 0 0; 
+    z-index: 11;   
+    position: absolute;
+    height: auto;
+    min-width: auto;
+    color: #5C473D;
+    background-color: #ffffffa5;
+    border: solid thin #464545;
+    padding: 5px 10px;
+    top: 180px;
+    left: 170px;
+    font-family: salmapro;
+    font-size: 0.9em;
+    box-shadow: 2px 2px 4px #999; 
 }
 
 /* color legend */
@@ -362,11 +340,11 @@ body {
     font-family: salmapro;
   }
   
-  .popup p {
+.popup p {
     margin: 0 0 20px;
-  }
+}
   
-  .popup button {
+.popup button {
     padding: 10px 20px;
     background-color: #a55f26;
     border: 1px solid #999;
@@ -374,18 +352,17 @@ body {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-  }
+}
   
-  .popup button:hover {
+.popup button:hover {
     background-color: #fff;
     color: #a55f26;
     box-shadow: 2px 2px 4px #999;
-  }
+}
   
-  .document{
+.document{
     font-family: salmapro;
     margin: 30px;
     color: #3e3e3e;
-  }
-  
+}
 
