@@ -5,11 +5,11 @@
 // pseudo-global variables for dropdown linkages    
 var attrArray = ["std_dev_age",	"native_share", "education_variability", "job_variability","frac_employed","median_income","gini_index", "Lindqvist_Ostling_S1", "Abramowitz_Saunders_S1","Duca_Saving_S1", "Lindqvist_Ostling_S2", "Abramowitz_Saunders_S2", "Duca_Saving_S2","Lindqvist_Ostling_S3","Abramowitz_Saunders_S3","Duca_Saving_S3"];
 
-var arrayDict = {"admin1_code": "admin1_code", "std_dev_age": "Standard Deviation of Age",	"native_share": "Native Share Variability", "education_variability": "Education Variability","region_name": "Region Name", "job_variability": "Job Variability","frac_employed":"Fraction Employed","median_income": "Median Income (GBP)","gini_index": "Gini Index", "Lindqvist_Ostling_S1": "Lindqvist Östling S1", "Abramowitz_Saunders_S1": "Abramowitz Saunders S1","Duca_Saving_S1": "Duca Saving S1", "Lindqvist_Ostling_S2": "Lindqvist Östling S2", "Abramowitz_Saunders_S2": "Abramowitz Saunders S2", "Duca_Saving_S2": "Duca Saving S2","Lindqvist_Ostling_S3": "Lindqvist Östling S3","Abramowitz_Saunders_S3": "Abramowitz Saunders S3","Duca_Saving_S3": "Duca Saving S3"};
+var arrayDict = {"admin1_code": "admin1_code", "std_dev_age": "Standard Deviation of Age",	"native_share": "Native Share Variability", "education_variability": "Education Variability","region_name": "Region Name", "job_variability": "Job Variability","frac_employed":"Fraction Employed","median_income": "Median Income in GBP","gini_index": "Gini Index", "Lindqvist_Ostling_S1": "Lindqvist Östling S1", "Abramowitz_Saunders_S1": "Abramowitz Saunders S1","Duca_Saving_S1": "Duca Saving S1", "Lindqvist_Ostling_S2": "Lindqvist Östling S2", "Abramowitz_Saunders_S2": "Abramowitz Saunders S2", "Duca_Saving_S2": "Duca Saving S2","Lindqvist_Ostling_S3": "Lindqvist Östling S3","Abramowitz_Saunders_S3": "Abramowitz Saunders S3","Duca_Saving_S3": "Duca Saving S3"};
 
 var arrayObj = [{data:"Lindqvist_Ostling_S1", text:"Lindqvist Östling S1"}, {data:"Abramowitz_Saunders_S1", text:"Abramowitz Saunders S1"}, {data:"Duca_Saving_S1", text:"Duca Saving S1"}, {data:"Lindqvist_Ostling_S2", text:"Lindqvist Östling S2"}, {data:"Abramowitz_Saunders_S2", text:"Abramowitz Saunders S2"}, {data:"Duca_Saving_S2", text:"Duca Saving S2"}, {data:"Lindqvist_Ostling_S3", text:"Lindqvist Östling S3"}, {data:"Abramowitz_Saunders_S3", text:"Abramowitz Saunders S3"}, {data:"Duca_Saving_S3", text:"Duca Saving S3"}];
 
-var arrayObj1 = [{data:"std_dev_age", text:"Standard Deviation of Age"}, {data:"native_share", text:"Native Share Variability"}, {data:"education_variability", text:"Education Variability"}, {data:"job_variability", text:"Job Variability"}, {data:"frac_employed", text:"Fraction of Employed"}, {data:"median_income", text:"Median Income (GBP)"}, {data:"gini_index", text:"Gini Index of Income Inequality"}];
+var arrayObj1 = [{data:"std_dev_age", text:"Standard Deviation of Age"}, {data:"native_share", text:"Native Share Variability"}, {data:"education_variability", text:"Education Variability"}, {data:"job_variability", text:"Job Variability"}, {data:"frac_employed", text:"Fraction of Employed"}, {data:"median_income", text:"Median Income in GBP"}, {data:"gini_index", text:"Gini Index of Income Inequality"}];
 
 var expressed = attrArray[13]; // loaded attribute based on index
 var expressed1 = attrArray[3];
@@ -131,7 +131,7 @@ function setMap(){
     var popup = d3.select("body")
         .append("div")
         .attr("class", "popup")
-        .html("<h3> Welcome to Polaris Lab UK !</h3> <ul align = 'left'> <li> <b> Attention user :</b> The site only designed to work on desktop and would not work on mobile phones</li> <li>The UK interactive map displayed here does <b>not</b> contain information related to <b> Northern Ireland </b> and <b> Isle of Man </b>. Therefore, these areas are removed </li> <li> Information displayed is calculated data and derived from British Household Panel Survey (<b>BHPS</b>) via UK data service portal. Therefore prone to <b>errors</b>.</li> <li>Proceed with <b>selection</b> of <b>polarization method</b> and an attribute. It has <b>three</b> methods - <b> Lindqvist Östling </b>, <b> Abramowitz Saunders </b>, <b> Duca Saving </b>. <li> Where each polarization method is calculated using three statements (encoding each opinion into value. Strongly agree: 2, Agree: 1, Neither agree nor disagree: 0, Disagree: -1, Strongly disagree: -2) as follows: <ul> <li> Statement 1 (<b>S1</b>): 'Private enterprise is the best way to solve Britain economic problems'</li> <li> Statement 2 (<b>S2</b>): 'Major public services and industries ought to be in state ownership.'</li> <li> Statement 3 (<b>S3</b>): 'It is the government responsibility to provide a job for everyone who wants one'</li></li></ul> </li> <li><b>Select</b> a <b>year</b> from dropdown of available years: <b> 1995, 2000, 2004. </b> </li></ul> <p>By clicking 'OK' to continue, you accept that there errors in the calculations and map display, and they are acceptable.</p> </li> <button class='okBtn'><b>OK</b></button>");
+        .html("<h3> Welcome to Polaris Lab UK !</h3> <ul align = 'left'> <li> <b> Attention user :</b> The site only designed to work on desktop and would <b>not</b> work on <b>mobile phones</b>.</li> <li>The UK interactive map displayed here does <b>not</b> contain information related to <b> Northern Ireland </b> and <b> Isle of Man</b>. Therefore, removed.</li> <li> Information displayed is calculated data from British Household Panel Survey (<b>BHPS</b>) via UK data service portal. Therefore prone to <b>errors</b>.</li> <li>Interact with map by <b>selecting</b> a <b>polarization method and statement</b> and an attribute. It has <b>three</b> methods - <b> Lindqvist Östling </b>, <b> Abramowitz Saunders </b>, <b> Duca Saving </b>. <li> Where each polarization method is calculated using <b> three statements</b> (encoding each opinion as following - Strongly agree: 2, Agree: 1, Neither agree nor disagree: 0, Disagree: -1, Strongly disagree: -2) as follows: <ul> <li> Statement 1 (<b>S1</b>): 'Private enterprise is the best way to solve Britain economic problems'</li> <li> Statement 2 (<b>S2</b>): 'Major public services and industries ought to be in state ownership.'</li> <li> Statement 3 (<b>S3</b>): 'It is the government responsibility to provide a job for everyone who wants one'</li></li></ul> </li> <li><b>Select</b> a <b>year</b> from dropdown of available years: <b> 1995, 2000, 2004. </b> </li></ul> <p>By clicking 'OK' to continue, you accept that there errors in the calculations and map display, and they are acceptable.</p> </li> <button class='okBtn'><b>OK</b></button>");
 
         // show popup when page loads
         window.onload = function() {
@@ -417,10 +417,10 @@ function makeColorLegend(color) {
         .width;
 
     // use coordinates of mousemove event to set label coordinates
-    var x1 = event.clientX + 2,
-        y1 = event.clientY - 65 + offset,
-        x2 = event.clientX - labelWidth - 10,
-        y2 = event.clientY + 25;
+    var x1 = event.clientX + 10,
+        y1 = event.clientY - 75 + offset,
+        x2 = event.clientX - labelWidth + 20,
+        y2 = event.clientY + 55;
 
     // horizontal label coordinate, testing for overflow
     var x = event.clientX > window.innerWidth - labelWidth - 20 ? x2 : x1; 
@@ -436,7 +436,7 @@ function makeColorLegend(color) {
         .duration(200)
         .style("opacity", 0.9);
 
-    tooltip.html("<b>" + d3.select(this).attr("data-legend-label") + "</b>")
+    tooltip.html("<b>" + "Color Legend" + "</b>" + "<br>"+ d3.select(this).attr("data-legend-label"))
     })
     .on("mouseout", function (event, d) {
         // hide the tooltip
@@ -813,7 +813,7 @@ function highlight(props){
     // change stroke
     var selected = d3.selectAll("." + props.admin1_code)
         .style("stroke", "#252525")
-        .style("stroke-width", "2");
+        .style("stroke-width", "3");
         
     setLabel(props);
 }; 
@@ -860,7 +860,7 @@ function setLabel(props){
 
     var countyName = infolabel.append("div")
         .attr("class", "labelname")
-        .html(props.nuts118nm + " (" + currYear +")");
+        .html(props.nuts118nm + " (" + currYear + ")");
 };
   
 // function to move info label with mouse

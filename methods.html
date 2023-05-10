@@ -17,14 +17,33 @@
     </head>
 
     <body>
-        <!--put your initial page content here-->
+        <!--Map title-->
         <div class="mapTitle" id="uk_icon">
             <a class = "mapTitleLink" href="index.html"> Polaris Lab UK</a>
             <button class="option-button" style="border:none;" onclick="window.location.href='index.html'">Map</button>
         </div>
+        <!--Document description-->
         <div class = "document">
-            <p align = "center"> <b>Chinna Subbaraya Siddharth (Sid) Ramavajjala</b> (ramavajjala@wisc.edu) <sup>a</sup>, <b> Ramakrishna Raju Gangaraju </b> (grk.gangaraju@wisc.edu) <sup>a</sup> <br>
-            <i>a - Department of Geography, University of Wisconsin - Madison, USA</i> <br> </p>
+            <p align = "center"> <b>Chinna Subbaraya Siddharth (Sid) Ramavajjala</b> (ramavajjala@wisc.edu), <b> Ramakrishna Raju Gangaraju </b> (grk.gangaraju@wisc.edu)<br>
+                Department of Geography, University of Wisconsin - Madison, USA<br> </p>
+
+            <h2> Sample Tasks:</h2>
+            Try to complete the below tasks using the interactive map for exploring interesting patterns.
+            <p><ul>
+                <li>Identify which <b>UK region</b> has a <b>high</b> value of <b>Duca Saving S3</b> and a <b>high</b> value of <b>fraction of employed in</b> <b>1995</b>. (Presentation: Elementary Task) </li>
+                <li>Identify what <b>year</b> and which <b> UK region </b> recorded <b>high</b> values of <b>Duca Saving S3</b> and <b>Education Variability</b>. (Exploration: Elementary Task)</li>
+                <li>Identify which <b>year(s)</b> recorded a <b>high</b> <b>Native Share Variability</b> and a <b>low Lindqvist Östling S2</b>. (Exploration: General Task)</li>
+                <li>Identify <b>UK regions</b> which have a <b>high</b> value of <b>Duca Saving S3</b> and a <b>high</b> value of <b>fraction of employed</b> in <b>2004.</b> (Presentation: General Task)</li>
+                <li> Identify <b>UK region</b> has a <b>high</b> value of <b>Duca Saving S3</b> and a <b>high</b> value of <b>fraction of employed</b> in <b>2004</b> but ranks <b>lowest</b> in <b>fraction of employed.</b> (Presentation: Elementary Task)</li>
+            </p></ul>
+
+            <p><ul>Therefore, clear shift in political preferences can be observed from the graphic below. Around 1992, people shifted from Conservative party towards Labor party in UK (by vote share). To know more about political polarization, please continue reading.</ul></p>
+
+            <p align = "center">
+            <img src = "assets/vote_share.png" width = 900 height = 300> <br>
+            <i align = "center"> Image from <a href = "https://commonslibrary.parliament.uk/research-briefings/cbp-7529/"> Commons Library UK </a></i>
+            </p>
+
 
             <h2> Introduction:</h2>
 
@@ -34,12 +53,12 @@
             <i> Image by <a href = "https://lionstale.org/11467/opinion/gen-z-needs-to-step-up-to-fix-political-polarization/"> Ari Kittrie </a> from The Lion's Tale </i> </p>  </ul>
             
             <h4> How political polarization is measured? </h4>
-            <p><ul> However, political polarization is measured on <b> qualitative information either collected from survey data or a questionnaire </b>. The questionnaire consists of <b> set of statements </b> for which the participants have to select <b> one opinion </b> from the following <b> strongly agree, agree, neither agree nor disagree, disagree, strongly agree </b>. Therefore, each opinion is encoded with values in the form of a <b> diverging scale</b>. Following encoding, the sentiments are investigated using statistical models. The following graphic depicts how favorite media and their target audience changes based on political polarization.</p>
+            <p><ul> However, political polarization is measured on <b> qualitative information either collected from survey data or a questionnaire</b>. The questionnaire consists of <b> set of statements </b> for which the participants have to select <b> one opinion </b> from the following <b> strongly agree, agree, neither agree nor disagree, disagree, strongly agree </b>. Therefore, each opinion is encoded with values in the form of a <b> diverging scale</b>. Following encoding, the sentiments are investigated using statistical models. The following graphic depicts how favorite media and their target audience changes based on political polarization.</p>
             <p align = "center"> <img src = "assets/Media_Polarization.png" width = "900", height = "300"> <br>
             <i> Image by <a href = "https://www.digitalnewsreport.org/survey/2017/polarisation-in-the-news-media-2017/">Richard Fletcher</a>, Senior Research Fellow, Reuters Institute </i> </p></ul>
 
             <h4> Why measure it? </h4>
-            <p><ul> Political Polarization is associated with <b> social tensions, policy uncertainity, economic fluctuations, low economic growth rates.</b><sup>[1]</sup> Therefore, it is important to measure polarization as it might lead to <b> public unrest, riots, public property damages, mistrust </b> on policies. The conceptualization for <b>Polaris Lab UK</b> is motivated from the paper titled <b>"Political Polarization in the UK: Measures and socio-economic correlates"</b> by <b>Daryna Grechyna</b>.<sup><a href = "#Grechyna">[1]</a></sup></ul>
+            <p><ul> Political Polarization is associated with <b> social tensions, policy uncertainity, economic fluctuations, low economic growth rates.</b><sup><a href = "#Grechyna">[1]</a></sup> Therefore, it is important to measure polarization as it might lead to <b> public unrest, riots, public property damages, mistrust </b> on policies. The conceptualization for <b>Polaris Lab UK</b> is motivated from the paper titled <b>"Political Polarization in the UK: Measures and socio-economic correlates"</b> by <b>Daryna Grechyna</b>.<sup><a href = "#Grechyna">[1]</a></sup></ul>
             <p align = "center"> <img src = "assets/Polarization_Poster.png" width = "350", height = "200"> <br>
             <i> Image by <a href = "https://www.populismstudies.org/Vocabulary/political-polarization/">European center for populism studies</a></i> </p></p>
 
@@ -99,13 +118,12 @@
 
             <p><ul>
                 The values are hard to interpret and often lead to confusion. For more comprehensive understanding let us consider two scenarios: (For more context, you are encouraged to read introduction)
-
-                <ul>
+                <p><ul>
                 <li>Scenario 1: <b>Duca Saving</b> <abbr title="Statement 3 : It is the government’s responsibility to provide a job for everyone who wants one.">S3</abbr> in <b>1995</b> for <b>London</b> is <b>3.20</b> </li>
                 <li>Scenario 2: <b>Duca Saving</b> <abbr title="Statement 3 : It is the government’s responsibility to provide a job for everyone who wants one.">S3</abbr> in <b>2004</b> for <b>London</b> is <b>9.33</b> </li>
-                </ul> <br>
+                </p></ul>
 
-            <p> <b>Scenario 2</b> has <b> more polarized</b> population in comparison to <b>scenario 1</b> (<i> But why?</i> ). As part of our analysis, each opinion for a surveyed statement is encoded between range of <b>[-2,2]</b>, where a strong agreement is 2 and strong disgareement is -2. If more people opt for "<b>neither agree nor disagree</b>" (Encoded <b>zero</b> for a neutral opinion). Then outcome of <b>Duca Saving</b> would be low. In contrast, if more people have diversified opinions, then <b>Duca Saving</b> is higher. Thus, a higher polarization (more people are opinionated and have stronger sentiments either right or left).</p>
+            <p><ul> In our analysis, each opinion for a surveyed statement is encoded between range of <b>[-2,2]</b>, where a strong agreement is 2 and strong disgareement is -2. A higher polarization value indicates opinionated people with a stronger sentiments of either right or left. If more people opt "<b>neither agree nor disagree</b>" which encoded <b>zero</b>, then value of <b>Duca Saving</b> would be low. In contrast, if more people have diversified opinions, then <b>Duca Saving</b> is higher. Thus, <b>scenario 2</b> has <b> more polarized</b> population in comparison to <b>scenario 1</b> (<i> But why?</i> ). </p></ul>
 
             <ul>
                 <li><b>Lindqvist Ostling, Abramowitz Saunders, Duca Saving</b> : A higher value indicates more opinions among the population, thus more polarization. </li>
@@ -163,7 +181,7 @@
             
             <ul><p>We extend our sincere thanks and regards to <b> Professor Rob Roth </b> for designing and teaching the course Geog 575: Interactive Cartography and Geovisualization. This project enabled us to apply several concepts related to Map User Interface (UI)/ User Experience (UX). A solid amount of theory is adopted from lecture modules like: wireframing, UX design, user-centered design (UCD) in designing and forging of the interactive map product.</p>
             <p>We convey our heart felt thanks to <b> Gareth-Baldrica Franklin </b> (Teaching Assistant) for being always available and helping us throughout in debugging several parts of code, acting as mentor, help us stay within deadlines of submission</p>
-            <p>We thank Professor <b> Daryna Grechyna </b>, University of Grenada, Spain for guiding with fundamentals of data acquisition and letting us use her paper for our project.</p></ul>
+            <p>We thank Professor <b> Daryna Grechyna </b>, University of Grenada, Spain for guiding us with fundamentals of data acquisition and letting us use her paper for our project.</p></ul>
 
             <h2> Cartographers : </h2>
             <p align = "center">
